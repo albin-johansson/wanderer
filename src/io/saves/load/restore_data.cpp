@@ -30,12 +30,12 @@
 
 namespace wanderer {
 
-auto Restore(const proto::float2& data) -> float2
+auto Restore(const proto::float2& data) -> Vec2
 {
   assert(data.has_x());
   assert(data.has_y());
 
-  float2 result;
+  Vec2 result;
   result.x = data.x();
   result.y = data.y();
   return result;

@@ -45,7 +45,7 @@ void UpdatePlayerLightPosition(entt::registry& registry)
 
 void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
 {
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
   auto& texture = graphics.GetLightCanvasTexture();
 

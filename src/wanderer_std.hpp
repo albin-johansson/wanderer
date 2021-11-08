@@ -9,7 +9,7 @@
 #include <ratio>       // milli
 
 #include <entt.hpp>       // entity
-#include <glm/glm.hpp>    // vec2
+#include <glm/glm.hpp>    // float32, float64, vec2, vec3
 #include <nenya.hpp>      // strong_type
 #include <rune/rune.hpp>  // aabb_tree
 
@@ -36,31 +36,23 @@ using aabb_tree = rune::aabb_tree<entt::entity>;
 using float32 = glm::float32;
 using float64 = glm::float64;
 
-using float2 = glm::vec2;
-using float3 = glm::vec3;
-using glm::vec2;
-using glm::vec3;
-
-template <typename T>
-using maybe = std::optional<T>;
+using Vec2 = glm::vec2;
+using Vec3 = glm::vec3;
 
 template <typename T>
 using Maybe = std::optional<T>;
-
-template <typename T>
-using ref = std::reference_wrapper<T>;
 
 template <typename T>
 using Ref = std::reference_wrapper<T>;
 
 using ms_t = std::chrono::duration<uint32, std::milli>;
 
-[[nodiscard]] constexpr auto is_zero(float2 vec) noexcept -> bool
+[[nodiscard]] constexpr auto IsZero(const Vec2 vec) noexcept -> bool
 {
   return vec.x == 0 && vec.y == 0;
 }
 
-inline void LookAt(glm::vec2& source, const glm::vec2 target, const float length)
+inline void LookAt(Vec2& source, const Vec2& target, const float length)
 {
   if (length >= 0) {
     source = target - source;

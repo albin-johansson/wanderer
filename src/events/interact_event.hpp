@@ -10,8 +10,8 @@ namespace wanderer {
 /// \ingroup events
 struct InteractEvent final
 {
-  ref<entt::registry> registry;
-  ref<entt::dispatcher> dispatcher;
+  Ref<entt::registry> registry;
+  Ref<entt::dispatcher> dispatcher;
 };
 
 }  // namespace wanderer

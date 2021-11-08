@@ -11,20 +11,19 @@ void CreateLayers(const Tactile::IO::Map& irMap, Level& level, GraphicsContext& 
      tile data is available once the objects are parsed, since that makes our lives a
      little easier. */
 
-  Tactile::IO::EachLayer(irMap,
-                         [&, index = 0](const Tactile::IO::Layer& irLayer) mutable {
-                           if (Tactile::IO::IsTileLayer(irLayer)) {
-                             CreateTileLayer(irMap, irLayer, level, index);
-                             ++index;
-                           }
-                         });
+  EachLayer(irMap, [&, index = 0](const Tactile::IO::Layer& irLayer) mutable {
+    if (IsTileLayer(irLayer)) {
+      CreateTileLayer(irMap, irLayer, level, index);
+      ++index;
+    }
+  });
 
-  const float2 ratio = {
-      glob::tile_width<float> / static_cast<float>(Tactile::IO::GetTileWidth(irMap)),
-      glob::tile_height<float> / static_cast<float>(Tactile::IO::GetTileHeight(irMap))};
+  const Vec2 ratio = {
+      glob::tile_width<float> / static_cast<float>(GetTileWidth(irMap)),
+      glob::tile_height<float> / static_cast<float>(GetTileHeight(irMap))};
 
-  Tactile::IO::EachLayer(irMap, [&](const Tactile::IO::Layer& irLayer) {
-    if (Tactile::IO::IsObjectLayer(irLayer)) {
+  EachLayer(irMap, [&](const Tactile::IO::Layer& irLayer) {
+    if (IsObjectLayer(irLayer)) {
       CreateObjectLayer(irMap, irLayer, level, graphics, ratio);
     }
   });

@@ -37,8 +37,7 @@ auto MakePlayer(Level& level, GraphicsContext& graphics) -> entt::entity;
  *
  * \return the created skeleton entity.
  */
-auto MakeSkeleton(Level& level, float2 position, GraphicsContext& graphics)
-    -> entt::entity;
+auto MakeSkeleton(Level& level, Vec2 position, GraphicsContext& graphics) -> entt::entity;
 
 /// \} End of humanoid
 

@@ -13,8 +13,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto GetParticlePosition(const float2 position, const Direction dir)
-    -> float2
+[[nodiscard]] auto GetParticlePosition(const Vec2 position, const Direction dir) -> Vec2
 {
   switch (dir) {
     default:

@@ -20,7 +20,7 @@ class Level;
 
 }  // namespace proto
 
-[[nodiscard]] auto Restore(const proto::float2& data) -> float2;
+[[nodiscard]] auto Restore(const proto::float2& data) -> Vec2;
 
 [[nodiscard]] auto Restore(const proto::float3& data) -> Vector3;
 

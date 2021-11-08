@@ -48,7 +48,7 @@ void RenderTileLayers(const entt::registry& registry)
   const auto& [tilesetEntity, tileset] = singleton<const Tileset>(registry);
   const auto& bounds = registry.ctx<ctx::RenderBounds>();
 
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   for (auto&& [entity, layer] : registry.view<TileLayer>().each()) {
     RenderLayer(registry, graphics, bounds, layer, tileset);
   }

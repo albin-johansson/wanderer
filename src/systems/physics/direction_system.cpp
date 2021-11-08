@@ -6,7 +6,7 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto HorizontalDominantDirection(const Movable& movable) noexcept
-    -> maybe<Direction>
+    -> Maybe<Direction>
 {
   if (movable.velocity.x < 0) {
     return Direction::Left;
@@ -20,7 +20,7 @@ namespace {
 }
 
 [[nodiscard]] auto VerticalDominantDirection(const Movable& movable) noexcept
-    -> maybe<Direction>
+    -> Maybe<Direction>
 {
   if (movable.velocity.y < 0) {
     return Direction::Up;

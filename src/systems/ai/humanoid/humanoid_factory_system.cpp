@@ -55,7 +55,7 @@ void AddAnimated(entt::registry& registry, const entt::entity entity)
   animation.frame_count = 1;
 }
 
-void AddHitbox(Level& level, const entt::entity entity, const float2 position)
+void AddHitbox(Level& level, const entt::entity entity, const Vec2 position)
 {
   constexpr auto x0 = 0.5625f * glob::tile_width<>;
   constexpr auto x1 = 0.875f * glob::tile_width<>;
@@ -87,7 +87,7 @@ void AddHitbox(Level& level, const entt::entity entity, const float2 position)
   return entity;
 }
 
-void AddLight(entt::registry& registry, const entt::entity entity, const float2 position)
+void AddLight(entt::registry& registry, const entt::entity entity, const Vec2 position)
 {
   auto& light = registry.emplace<PointLight>(entity);
   light.size = 160;
@@ -118,7 +118,7 @@ auto MakePlayer(Level& level, GraphicsContext& graphics) -> entt::entity
   return player;
 }
 
-auto MakeSkeleton(Level& level, float2 position, GraphicsContext& graphics)
+auto MakeSkeleton(Level& level, const Vec2 position, GraphicsContext& graphics)
     -> entt::entity
 {
   constexpr uint32 id = "skeleton"_hs;

@@ -11,8 +11,7 @@ namespace wanderer {
 
 [[nodiscard]] auto GetTextureId(const Tactile::IO::Tileset& irTileset) -> uint32;
 
-[[nodiscard]] auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset)
-    -> float2;
+[[nodiscard]] auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset) -> Vec2;
 
 void LoadTilesetTextures(const Tactile::IO::Map& irMap, GraphicsContext& graphics);
 

@@ -17,8 +17,8 @@ namespace wanderer::sys {
 /// \ingroup systems
 struct NextHitboxes final
 {
-  maybe<Hitbox> horizontal;  ///< The next hitbox with only a horizontal offset.
-  maybe<Hitbox> vertical;    ///< The next hitbox with only a vertical offset.
+  Maybe<Hitbox> horizontal;  ///< The next hitbox with only a horizontal offset.
+  Maybe<Hitbox> vertical;    ///< The next hitbox with only a vertical offset.
 };
 
 /// \brief Represents a collision result in two axes.
@@ -49,7 +49,7 @@ void UpdateBounds(Hitbox& hitbox);
  * \param hitbox the hitbox that will be moved.
  * \param position the new position of the hitbox.
  */
-void SetPosition(Hitbox& hitbox, float2 position);
+void SetPosition(Hitbox& hitbox, Vec2 position);
 
 /**
  * \brief Creates a copy of the supplied hitbox with the specified position.
@@ -61,7 +61,7 @@ void SetPosition(Hitbox& hitbox, float2 position);
  *
  * \return a hitbox that is a copy of the supplied hitbox with the specified position.
  */
-[[nodiscard]] auto WithPosition(const Hitbox& hitbox, float2 position) -> Hitbox;
+[[nodiscard]] auto WithPosition(const Hitbox& hitbox, Vec2 position) -> Hitbox;
 
 /**
  * \brief Indicates whether or not two hitboxes intersect.
@@ -108,7 +108,7 @@ void SetPosition(Hitbox& hitbox, float2 position);
  */
 [[nodiscard]] auto MakeNextHitboxes(const Movable& movable,
                                     const Hitbox& hitbox,
-                                    float2 oldPosition,
+                                    Vec2 oldPosition,
                                     float dt) -> NextHitboxes;
 
 /**

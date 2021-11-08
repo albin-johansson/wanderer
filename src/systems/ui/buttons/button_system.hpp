@@ -53,7 +53,7 @@ auto QueryButton(entt::registry& registry,
  * \return the currently hovered button entity; `std::nullopt` if there is none.
  */
 [[nodiscard]] auto UpdateButtonHover(entt::registry& registry, const cen::mouse& mouse)
-    -> maybe<entt::entity>;
+    -> Maybe<entt::entity>;
 
 /**
  * \brief Indicates whether or not a button entity is in a button entity collection.

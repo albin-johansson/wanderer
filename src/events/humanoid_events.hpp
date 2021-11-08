@@ -11,7 +11,7 @@ namespace wanderer {
 /// \ingroup events
 struct BeginAttackEvent final
 {
-  ref<entt::registry> registry;            ///< The associated registry.
+  Ref<entt::registry> registry;            ///< The associated registry.
   entt::entity source_entity{entt::null};  ///< The entity that initiated the attack.
   entt::entity weapon{entt::null};         ///< The weapon entity.
   Direction dir{Direction::Down};          ///< The attack Direction.
@@ -21,8 +21,8 @@ struct BeginAttackEvent final
 /// \ingroup events
 struct EndAttackEvent final
 {
-  ref<entt::registry> registry;            ///< The associated registry.
-  ref<entt::dispatcher> dispatcher;        ///< The common dispatcher.
+  Ref<entt::registry> registry;            ///< The associated registry.
+  Ref<entt::dispatcher> dispatcher;        ///< The common dispatcher.
   entt::entity source_entity{entt::null};  ///< The entity that initiated the attack.
   entt::entity weapon{entt::null};         ///< The weapon entity.
   Direction dir{Direction::Down};          ///< The attack Direction.
@@ -32,7 +32,7 @@ struct EndAttackEvent final
 /// \ingroup events
 struct BeginHumanoidMoveEvent final
 {
-  ref<entt::registry> registry;     ///< The associated registry.
+  Ref<entt::registry> registry;     ///< The associated registry.
   entt::entity entity{entt::null};  ///< Humanoid that should start moving.
   Direction dir{Direction::Down};   ///< Movement Direction.
 };
@@ -41,7 +41,7 @@ struct BeginHumanoidMoveEvent final
 /// \ingroup events
 struct EndHumanoidMoveEvent final
 {
-  ref<entt::registry> registry;     ///< The associated registry.
+  Ref<entt::registry> registry;     ///< The associated registry.
   entt::entity entity{entt::null};  ///< The entity that should stop moving.
 };
 

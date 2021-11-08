@@ -13,7 +13,7 @@ enum class SpawnpointType
 struct Spawnpoint final
 {
   SpawnpointType type{};
-  float2 position;
+  Vec2 position{};
 };
 
 }  // namespace wanderer

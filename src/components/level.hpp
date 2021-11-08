@@ -19,7 +19,7 @@ struct Level final
 
   entt::entity tileset{entt::null};
 
-  maybe<float2> player_spawn_position;
+  Maybe<Vec2> player_spawn_position;
 };
 
 struct OutsideLevel final

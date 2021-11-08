@@ -25,8 +25,8 @@ struct Button final
 struct ButtonDrawable final
 {
   mutable cen::frect bounds;
-  mutable maybe<cen::texture> texture;
-  mutable maybe<cen::fpoint> text_pos;
+  mutable Maybe<cen::texture> texture;
+  mutable Maybe<cen::fpoint> text_pos;
 };
 
 }  // namespace wanderer

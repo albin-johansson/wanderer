@@ -12,6 +12,6 @@ void CreateObjectLayer(const Tactile::IO::Map& irMap,
                        const Tactile::IO::Layer& irLayer,
                        Level& level,
                        GraphicsContext& graphics,
-                       float2 ratio);
+                       Vec2 ratio);
 
 }  // namespace wanderer

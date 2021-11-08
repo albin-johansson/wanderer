@@ -30,7 +30,7 @@ namespace wanderer::sys {
  * \param registry the current level registry.
  * \param position the world position to center the viewport on.
  */
-void CenterViewportOn(entt::registry& registry, float2 position);
+void CenterViewportOn(entt::registry& registry, Vec2 position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable entity.

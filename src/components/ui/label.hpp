@@ -16,7 +16,7 @@ struct Label final
   std::string text;
   cen::color color;
   TextSize size{};
-  mutable maybe<cen::texture> texture;
+  mutable Maybe<cen::texture> texture;
 };
 
 }  // namespace wanderer

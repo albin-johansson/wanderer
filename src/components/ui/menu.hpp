@@ -53,8 +53,8 @@ struct ControlsMenu final
 
 struct MenuDrawable final
 {
-  mutable maybe<cen::texture> texture;  ///< Title text texture.
-  mutable maybe<cen::fpoint> position;  ///< The position of the title text.
+  mutable Maybe<cen::texture> texture;  ///< Title text texture.
+  mutable Maybe<cen::fpoint> position;  ///< The position of the title text.
 };
 
 /// \} End of group components

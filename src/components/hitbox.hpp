@@ -14,7 +14,7 @@ constexpr usize max_subhitbox_count = 5;
 /// \ingroup components
 struct Subhitbox final
 {
-  float2 offset{};  ///< Offset relative to the parent hitbox.
+  Vec2 offset{};    ///< Offset relative to the parent hitbox.
   cen::farea size;  ///< The size of the subhitbox.
 };
 
@@ -24,7 +24,7 @@ struct Hitbox final
 {
   using hitbox_vector = rune::static_vector<Subhitbox, max_subhitbox_count>;
 
-  float2 origin{};      ///< Position of the hitbox.
+  Vec2 origin{};        ///< Position of the hitbox.
   cen::frect bounds;    ///< Bounding rectangle of all subhitboxes.
   hitbox_vector boxes;  ///< Associated subhitboxes.
   bool enabled{true};   ///< Whether or not the hitbox can collide with other hitboxes.

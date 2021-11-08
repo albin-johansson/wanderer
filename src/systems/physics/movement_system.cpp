@@ -33,7 +33,7 @@ namespace {
 
 // Checks for collisions, stops the movable if there are collisions
 [[nodiscard]] auto UpdateMovable(Movable& movable,
-                                 const float2& oldPosition,
+                                 const Vec2& oldPosition,
                                  const Hitbox& other,
                                  const NextHitboxes& next) -> CollisionResult
 {
@@ -55,7 +55,7 @@ namespace {
 [[nodiscard]] auto CheckOutOfBounds(entt::registry& registry,
                                     const NextHitboxes& next,
                                     Movable& movable,
-                                    const float2& oldPosition) -> CollisionResult
+                                    const Vec2& oldPosition) -> CollisionResult
 {
   CollisionResult collisions;
 
@@ -86,7 +86,7 @@ namespace {
 void UpdateHitbox(entt::registry& registry,
                   aabb_tree& tree,
                   const entt::entity entity,
-                  const float2& oldPosition,
+                  const Vec2& oldPosition,
                   const float dt)
 {
   const auto oldAabbPos = tree.at(entity).min;
@@ -97,7 +97,7 @@ void UpdateHitbox(entt::registry& registry,
   SetPosition(hitbox, movable.position);
   tree.set_position(entity, ToRuneVector(hitbox.bounds.position()));
 
-  if (is_zero(movable.velocity)) {
+  if (IsZero(movable.velocity)) {
     return;
   }
 

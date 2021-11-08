@@ -9,8 +9,8 @@ namespace wanderer {
 /// \ingroup components
 struct Movable final
 {
-  float2 velocity;                 ///< Current x- and y-axis speed.
-  float2 position;                 ///< Current position.
+  Vec2 velocity{};                 ///< Current x- and y-axis speed.
+  Vec2 position{};                 ///< Current position.
   Direction dir{Direction::Down};  ///< Current dominant direction.
   float speed{};                   ///< Current maximum total speed of the movable.
 };

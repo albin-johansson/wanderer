@@ -68,7 +68,7 @@ auto QueryButton(entt::registry& registry,
 }
 
 auto UpdateButtonHover(entt::registry& registry, const cen::mouse& mouse)
-    -> maybe<entt::entity>
+    -> Maybe<entt::entity>
 {
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
   const auto mousePos = cen::cast<cen::fpoint>(mouse.position());

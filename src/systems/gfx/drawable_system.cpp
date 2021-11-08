@@ -21,7 +21,7 @@ void UpdateDrawables(entt::registry& registry)
 void RenderDrawables(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
 
   for (auto&& [entity, drawable] : registry.view<Drawable>().each()) {
     if (cen::intersects(viewport.bounds, drawable.dst)) {

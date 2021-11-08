@@ -184,7 +184,7 @@ void RenderClock(const entt::registry& registry)
                                        prefix(minute),
                                        minute};
 
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   graphics.RenderOutlinedText(to_string(time.day), cen::point(6, 6));
   graphics.RenderOutlinedText(str.view(), cen::point(30, 6));
 }

@@ -8,9 +8,9 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto NextVerticalHitbox(const Hitbox& hitbox,
-                                      const float2& position,
-                                      const float2& velocity,
-                                      const float dt) -> maybe<Hitbox>
+                                      const Vec2& position,
+                                      const Vec2& velocity,
+                                      const float dt) -> Maybe<Hitbox>
 {
   if (velocity.y != 0) {
     auto next = position;
@@ -23,9 +23,9 @@ namespace {
 }
 
 [[nodiscard]] auto NextHorizontalHitbox(const Hitbox& hitbox,
-                                        const float2& position,
-                                        const float2& velocity,
-                                        const float dt) -> maybe<Hitbox>
+                                        const Vec2& position,
+                                        const Vec2& velocity,
+                                        const float dt) -> Maybe<Hitbox>
 {
   if (velocity.x != 0) {
     auto next = position;
@@ -75,13 +75,13 @@ void UpdateBounds(Hitbox& hitbox)
   hitbox.bounds.set_height(my - y);
 }
 
-void SetPosition(Hitbox& hitbox, float2 position)
+void SetPosition(Hitbox& hitbox, const Vec2 position)
 {
   hitbox.origin = position;
   UpdateBounds(hitbox);
 }
 
-auto WithPosition(const Hitbox& hitbox, float2 position) -> Hitbox
+auto WithPosition(const Hitbox& hitbox, const Vec2 position) -> Hitbox
 {
   auto result = hitbox;
   SetPosition(result, position);
@@ -129,8 +129,8 @@ auto MakeHitbox(std::initializer_list<Subhitbox> boxes) -> Hitbox
 
 auto MakeNextHitboxes(const Movable& movable,
                       const Hitbox& hitbox,
-                      float2 oldPosition,
-                      float dt) -> NextHitboxes
+                      const Vec2 oldPosition,
+                      const float dt) -> NextHitboxes
 {
   return {NextHorizontalHitbox(hitbox, oldPosition, movable.velocity, dt),
           NextVerticalHitbox(hitbox, oldPosition, movable.velocity, dt)};

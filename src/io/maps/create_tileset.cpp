@@ -66,12 +66,10 @@ void AddAnimation(const Tactile::IO::Tile& irTile,
 void AddHitbox(const Tactile::IO::Object& irObject,
                entt::registry& registry,
                const entt::entity tileEntity,
-               const float2 ratio)
+               const Vec2 ratio)
 {
-  const float2 offset{Tactile::IO::GetX(irObject) * ratio.x,
-                      Tactile::IO::GetY(irObject) * ratio.y};
-  const cen::farea size{Tactile::IO::GetWidth(irObject) * ratio.x,
-                        Tactile::IO::GetHeight(irObject) * ratio.y};
+  const Vec2 offset{GetX(irObject) * ratio.x, GetY(irObject) * ratio.y};
+  const cen::farea size{GetWidth(irObject) * ratio.x, GetHeight(irObject) * ratio.y};
 
   registry.emplace<Hitbox>(tileEntity, sys::MakeHitbox({{offset, size}}));
 }
@@ -111,7 +109,7 @@ auto GetTextureId(const Tactile::IO::Tileset& irTileset) -> uint32
   return static_cast<uint32>(id);
 }
 
-auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset) -> float2
+auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset) -> Vec2
 {
   const auto tw = Tactile::IO::GetTileWidth(irTileset);
   const auto th = Tactile::IO::GetTileHeight(irTileset);

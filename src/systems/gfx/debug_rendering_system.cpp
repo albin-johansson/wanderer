@@ -81,7 +81,7 @@ void RenderDevelopmentBuildLabel(GraphicsContext& graphics)
 
 void RenderDebugInfo(const entt::registry& registry)
 {
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
   RenderHitboxes(registry, renderer);
   RenderTriggerIndicators(registry, renderer);
@@ -90,7 +90,7 @@ void RenderDebugInfo(const entt::registry& registry)
 
 void RenderMenuDebugInfo(const entt::registry& registry)
 {
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;

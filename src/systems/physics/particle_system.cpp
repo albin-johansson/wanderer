@@ -31,7 +31,7 @@ constexpr float y_accel = 36;
 constexpr float z_accel = -30;
 
 void SpawnParticle(entt::registry& registry,
-                   const float2 position,
+                   const Vec2 position,
                    const float duration,
                    const cen::color& color)
 {
@@ -50,7 +50,7 @@ void SpawnParticle(entt::registry& registry,
 }  // namespace
 
 void SpawnParticles(entt::registry& registry,
-                    const float2 origin,
+                    const Vec2 origin,
                     const int32 count,
                     const float duration,
                     const cen::color& color)
@@ -87,7 +87,7 @@ void RenderParticles(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
 
-  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
   for (auto&& [entity, particle] : registry.view<Particle>().each()) {

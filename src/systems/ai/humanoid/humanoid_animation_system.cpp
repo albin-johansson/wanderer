@@ -73,8 +73,8 @@ void UpdateMoveAnimation(entt::registry& registry, const entt::entity entity)
   auto& drawable = registry.get<Drawable>(entity);
   const auto& movable = registry.get<Movable>(entity);
 
-  drawable.src.set_x(
-      is_zero(movable.velocity) ? 0 : static_cast<int32>(animation.frame) * 64);
+  drawable.src.set_x(IsZero(movable.velocity) ? 0
+                                              : static_cast<int32>(animation.frame) * 64);
   const auto srcY = GetSourceY(move_source_y, movable.dir);
   if (drawable.src.y() != srcY) {
     animation.frame = 0u;

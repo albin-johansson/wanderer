@@ -15,14 +15,14 @@ namespace {
 constexpr float cooldown_rate = 50;
 constexpr float target_error_margin = 1;
 
-[[nodiscard]] auto GetNearbyPosition(const float2 position) -> float2
+[[nodiscard]] auto GetNearbyPosition(const Vec2 position) -> Vec2
 {
   constexpr auto range = glob::tile_width<float> * 5.0f;
 
   const auto x = position.x + rune::next_random(-range, range);
   const auto y = position.y + rune::next_random(-range, range);
 
-  return float2{x, y};
+  return {x, y};
 }
 
 void TargetNearbyPosition(entt::registry& registry,

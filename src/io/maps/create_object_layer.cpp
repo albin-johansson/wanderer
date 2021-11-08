@@ -33,10 +33,8 @@ void AddHitbox(const Tactile::IO::Object& irObject,
                const float xRatio,
                const float yRatio)
 {
-  const float2 position{Tactile::IO::GetX(irObject) * xRatio,
-                        Tactile::IO::GetY(irObject) * yRatio};
-  const cen::farea size{Tactile::IO::GetWidth(irObject) * xRatio,
-                        Tactile::IO::GetHeight(irObject) * yRatio};
+  const Vec2 position{GetX(irObject) * xRatio, GetY(irObject) * yRatio};
+  const cen::farea size{GetWidth(irObject) * xRatio, GetHeight(irObject) * yRatio};
 
   /* We use no offset for object hitboxes */
   auto& hitbox = registry.emplace<Hitbox>(entity, sys::MakeHitbox({{{}, size}}));
@@ -47,11 +45,10 @@ void AddHitbox(const Tactile::IO::Object& irObject,
 void LoadSpawnpoint(const Tactile::IO::Object& irObject,
                     Level& level,
                     const entt::entity entity,
-                    const float2 ratio)
+                    const Vec2 ratio)
 {
   auto& spawnpoint = level.registry.emplace<Spawnpoint>(entity);
-  spawnpoint.position = float2{Tactile::IO::GetX(irObject) * ratio.x,
-                               Tactile::IO::GetY(irObject) * ratio.y};
+  spawnpoint.position = Vec2{GetX(irObject) * ratio.x, GetY(irObject) * ratio.y};
 
   // TODO only do this for humanoids, when animals are added
   spawnpoint.position.x -= glob::humanoid_draw_width / 2.0f;
@@ -89,7 +86,7 @@ void LoadInventory(const Tactile::IO::Object& irObject,
 void LoadContainerTrigger(const Tactile::IO::Object& irObject,
                           Level& level,
                           const entt::entity entity,
-                          const float2 ratio)
+                          const Vec2 ratio)
 {
   level.registry.emplace<Trigger>(entity, TriggerType::container);
 
@@ -102,7 +99,7 @@ void LoadContainerTrigger(const Tactile::IO::Object& irObject,
 void LoadBedTrigger(const Tactile::IO::Object& irObject,
                     Level& level,
                     const entt::entity entity,
-                    const float2 ratio)
+                    const Vec2 ratio)
 {
   level.registry.emplace<Trigger>(entity, TriggerType::bed);
   AddHitbox(irObject, level.registry, entity, ratio.x, ratio.y);
@@ -111,7 +108,7 @@ void LoadBedTrigger(const Tactile::IO::Object& irObject,
 void LoadPortal(const Tactile::IO::Object& irObject,
                 Level& level,
                 const entt::entity entity,
-                const float2 ratio)
+                const Vec2 ratio)
 {
   level.registry.emplace<Trigger>(entity, TriggerType::portal);
 
@@ -125,7 +122,7 @@ void LoadPortal(const Tactile::IO::Object& irObject,
 void LoadLight(const Tactile::IO::Object& irObject,
                Level& level,
                const entt::entity entity,
-               const float2 ratio)
+               const Vec2 ratio)
 {
   auto& light = level.registry.emplace<PointLight>(entity);
   light.size = Tactile::IO::GetWidth(irObject) * ratio.x;
@@ -215,7 +212,7 @@ void LoadPlant(const Tactile::IO::Map& irMap,
                Level& level,
                GraphicsContext& graphics,
                const entt::entity entity,
-               const float2 ratio)
+               const Vec2 ratio)
 {
   auto& registry = level.registry;
 
@@ -269,7 +266,7 @@ void CreateObject(const Tactile::IO::Map& irMap,
                   const Tactile::IO::Object& irObject,
                   Level& level,
                   GraphicsContext& graphics,
-                  const float2 ratio)
+                  const Vec2 ratio)
 {
   const auto entity = level.registry.create();
 
@@ -308,7 +305,7 @@ void CreateObjectLayer(const Tactile::IO::Map& irMap,
                        const Tactile::IO::Layer& irLayer,
                        Level& level,
                        GraphicsContext& graphics,
-                       const float2 ratio)
+                       const Vec2 ratio)
 {
   const auto& irObjectLayer = Tactile::IO::GetObjectLayer(irLayer);
 

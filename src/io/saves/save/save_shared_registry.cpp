@@ -38,7 +38,7 @@
 namespace wanderer {
 namespace {
 
-void CopyTo(const float2& src, proto::float2* dst)
+void CopyTo(const Vec2& src, proto::float2* dst)
 {
   dst->set_x(src.x);
   dst->set_y(src.y);

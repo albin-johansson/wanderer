@@ -15,7 +15,7 @@ void BeginChase(entt::registry& registry,
                 const entt::entity entity,
                 Chase& chase,
                 Movable& movable,
-                const float2 destination)
+                const Vec2 destination)
 {
   registry.remove<Roam>(entity);
 

@@ -72,7 +72,7 @@ void RenderHints(const entt::registry& shared, GraphicsContext& graphics)
 
 void RenderHud(const entt::registry& shared, cen::ipoint mousePos)
 {
-  auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = shared.ctx<Ref<GraphicsContext>>().get();
   RenderHints(shared, graphics);
 
   const auto& level = CurrentLevel(shared);

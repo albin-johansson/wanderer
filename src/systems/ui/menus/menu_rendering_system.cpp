@@ -75,7 +75,7 @@ void RenderActiveMenu(const entt::registry& shared)
   const auto& menu = shared.get<Menu>(menuEntity);
   const auto& drawable = shared.get<MenuDrawable>(menuEntity);
 
-  auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
+  auto& graphics = shared.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
   if (menu.render_background) {

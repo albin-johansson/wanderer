@@ -179,10 +179,10 @@ void Game::Render(entt::registry& shared)
     return;
   }
 
-  shared.set<ref<GraphicsContext>>(mGraphics);
+  shared.set<Ref<GraphicsContext>>(mGraphics);
 
   auto& level = sys::CurrentLevel(shared);
-  level.registry.set<ref<GraphicsContext>>(mGraphics);
+  level.registry.set<Ref<GraphicsContext>>(mGraphics);
 
   auto& renderer = mGraphics.GetRenderer();
   renderer.clear_with(cen::colors::black);
@@ -222,8 +222,8 @@ void Game::Render(entt::registry& shared)
   renderer.present();
 
   /* Let's embrace our paranoia and unset the renderer context variables! */
-  level.registry.unset<ref<GraphicsContext>>();
-  shared.unset<ref<GraphicsContext>>();
+  level.registry.unset<Ref<GraphicsContext>>();
+  shared.unset<Ref<GraphicsContext>>();
 }
 
 auto Game::IsPaused() const -> bool

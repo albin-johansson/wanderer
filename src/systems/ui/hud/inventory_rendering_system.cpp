@@ -78,7 +78,7 @@ void RenderInventory(const entt::registry& registry,
     renderer.fill_with(glob::transparent_black);
 
     const auto nItems = inventory.items.size();
-    maybe<int32> hoverIndex;
+    Maybe<int32> hoverIndex;
     int32 index = 0;
 
     for (auto row = 0; row < n_rows; ++row) {

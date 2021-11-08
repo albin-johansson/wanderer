@@ -12,9 +12,9 @@ namespace {
 
 constexpr float camera_speed = 10;
 
-[[nodiscard]] auto NextCameraPosition(const float2 target,
+[[nodiscard]] auto NextCameraPosition(const Vec2 target,
                                       const ctx::Viewport& viewport,
-                                      const float dt) -> float2
+                                      const float dt) -> Vec2
 {
   const auto boundsX = viewport.bounds.x();
   const auto boundsY = viewport.bounds.y();
@@ -55,11 +55,11 @@ constexpr float camera_speed = 10;
     }
   };
 
-  return float2{getX(target.x), getY(target.y)};
+  return Vec2{getX(target.x), getY(target.y)};
 }
 
-[[nodiscard]] auto MakeTarget(const float2 position,
-                              const ctx::Viewport& viewport) noexcept -> float2
+[[nodiscard]] auto MakeTarget(const Vec2 position, const ctx::Viewport& viewport) noexcept
+    -> Vec2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
   constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
@@ -73,7 +73,7 @@ constexpr float camera_speed = 10;
   return {x, y};
 }
 
-void Track(ctx::Viewport& viewport, const float2 position, const float dt)
+void Track(ctx::Viewport& viewport, const Vec2 position, const float dt)
 {
   const auto next = NextCameraPosition(MakeTarget(position, viewport), viewport, dt);
   viewport.bounds.set_x(next.x);
@@ -92,7 +92,7 @@ auto MakeViewport(cen::farea levelSize) noexcept -> ctx::Viewport
   return viewport;
 }
 
-void CenterViewportOn(entt::registry& registry, float2 position)
+void CenterViewportOn(entt::registry& registry, const Vec2 position)
 {
   auto& viewport = registry.ctx<ctx::Viewport>();
   const auto target = MakeTarget(position, viewport);
@@ -111,7 +111,7 @@ void TranslateViewport(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
 
-  auto& gfx = registry.ctx<ref<GraphicsContext>>().get();
+  auto& gfx = registry.ctx<Ref<GraphicsContext>>().get();
   auto& renderer = gfx.GetRenderer();
 
   renderer.set_translation_viewport(viewport.bounds);

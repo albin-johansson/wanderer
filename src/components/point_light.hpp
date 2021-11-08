@@ -8,7 +8,7 @@ namespace wanderer {
 /// \ingroup components
 struct PointLight final
 {
-  float2 position;      ///< The world position of the light.
+  Vec2 position{};      ///< The world position of the light.
   float size{};         ///< Base size of the light.
   float fluctuation{};  ///< Fluctuation size in [-fluctuation_limit, fluctuation_limit].
   float fluctuation_step{};   ///< Size of each fluctuation increment.

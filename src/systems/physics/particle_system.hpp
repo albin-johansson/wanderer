@@ -23,7 +23,7 @@ namespace wanderer::sys {
  * \param color the color of the particles.
  */
 void SpawnParticles(entt::registry& registry,
-                    float2 origin,
+                    Vec2 origin,
                     int32 count,
                     float duration,
                     const cen::color& color);

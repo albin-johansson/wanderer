@@ -56,7 +56,7 @@ void Stop(Movable& movable, const Direction dir)
     }
   }
 
-  if (!is_zero(movable.velocity)) {
+  if (!IsZero(movable.velocity)) {
     movable.velocity = glm::normalize(movable.velocity);
     movable.velocity *= movable.speed;
   }
@@ -132,7 +132,7 @@ void HandleMoveInput(entt::registry& registry,
   const auto areMoveKeysDown = CheckPressed(movable, keyboard, binds);
   CheckReleased(movable, keyboard, binds);
 
-  if (!areMoveKeysDown && is_zero(movable.velocity)) {
+  if (!areMoveKeysDown && IsZero(movable.velocity)) {
     dispatcher.enqueue<EndHumanoidMoveEvent>(registry, player);
   }
   else if (keyboard.is_pressed(binds.attack)) {
