@@ -9,13 +9,13 @@ using std::chrono::zoned_time;
 
 namespace wanderer {
 
-auto to_string(const system_clock::time_point tp) -> std::string
+auto ConvertToString(const system_clock::time_point tp) -> std::string
 {
   const zoned_time zoned{current_zone(), tp};
   return std::format("{:%F %H:%M:%OS}", zoned);
 }
 
-auto current_hhmmss() -> std::string
+auto GetCurrentHHMMSS() -> std::string
 {
   const zoned_time time{current_zone(), system_clock::now()};
   return std::format("{:%T}", time);

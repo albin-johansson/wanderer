@@ -109,7 +109,7 @@ auto LoadLevel(entt::registry& shared,
 
 void LoadLevels(entt::registry& shared, GraphicsContext& graphics)
 {
-  const auto path = std::filesystem::absolute(resources::map("main.json"));
+  const auto path = std::filesystem::absolute(GetMapResource("main.json"));
   const auto root = LoadLevel(shared, graphics, path);
   shared.emplace<ActiveLevel>(root);
 

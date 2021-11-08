@@ -4,10 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-/// \namespace wanderer::resources
-/// \brief Contains utilities for obtaining resource paths.
-/// \ingroup core
-namespace wanderer::resources {
+namespace wanderer {
 
 /**
  * \brief Returns the file path for a texture with the specified name.
@@ -18,7 +15,7 @@ namespace wanderer::resources {
  *
  * \return the path of the texture.
  */
-[[nodiscard]] auto texture(CStr resource) -> std::string;
+[[nodiscard]] auto GetTextureResource(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a font with the specified name.
@@ -29,7 +26,7 @@ namespace wanderer::resources {
  *
  * \return the path of the font.
  */
-[[nodiscard]] auto font(CStr resource) -> std::string;
+[[nodiscard]] auto GetFontResource(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a sound with the specified name.
@@ -40,7 +37,7 @@ namespace wanderer::resources {
  *
  * \return the path of the sound.
  */
-[[nodiscard]] auto sound(CStr resource) -> std::string;
+[[nodiscard]] auto GetSoundResource(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a map with the specified name.
@@ -51,6 +48,6 @@ namespace wanderer::resources {
  *
  * \return the path of the map.
  */
-[[nodiscard]] auto map(CStr resource) -> std::string;
+[[nodiscard]] auto GetMapResource(CStr resource) -> std::string;
 
 }  // namespace wanderer::resources

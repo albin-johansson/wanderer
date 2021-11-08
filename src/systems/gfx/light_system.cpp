@@ -18,7 +18,7 @@ using namespace entt::literals;
 
 namespace wanderer::sys {
 namespace {
-inline const auto texture_path = resources::texture("ardentryst/glow.png");
+inline const auto texture_path = GetTextureResource("ardentryst/glow.png");
 }  // namespace
 
 void UpdateLights(entt::registry& registry)

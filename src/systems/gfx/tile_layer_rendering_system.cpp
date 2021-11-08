@@ -27,7 +27,7 @@ void RenderLayer(const entt::registry& registry,
       assert(col < layer.matrix.at(row).size());
 
       const auto id = layer.matrix[row][col];
-      if (!is_empty(id)) {
+      if (!IsEmpty(id)) {
         const GridPosition position{static_cast<float>(row), static_cast<float>(col)};
         const auto entity = tileset.tiles.at(id);
         if (registry.all_of<TileAnimation>(entity)) {

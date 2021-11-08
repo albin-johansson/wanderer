@@ -61,7 +61,7 @@ void BeginCooldown(entt::registry& registry,
 
 }  // namespace
 
-void UpdateRoaming(entt::registry& registry, float dt)
+void UpdateRoaming(entt::registry& registry, const float dt)
 {
   for (auto&& [entity, roam, movable] : registry.view<Roam, Movable>().each()) {
     if (!roam.destination) {

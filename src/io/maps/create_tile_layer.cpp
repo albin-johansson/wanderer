@@ -100,7 +100,7 @@ void AddTileObjects(const Tactile::IO::Map& irMap,
   for (int32 row = 0; row < nRows; ++row) {
     for (int32 col = 0; col < nCols; ++col) {
       const auto id = Tactile::IO::GetTile(irTileLayer, row, col);
-      if (!is_empty(id)) {
+      if (!IsEmpty(id)) {
         const auto x = static_cast<float>(col) * tw;
         const auto y = static_cast<float>(row) * th;
         AddTileObject(level, id, x, y, layerIndex);

@@ -23,7 +23,7 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 
-inline const auto backdrop_path = resources::texture("backdrop.png");
+inline const auto backdrop_path = GetTextureResource("backdrop.png");
 
 void RenderTitle(const std::string& title,
                  const MenuDrawable& drawable,

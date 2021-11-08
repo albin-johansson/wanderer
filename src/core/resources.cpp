@@ -2,27 +2,27 @@
 
 using namespace std::string_literals;
 
-namespace wanderer::resources {
+namespace wanderer {
 
-auto texture(const CStr resource) -> std::string
+auto GetTextureResource(const CStr resource) -> std::string
 {
   static const auto dir = "resources/images/"s;
   return dir + resource;
 }
 
-auto font(const CStr resource) -> std::string
+auto GetFontResource(const CStr resource) -> std::string
 {
   static const auto dir = "resources/fonts/"s;
   return dir + resource;
 }
 
-auto sound(const CStr resource) -> std::string
+auto GetSoundResource(const CStr resource) -> std::string
 {
   static const auto dir = "resources/audio/"s;
   return dir + resource;
 }
 
-auto map(const CStr resource) -> std::string
+auto GetMapResource(const CStr resource) -> std::string
 {
   static const auto dir = "resources/maps/"s;
   return dir + resource;

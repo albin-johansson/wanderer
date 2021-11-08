@@ -17,7 +17,7 @@ auto GetLastModified(const std::filesystem::path& path) -> std::string
   const auto timePoint = time_point_cast<system_clock::duration>(
       system_clock::now() + (writeTime - file_clock::now()));
 
-  return to_string(timePoint);
+  return ConvertToString(timePoint);
 }
 
 }  // namespace wanderer

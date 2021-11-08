@@ -6,7 +6,7 @@
 
 namespace wanderer {
 namespace {
-inline const auto font_path = resources::font("type_writer.ttf");
+inline const auto font_path = GetFontResource("type_writer.ttf");
 }  // namespace
 
 GraphicsContext::GraphicsContext(const cen::window& window)

@@ -100,7 +100,7 @@ void CenterViewportOn(entt::registry& registry, float2 position)
   viewport.bounds.set_y(target.y);
 }
 
-void UpdateViewport(entt::registry& registry, entt::entity target, float dt)
+void UpdateViewport(entt::registry& registry, entt::entity target, const float dt)
 {
   assert(registry.all_of<Movable>(target));
   const auto& movable = registry.get<const Movable>(target);

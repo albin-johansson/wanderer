@@ -15,7 +15,7 @@ constexpr cen::color gray{0x11, 0x11, 0x11};
 
 }  // namespace
 
-auto StartBondAnimation(entt::registry& registry, uint32 id) -> entt::entity
+auto StartBondAnimation(entt::registry& registry, const uint32 id) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -48,7 +48,7 @@ auto StartReverseOnlyBondAnimation(entt::registry& registry) -> entt::entity
 
 void UpdateCustomAnimations(entt::registry& registry,
                             entt::dispatcher& dispatcher,
-                            float dt)
+                            const float dt)
 {
   for (auto&& [entity, animation] : registry.view<CustomAnimation>().each()) {
     animation.width += animation.x_step_size * animation.speed * dt;

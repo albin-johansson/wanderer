@@ -102,7 +102,7 @@ void AddLight(entt::registry& registry, const entt::entity entity, const float2 
 auto MakePlayer(Level& level, GraphicsContext& graphics) -> entt::entity
 {
   constexpr uint32 id = "player"_hs;
-  static const auto path = resources::texture("player.png");
+  static const auto path = GetTextureResource("player.png");
 
   const auto texture = graphics.LoadTexture(id, path);
   const auto player = MakeHumanoid(level, texture);
@@ -122,7 +122,7 @@ auto MakeSkeleton(Level& level, float2 position, GraphicsContext& graphics)
     -> entt::entity
 {
   constexpr uint32 id = "skeleton"_hs;
-  static const auto path = resources::texture("skeleton.png");
+  static const auto path = GetTextureResource("skeleton.png");
 
   const auto texture = graphics.LoadTexture(id, path);
   const auto skeleton = MakeHumanoid(level, texture);

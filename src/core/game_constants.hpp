@@ -99,7 +99,7 @@ constexpr int32 default_margin = 6;
 
 }  // namespace glob
 
-[[nodiscard]] inline auto is_empty(const TileID id) noexcept -> bool
+[[nodiscard]] constexpr auto IsEmpty(const TileID id) noexcept -> bool
 {
   return id == glob::empty_tile;
 }

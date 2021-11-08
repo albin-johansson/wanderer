@@ -14,7 +14,7 @@ namespace wanderer {
  *
  * \return the time point as a string.
  */
-[[nodiscard]] auto to_string(const std::chrono::system_clock::time_point timePoint)
+[[nodiscard]] auto ConvertToString(const std::chrono::system_clock::time_point timePoint)
     -> std::string;
 
 /**
@@ -24,6 +24,6 @@ namespace wanderer {
  *
  * \return the current time using the format "HH:MM:SS".
  */
-[[nodiscard]] auto current_hhmmss() -> std::string;
+[[nodiscard]] auto GetCurrentHHMMSS() -> std::string;
 
 }  // namespace wanderer
