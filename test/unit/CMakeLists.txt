@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-test-unit CXX)
 
 set(TEST_FILES
+    dev_console_system_test.cpp
     event_connections_test.cpp
     hitbox_test.cpp
     humanoid_state_test.cpp
