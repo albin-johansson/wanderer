@@ -22,10 +22,10 @@
 namespace wanderer::sys {
 namespace {
 
-constexpr auto enter_fmt = "Press \" {}\" to enter";
-constexpr auto exit_fmt = "Press \" {}\" to exit";
-constexpr auto sleep_fmt = "Press \" {}\" to sleep";
-constexpr auto container_fmt = "Press \" {}\" to open container";
+constexpr auto enter_fmt = "Press \"{}\" to enter";
+constexpr auto exit_fmt = "Press \"{}\" to exit";
+constexpr auto sleep_fmt = "Press \"{}\" to sleep";
+constexpr auto container_fmt = "Press \"{}\" to open container";
 
 void RenderHint(GraphicsContext& graphics,
                 const std::string_view fmt,
