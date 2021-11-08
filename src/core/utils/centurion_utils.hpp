@@ -1,9 +1,7 @@
 #pragma once
 
-#include <concepts>  // floating_point
-
 #include <centurion.hpp>  // basic_point, basic_area
-#include <rune/rune.hpp>  // basic_vector2
+#include <rune/rune.hpp>  // float2
 
 #include "wanderer_std.hpp"
 
@@ -23,12 +21,12 @@ namespace wanderer {
  *
  * \return a corresponding Centurion point.
  */
-[[nodiscard]] constexpr auto to_point(const float2 vector) noexcept -> cen::fpoint
+[[nodiscard]] constexpr auto ToPoint(const float2 vector) noexcept -> cen::fpoint
 {
   return cen::fpoint{vector.x, vector.y};
 }
 
-[[nodiscard]] constexpr auto to_vector(const cen::fpoint point) noexcept -> float2
+[[nodiscard]] constexpr auto ToVector(const cen::fpoint point) noexcept -> float2
 {
   return float2{point.x(), point.y()};
 }
@@ -44,24 +42,23 @@ namespace wanderer {
  *
  * \return a corresponding vector.
  */
-[[nodiscard]] constexpr auto to_vector(const cen::farea area) noexcept -> float2
+[[nodiscard]] constexpr auto ToVector(const cen::farea area) noexcept -> float2
 {
   return float2{area.width, area.height};
 }
 
-[[nodiscard]] constexpr auto to_rune_vector(const float2 vector) noexcept -> float2
+[[nodiscard]] constexpr auto ToRuneVector(const float2 vector) noexcept -> float2
 {
   return float2{vector.x, vector.y};
 }
 
-[[nodiscard]] constexpr auto to_rune_vector(const cen::fpoint point) noexcept
+[[nodiscard]] constexpr auto ToRuneVector(const cen::fpoint point) noexcept
     -> rune::float2
 {
   return rune::float2{point.x(), point.y()};
 }
 
-[[nodiscard]] constexpr auto to_rune_vector(const cen::farea area) noexcept
-    -> rune::float2
+[[nodiscard]] constexpr auto ToRuneVector(const cen::farea area) noexcept -> rune::float2
 {
   return rune::float2{area.width, area.height};
 }

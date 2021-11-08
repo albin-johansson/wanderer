@@ -6,8 +6,8 @@ namespace wanderer {
 
 void AddHitboxToTree(aabb_tree& tree, const entt::entity entity, const Hitbox& hitbox)
 {
-  const auto lower = to_rune_vector(hitbox.bounds.position());
-  const auto upper = lower + to_rune_vector(hitbox.bounds.size());
+  const auto lower = ToRuneVector(hitbox.bounds.position());
+  const auto upper = lower + ToRuneVector(hitbox.bounds.size());
   tree.insert(entity, lower, upper);
 }
 

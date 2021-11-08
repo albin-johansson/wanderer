@@ -33,7 +33,7 @@ void RenderHitboxes(const entt::registry& registry, cen::renderer& renderer)
     }
 
     for (const auto& [offset, size] : hitbox.boxes) {
-      const cen::frect rect{to_point(hitbox.origin + offset), size};
+      const cen::frect rect{ToPoint(hitbox.origin + offset), size};
 
       renderer.set_color(renderer.get_color().with_alpha(100));
       renderer.draw_rect_t(rect);

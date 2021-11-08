@@ -95,7 +95,7 @@ void UpdateHitbox(entt::registry& registry,
   auto& movable = registry.get<Movable>(entity);
 
   SetPosition(hitbox, movable.position);
-  tree.set_position(entity, to_rune_vector(hitbox.bounds.position()));
+  tree.set_position(entity, ToRuneVector(hitbox.bounds.position()));
 
   if (is_zero(movable.velocity)) {
     return;
@@ -110,7 +110,7 @@ void UpdateHitbox(entt::registry& registry,
   const auto restorePosition = [&](const CollisionResult& collisions) {
     SetPosition(hitbox, movable.position);
     const auto pos = RestoreAabbPosition(oldAabbPos,
-                                         to_rune_vector(hitbox.bounds.position()),
+                                         ToRuneVector(hitbox.bounds.position()),
                                          collisions);
     tree.set_position(entity, pos);
   };

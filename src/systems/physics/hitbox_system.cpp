@@ -100,10 +100,10 @@ auto Intersects(const Hitbox& fst, const Hitbox& snd) -> bool
   }
 
   for (const auto& [fstOffset, fstSize] : fst.boxes) {
-    const auto fstRect = cen::frect{to_point(fst.origin + fstOffset), fstSize};
+    const auto fstRect = cen::frect{ToPoint(fst.origin + fstOffset), fstSize};
 
     for (const auto& [sndOffset, sndSize] : snd.boxes) {
-      const auto sndRect = cen::frect{to_point(snd.origin + sndOffset), sndSize};
+      const auto sndRect = cen::frect{ToPoint(snd.origin + sndOffset), sndSize};
 
       if (cen::collides(fstRect, sndRect)) {
         return true;

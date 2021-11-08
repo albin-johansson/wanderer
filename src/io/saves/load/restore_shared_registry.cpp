@@ -46,8 +46,8 @@ void AddViewport(Level& level)
 void RestoreAabbTree(entt::registry& registry, aabb_tree& tree)
 {
   for (auto&& [hitboxEntity, hitbox] : registry.view<Hitbox>().each()) {
-    const auto lower = to_rune_vector(hitbox.bounds.position());
-    const auto upper = lower + to_rune_vector(hitbox.bounds.size());
+    const auto lower = ToRuneVector(hitbox.bounds.position());
+    const auto upper = lower + ToRuneVector(hitbox.bounds.size());
     tree.insert(hitboxEntity, lower, upper);
   }
 

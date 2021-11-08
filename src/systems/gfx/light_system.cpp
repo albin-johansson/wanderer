@@ -40,7 +40,7 @@ void UpdatePlayerLightPosition(entt::registry& registry)
   const auto& drawable = registry.get<Drawable>(playerEntity);
 
   auto& light = registry.get<PointLight>(playerEntity);
-  light.position = to_vector(drawable.dst.center());
+  light.position = ToVector(drawable.dst.center());
 }
 
 void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)

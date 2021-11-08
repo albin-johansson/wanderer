@@ -21,7 +21,7 @@ TEST(Hitbox, UpdateBounds)
     hb.boxes.push_back(Subhitbox{offset, size});
 
     sys::UpdateBounds(hb);
-    EXPECT_EQ(cen::frect(to_point(origin + offset), size), hb.bounds);
+    EXPECT_EQ(cen::frect(ToPoint(origin + offset), size), hb.bounds);
   }
 
   {  // Two hitboxes
