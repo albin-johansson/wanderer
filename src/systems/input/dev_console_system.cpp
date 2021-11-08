@@ -184,7 +184,7 @@ auto ParseEnterCommand(const std::string& cmd) -> Maybe<MapID>
   std::smatch matches;
   if (std::regex_search(cmd, matches, regex)) {
     assert(matches.size() == 1);
-    return ParseInt(matches[0]).value();
+    return ParseInt(matches[0]);
   }
   else {
     return std::nullopt;
