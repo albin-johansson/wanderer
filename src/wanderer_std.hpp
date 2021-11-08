@@ -10,7 +10,6 @@
 
 #include <entt.hpp>       // entity
 #include <glm/glm.hpp>    // float32, float64, vec2, vec3
-#include <nenya.hpp>      // strong_type
 #include <rune/rune.hpp>  // aabb_tree
 
 namespace wanderer {
