@@ -51,6 +51,11 @@ struct ControlsMenu final
   entt::entity entity{entt::null};
 };
 
+struct DevConsoleMenu final
+{
+  entt::entity entity{entt::null};
+};
+
 struct MenuDrawable final
 {
   mutable Maybe<cen::texture> texture;  ///< Title text texture.

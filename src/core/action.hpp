@@ -24,6 +24,7 @@ enum class Action
 
   ToggleFullscreen,
   ToggleIntegerScaling,
+  ToggleDevConsole,
 
   Quit
 };

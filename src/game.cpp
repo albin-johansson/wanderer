@@ -30,6 +30,7 @@
 #include "systems/gfx/render_bounds_system.hpp"
 #include "systems/gfx/tile_layer_rendering_system.hpp"
 #include "systems/gfx/viewport_system.hpp"
+#include "systems/input/dev_console_system.hpp"
 #include "systems/input/input_system.hpp"
 #include "systems/level_system.hpp"
 #include "systems/physics/movement_system.hpp"
@@ -53,6 +54,9 @@ Game::Game()
     , mGraphics{mEngine.window()}
 {
   mCenDispatcher.bind<cen::quit_event>().to<&Game::OnWindowClose>(this);
+  mCenDispatcher.bind<cen::keyboard_event>().to<&Game::OnKeyboardEvent>(this);
+  mCenDispatcher.bind<cen::text_input_event>().to<&Game::OnTextInputEvent>(this);
+
   mEngine.set_registry(sys::MakeSharedRegistry());
   mEngine.set_dispatcher(MakeDispatcher());
   mEngine.mouse().set_logical_size(glob::logical_size<>);
@@ -127,8 +131,10 @@ void Game::HandleInput(entt::registry& shared, entt::dispatcher& dispatcher)
   mMousePos = mouse.position();
   sys::UpdateMenu(shared, dispatcher, keyboard, mouse);
 
-  auto& level = sys::CurrentLevel(shared);
-  sys::UpdateInput(level.registry, dispatcher, keyboard, shared.ctx<ctx::Binds>());
+  if (!sys::IsMenuActive(shared, MenuId::DevConsole)) {
+    auto& level = sys::CurrentLevel(shared);
+    sys::UpdateInput(level.registry, dispatcher, keyboard, shared.ctx<ctx::Binds>());
+  }
 }
 
 void Game::Tick(entt::registry& shared, entt::dispatcher& dispatcher, const float dt)
@@ -212,6 +218,7 @@ void Game::Render(entt::registry& shared)
 
   sys::RenderActiveMenu(shared);
   sys::RenderCustomAnimations(level.registry);
+  sys::RenderDevConsole(shared);
 
   sys::RenderFps(shared);
 
@@ -302,9 +309,35 @@ void Game::Execute(const Action action)
       dispatcher.enqueue<IntegerScalingToggledEvent>(enabled);
       break;
     }
-    case Action::Quit:
+    case Action::ToggleDevConsole: {
+      /* This assumes that this action is only invoked from the in-game menu */
+      if (sys::IsMenuActive(shared, MenuId::DevConsole)) {
+        dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
+      }
+      else {
+        dispatcher.enqueue<SwitchMenuEvent>(MenuId::DevConsole);
+      }
+
+      break;
+    }
+    case Action::Quit: {
       dispatcher.enqueue<QuitEvent>();
       break;
+    }
+  }
+}
+
+void Game::OnKeyboardEvent(const cen::keyboard_event& event)
+{
+  if (sys::IsMenuActive(mEngine.registry(), MenuId::DevConsole)) {
+    sys::UpdateDevConsole(event, mEngine.dispatcher());
+  }
+}
+
+void Game::OnTextInputEvent(const cen::text_input_event& event)
+{
+  if (sys::IsMenuActive(mEngine.registry(), MenuId::DevConsole)) {
+    sys::UpdateDevConsole(event);
   }
 }
 
@@ -312,7 +345,8 @@ void Game::OnFullscreenToggled(const FullscreenToggledEvent& event)
 {
   auto& window = mEngine.window();
 
-  // TODO make it possible to specify whether to use real fullscreen or fullscreen desktop
+  // TODO make it possible to specify whether to use real fullscreen or fullscreen
+  // desktop
   if (event.enabled) {
     window.set_size(cen::screen::size().value());
     window.set_fullscreen_desktop(true);

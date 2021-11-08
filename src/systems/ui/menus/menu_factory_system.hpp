@@ -62,6 +62,8 @@ auto MakeControlsMenu(entt::registry& registry) -> entt::entity;
  */
 auto MakeInGameMenu(entt::registry& registry) -> entt::entity;
 
+auto MakeDevConsoleMenu(entt::registry& registry) -> entt::entity;
+
 /// \} End of menus
 
 }  // namespace wanderer::sys

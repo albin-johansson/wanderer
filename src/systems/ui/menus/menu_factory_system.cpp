@@ -141,6 +141,19 @@ auto MakeInGameMenu(entt::registry& registry) -> entt::entity
   registry.set<InGameMenu>(entity);
 
   AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoHome});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::f11, Action::ToggleDevConsole});
+
+  return entity;
+}
+
+auto MakeDevConsoleMenu(entt::registry& registry) -> entt::entity
+{
+  const auto entity =
+      MakeMenu(registry, "Developer Console", MenuId::DevConsole, true, false);
+  registry.set<DevConsoleMenu>(entity);
+
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoInGame});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::f11, Action::ToggleDevConsole});
 
   return entity;
 }

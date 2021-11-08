@@ -18,6 +18,7 @@ auto MakeSharedRegistry() -> entt::registry
   MakeControlsMenu(registry);
   MakeSettingsMenu(registry);
   MakeSavesMenu(registry);
+  MakeDevConsoleMenu(registry);
 
   registry.set<ActiveMenu>(home);
   registry.set<ctx::TimeOfDay>();

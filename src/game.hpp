@@ -71,6 +71,10 @@ class Game final
 
   void Execute(Action action);
 
+  void OnKeyboardEvent(const cen::keyboard_event& event);
+
+  void OnTextInputEvent(const cen::text_input_event& event);
+
   void OnFullscreenToggled(const FullscreenToggledEvent& event);
 
   void OnIntegerScalingToggled(const IntegerScalingToggledEvent& event);

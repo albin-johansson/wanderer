@@ -205,6 +205,8 @@ set(SOURCE_FILES
     systems/gfx/viewport_system.cpp
     systems/gfx/viewport_system.hpp
 
+    systems/input/dev_console_system.cpp
+    systems/input/dev_console_system.hpp
     systems/input/idle_input_system.cpp
     systems/input/idle_input_system.hpp
     systems/input/input_system.cpp
