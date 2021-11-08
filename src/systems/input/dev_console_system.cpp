@@ -35,40 +35,40 @@ inline std::string current_cmd;
 void InterpretCommand(entt::dispatcher& dispatcher, const std::string& cmd)
 {
   // SYNTAX
-  //           god
-  //        setday <mon|tue|wed|thu|fri|sat|sun>
-  //       settime <II:II>
-  //   settimerate <F>
-  //  setdaylength <I>
-  //         enter <I>
-  //         spawn <skeleton|...>
+  //            god
+  //        set-day <mon|tue|wed|thu|fri|sat|sun>
+  //       set-time <II:II>
+  //  set-time-rate <F>
+  // set-day-length <I>
+  //          enter <I>
+  //          spawn <skeleton|...>
 
   if (cmd == "god") {
     cen::log::info("Toggle player god mode");
     // TODO
   }
-  else if (cmd.starts_with("setday")) {
+  else if (cmd.starts_with("set-day")) {
     if (const auto day = ParseSetDayCommand(cmd)) {
       cen::log::info("Parsed day: %i", *day);
       // TODO
     }
     else {
-      cen::log::warn("Invalid syntax/input for the SETDAY command!");
+      cen::log::warn("Invalid syntax/input for the SET-DAY command!");
     }
   }
-  else if (cmd.starts_with("settime")) {
+  else if (cmd.starts_with("set-time")) {
     if (const auto result = ParseSetTimeCommand(cmd)) {
       cen::log::info("Matched time (%i:%i)", result->hour, result->minutes);
       // TODO
     }
     else {
-      cen::log::warn("Invalid syntax/input for the SETTIME command!");
+      cen::log::warn("Invalid syntax/input for the SET-TIME command!");
     }
   }
-  else if (cmd.starts_with("settimerate")) {
+  else if (cmd.starts_with("set-time-rate")) {
     // TODO
   }
-  else if (cmd.starts_with("setdaylength")) {
+  else if (cmd.starts_with("set-day-length")) {
     // TODO
   }
   else if (cmd.starts_with("enter")) {

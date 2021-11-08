@@ -62,7 +62,7 @@ void RenderAuthorLabel(GraphicsContext& graphics)
   }
 
   const auto& texture = cache.get_stored(id);
-  const auto y = glob::logical_height<int> - texture.height() - glob::default_margin;
+  const auto y = glob::logical_height<int> - (texture.height() + glob::default_margin);
   renderer.render(texture, cen::point(glob::default_margin, y));
 }
 
