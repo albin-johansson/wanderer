@@ -26,7 +26,7 @@ constexpr float daytime = 8;
 constexpr float sunset = 20;
 constexpr float night = 22;
 
-struct phase final
+struct Phase final
 {
   float phase_start{};
   float phase_end{};
@@ -46,25 +46,25 @@ inline const auto day_end_color = cen::blend(black, orange, 0.25f).with_alpha(0x
 inline const auto sunset_color = cen::blend(black, orange, 0.5f).with_alpha(0x20);
 inline const auto night_color = cen::blend(black, navy, 0.3f).with_alpha(0xDD);
 
-inline const phase sunrise_phase{
+inline const Phase sunrise_phase{
     .phase_start = sunrise,
     .phase_end = daytime,
     .colors = {night_color, sunrise_color, sunrise_end_color}};
 
-inline const phase day_phase{.phase_start = daytime,
+inline const Phase day_phase{.phase_start = daytime,
                              .phase_end = sunset,
                              .colors = {sunrise_end_color, day_color, day_end_color}};
 
-inline const phase sunset_phase{.phase_start = sunset,
+inline const Phase sunset_phase{.phase_start = sunset,
                                 .phase_end = night,
                                 .colors = {day_end_color, sunset_color, night_color}};
 
 // Night phase can only have one color
-inline const phase night_phase{.phase_start = night,
+inline const Phase night_phase{.phase_start = night,
                                .phase_end = sunrise,
                                .colors = {night_color}};
 
-[[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
+[[nodiscard]] auto GetColor(const Phase& current, const float hour) -> cen::color
 {
   if (current.colors.size() == 1) {
     return current.colors.at(0);
@@ -86,7 +86,7 @@ inline const phase night_phase{.phase_start = night,
   }
 }
 
-[[nodiscard]] auto get_phase(const float hour) -> const phase&
+[[nodiscard]] auto GetPhase(const float hour) -> const Phase&
 {
   if (hour > sunrise && hour <= daytime) {
     return sunrise_phase;
@@ -102,43 +102,14 @@ inline const phase night_phase{.phase_start = night,
   }
 }
 
-[[nodiscard]] constexpr auto next_day(const DayOfWeek day) noexcept -> DayOfWeek
+[[nodiscard]] constexpr auto GetNextDay(const DayOfWeek day) noexcept -> DayOfWeek
 {
   return static_cast<DayOfWeek>((cen::to_underlying(day) + 1) % 7);
 }
 
-[[nodiscard]] constexpr auto to_string(const DayOfWeek day) -> std::string_view
-{
-  switch (day) {
-    case DayOfWeek::Monday:
-      return "MON";
-
-    case DayOfWeek::Tuesday:
-      return "TUE";
-
-    case DayOfWeek::Wednesday:
-      return "WED";
-
-    case DayOfWeek::Thursday:
-      return "THU";
-
-    case DayOfWeek::Friday:
-      return "FRI";
-
-    case DayOfWeek::Saturday:
-      return "SAT";
-
-    case DayOfWeek::Sunday:
-      return "SUN";
-
-    default:
-      throw std::runtime_error{"Did not recognize day of week!"};
-  }
-}
-
 }  // namespace
 
-void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, float dt)
+void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, const float dt)
 {
   auto& time = shared.ctx<ctx::TimeOfDay>();
 
@@ -146,8 +117,8 @@ void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, float dt)
   time.minute = time.seconds / 60.0f;
   time.hour = time.minute / 60.0f;
 
-  const auto& phase = get_phase(time.hour);
-  time.tint = get_color(phase, time.hour);
+  const auto& phase = GetPhase(time.hour);
+  time.tint = GetColor(phase, time.hour);
 
   if (time.hour >= 24) {
     ChangeToNextDay(shared, dispatcher);
@@ -158,11 +129,11 @@ void ChangeToNextDay(entt::registry& shared, entt::dispatcher& dispatcher, float
 {
   auto& time = shared.ctx<ctx::TimeOfDay>();
   time.seconds = hour * seconds_per_hour;
-  time.day = next_day(time.day);
+  time.day = GetNextDay(time.day);
 
   /* Note, string_view::data is not guaranteed to be null-terminated, but
      we know it is here. */
-  CENTURION_LOG_INFO("Changed day to %s", to_string(time.day).data());
+  CENTURION_LOG_INFO("Changed day to %s", Stringify(time.day).data());
 
   dispatcher.enqueue<DayChangedEvent>(time.day);
 }
@@ -185,7 +156,7 @@ void RenderClock(const entt::registry& registry)
                                        minute};
 
   auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
-  graphics.RenderOutlinedText(to_string(time.day), cen::point(6, 6));
+  graphics.RenderOutlinedText(Stringify(time.day), cen::point(6, 6));
   graphics.RenderOutlinedText(str.view(), cen::point(30, 6));
 }
 
