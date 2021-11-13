@@ -35,17 +35,8 @@ void RenderFps(const entt::registry& shared)
   auto& graphics = shared.ctx<Ref<GraphicsContext>>().get();
 
   for (auto&& [entity, data] : shared.view<FpsData>().each()) {
-    const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
-
-    {
-      const rune::formatted_string<64> str{"Frame: {} ms", data.frame.count()};
-      graphics.RenderLabel(str.data(), 12, 6, Anchor::NorthEast);
-    }
-
-    {
-      const rune::formatted_string<64> str{"FPS: {}", fps};
-      graphics.RenderLabel(str.data(), 12, 24, Anchor::NorthEast);
-    }
+    const rune::formatted_string<64> str{"Frame: {} ms", data.frame.count()};
+    graphics.RenderLabel(str.data(), 12, 6, Anchor::NorthEast);
   }
 }
 
