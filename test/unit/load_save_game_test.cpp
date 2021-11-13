@@ -20,7 +20,7 @@ TEST(LoadSaveGame, Usage)
 
   {
     LoadLevels(shared, graphics);
-    cen::surface snapshot{"resources/snapshot.png"};
+    cen::surface snapshot{"test-resources/snapshot.png"};
 
     WANDERER_PROFILE_START;
     SaveGame("test", shared, snapshot);

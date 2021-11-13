@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/tile.hpp"
 #include "wanderer_std.hpp"

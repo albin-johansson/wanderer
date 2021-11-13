@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // keyboard
-#include <entt.hpp>       // registry, dispatcher
+#include <entt/entt.hpp>  // registry, dispatcher
 
 #include "components/binds.hpp"
 #include "components/player.hpp"

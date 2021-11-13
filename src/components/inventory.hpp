@@ -2,7 +2,7 @@
 
 #include <vector>  // vector
 
-#include <entt.hpp>  // entity
+#include <entt/entt.hpp>  // entity
 
 #include "wanderer_std.hpp"
 

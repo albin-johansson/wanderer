@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/ui/button.hpp"
 #include "components/ui/button_group.hpp"

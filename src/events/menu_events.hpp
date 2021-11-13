@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // entity, null
+#include <entt/entt.hpp>  // entity, null
 
 #include "components/ui/menu.hpp"
 #include "core/action.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry, entity
+#include <entt/entt.hpp>  // registry, entity
 
 #include "components/hitbox.hpp"
 #include "wanderer_std.hpp"

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // surface, farea
-#include <entt.hpp>       // registry, entity
+#include <entt/entt.hpp>  // registry, entity
 
 #include "components/ui/lazy_texture.hpp"
 #include "components/ui/menu.hpp"

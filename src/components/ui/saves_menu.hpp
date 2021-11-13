@@ -4,7 +4,7 @@
 #include <vector>  // vector
 
 #include <centurion.hpp>  // surface
-#include <entt.hpp>       // entity, null
+#include <entt/entt.hpp>  // entity, null
 
 namespace wanderer {
 

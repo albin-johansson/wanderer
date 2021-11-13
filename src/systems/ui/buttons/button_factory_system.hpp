@@ -2,7 +2,7 @@
 
 #include <string>  // string
 
-#include <entt.hpp>  // registry, entity
+#include <entt/entt.hpp>  // registry, entity
 
 #include "components/ui/button.hpp"
 #include "core/action.hpp"

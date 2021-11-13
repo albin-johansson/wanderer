@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>
-#include <entt.hpp>  // registry, entity
+#include <entt/entt.hpp>  // registry, entity
 
 #include "components/time_of_day.hpp"
 #include "components/vector3.hpp"

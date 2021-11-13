@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry, entity, null
+#include <entt/entt.hpp>  // registry, entity, null
 
 #include "wanderer_std.hpp"
 

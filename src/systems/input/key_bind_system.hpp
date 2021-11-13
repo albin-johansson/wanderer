@@ -3,7 +3,7 @@
 #include <type_traits>  // is_same_v
 
 #include <centurion.hpp>  // scan_code
-#include <entt.hpp>       // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/key_bind.hpp"
 #include "components/ui/associated_menu.hpp"

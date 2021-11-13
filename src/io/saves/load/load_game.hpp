@@ -2,7 +2,7 @@
 
 #include <string>  // string
 
-#include <entt.hpp>  // registry
+#include <entt/entt.hpp>  // registry
 
 #include "core/graphics/graphics_context.hpp"
 

@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-src CXX)
 
+find_package(EnTT CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+
 set(SOURCE_FILES
     game.cpp
     game.hpp
@@ -287,33 +292,24 @@ target_include_directories(${WANDERER_LIB}
     ${PROJECT_SOURCE_DIR}
 
     SYSTEM PUBLIC
-    ${SDL2_INCLUDE_DIR}
-    ${SDL2_IMAGE_INCLUDE_DIRS}
-    ${SDL2_MIXER_INCLUDE_DIRS}
-    ${SDL2_TTF_INCLUDE_DIRS}
-    ${JSON_INCLUDE_DIRS}
-    ${CENTURION_INCLUDE_DIRS}
-    ${PROTOBUF_INCLUDE_DIRS}
-    ${GENERATED_PROTOBUF_DIR}
-    ${LIBRARY_DIR}/entt
-    ${LIBRARY_DIR}/cereal
+    ${LIBRARY_DIR}/centurion
     ${LIBRARY_DIR}/rune
     ${LIBRARY_DIR}/init
     ${LIBRARY_DIR}/nenya
-    ${LIBRARY_DIR}/glm
-    ${LIBRARY_DIR}/magic-enum
     ${LIBRARY_DIR}/tactile/tactile-base/include
     ${LIBRARY_DIR}/tactile/tactile-io/include
     )
 
 target_link_libraries(${WANDERER_LIB} PUBLIC
+    SDL2::SDL2
+    SDL2::SDL2_image
+    SDL2::SDL2_mixer
+    SDL2::SDL2_ttf
+    EnTT::EnTT
+    glm::glm
+    fmt::fmt
+    magic_enum::magic_enum
     ${WANDERER_PROTO}
-    ${CENTURION_LIBRARIES}
-    ${PROTOBUF_LIBRARIES}
-    ${SDL2_IMAGE_LIBRARIES}
-    ${SDL2_MIXER_LIBRARIES}
-    ${SDL2_TTF_LIBRARIES}
-    ${SDL2_LIBRARY}
     ${BINARY_DIR}/TactileIO.lib
     )
 
@@ -329,13 +325,12 @@ if (MSVC)
 endif ()
 
 target_precompile_headers(${WANDERER_LIB} PRIVATE
-    <entt.hpp>
     <centurion.hpp>
-    <json.hpp>
+    <entt/entt.hpp>
+    <glm/glm.hpp>
     <nenya.hpp>
     <init/ini.hpp>
     <rune/rune.hpp>
-    <glm/glm.hpp>
     )
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
@@ -346,7 +341,11 @@ endif ()
 
 add_dependencies(${WANDERER_EXE} ${WANDERER_LIB})
 
-target_link_libraries(${WANDERER_EXE} PUBLIC ${WANDERER_LIB})
+target_link_libraries(${WANDERER_EXE} PUBLIC
+    ${WANDERER_LIB}
+    SDL2::SDL2main
+    )
+
 target_precompile_headers(${WANDERER_EXE} REUSE_FROM ${WANDERER_LIB})
 
 if (WIN32)

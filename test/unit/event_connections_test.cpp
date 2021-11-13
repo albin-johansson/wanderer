@@ -1,8 +1,7 @@
 #include "core/ecs/event_connections.hpp"
 
+#include <entt/entt.hpp>
 #include <gtest/gtest.h>
-
-#include <entt.hpp>
 
 #include "events/humanoid_events.hpp"
 #include "events/interact_event.hpp"

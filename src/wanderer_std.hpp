@@ -8,7 +8,7 @@
 #include <optional>    // optional
 #include <ratio>       // milli
 
-#include <entt.hpp>       // entity
+#include <entt/entt.hpp>  // entity
 #include <glm/glm.hpp>    // float32, float64, vec2, vec3
 #include <rune/rune.hpp>  // aabb_tree
 

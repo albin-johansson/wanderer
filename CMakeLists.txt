@@ -24,19 +24,10 @@ set(WANDERER_EXE Wanderer)
 
 include(Utilities)
 
-if (WIN32)
-  find_env_var(SDL2DIR SDL2)
-  find_env_var(SDL2IMAGEDIR SDL2_image)
-  find_env_var(SDL2MIXERDIR SDL2_mixer)
-  find_env_var(SDL2TTFDIR SDL2_ttf)
-endif ()
-
-include(Dependencies)
-
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_mixer REQUIRED)
-find_package(SDL2_ttf REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2-image CONFIG REQUIRED)
+find_package(SDL2-mixer CONFIG REQUIRED)
+find_package(SDL2-ttf CONFIG REQUIRED)
 
 add_subdirectory(proto)
 add_subdirectory(src)

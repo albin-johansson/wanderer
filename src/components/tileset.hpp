@@ -2,7 +2,7 @@
 
 #include <unordered_map>  // unordered_map
 
-#include <entt.hpp>  // entity
+#include <entt/entt.hpp>  // entity
 
 #include "tile.hpp"
 #include "wanderer_std.hpp"

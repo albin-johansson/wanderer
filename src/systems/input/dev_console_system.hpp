@@ -3,7 +3,7 @@
 #include <string>  // string
 
 #include <centurion.hpp>  // keyboard_event, text_input_event
-#include <entt.hpp>       // registry, dispatcher
+#include <entt/entt.hpp>  // registry, dispatcher
 
 #include "core/day_of_week.hpp"
 #include "wanderer_std.hpp"

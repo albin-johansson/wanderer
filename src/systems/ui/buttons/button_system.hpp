@@ -3,7 +3,7 @@
 #include <algorithm>  // any_of
 
 #include <centurion.hpp>  // mouse, renderer
-#include <entt.hpp>       // registry, dispatcher
+#include <entt/entt.hpp>  // registry, dispatcher
 
 #include "components/ui/button.hpp"
 #include "core/common_concepts.hpp"

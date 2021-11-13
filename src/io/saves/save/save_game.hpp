@@ -3,7 +3,7 @@
 #include <string>  // string
 
 #include <centurion.hpp>  // surface
-#include <entt.hpp>       // registry
+#include <entt/entt.hpp>  // registry
 
 namespace wanderer {
 

@@ -3,7 +3,7 @@
 #include <string>  // string
 
 #include <centurion.hpp>  // texture, fpoint
-#include <entt.hpp>       // entity, null
+#include <entt/entt.hpp>  // entity, null
 
 #include "components/key_bind.hpp"
 #include "core/menu_id.hpp"

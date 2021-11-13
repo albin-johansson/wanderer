@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // iarea, farea, color
-#include <entt.hpp>       // hashed_string, id_type
+#include <entt/entt.hpp>  // hashed_string, id_type
 
 #include "wanderer_std.hpp"
 

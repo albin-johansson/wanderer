@@ -4,7 +4,7 @@
 #include <concepts>  // convertible_to
 #include <utility>   // pair
 
-#include <entt.hpp>  // registry, entity
+#include <entt/entt.hpp>  // registry, entity
 
 #include "core/common_concepts.hpp"
 

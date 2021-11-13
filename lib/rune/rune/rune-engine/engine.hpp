@@ -8,7 +8,7 @@
 #include <vector>     // vector
 
 #include <centurion.hpp>  // window, event, counter, screen, keyboard, mouse
-#include <entt.hpp>       // registry, dispatcher, delegate
+#include <entt/entt.hpp>       // registry, dispatcher, delegate
 
 #include "configuration.hpp"
 
@@ -24,8 +24,7 @@ class engine final
   using delta_type = float;
 
   explicit engine(const configuration& cfg = {})
-      : mWindow{cfg.window_title, cfg.window_size}
-      , mRate{std::min(
+      : mRate{std::min(
             cfg.max_tick_rate,
             static_cast<seconds_type::rep>(cen::screen::refresh_rate().value()))}
       , mMaxFramesPerTick{std::max(cfg.max_frames_per_tick, 1)}
@@ -44,7 +43,6 @@ class engine final
    */
   auto run() -> int
   {
-    mWindow.show();
     mCurrent = cen::counter::now_in_seconds<seconds_type::rep>();
 
     if (mOnStart) {
@@ -60,7 +58,6 @@ class engine final
       mOnExit();
     }
 
-    mWindow.hide();
     return 0;
   }
 
@@ -213,22 +210,11 @@ class engine final
     return mMouse;
   }
 
-  [[nodiscard]] auto window() noexcept -> cen::window&
-  {
-    return mWindow;
-  }
-
-  [[nodiscard]] auto window() const noexcept -> const cen::window&
-  {
-    return mWindow;
-  }
-
  private:
   using input_func = entt::delegate<void(entt::registry&, entt::dispatcher&)>;
   using logic_func = entt::delegate<void(entt::registry&, entt::dispatcher&, delta_type)>;
   using render_func = entt::delegate<void(entt::registry&)>;
 
-  cen::window mWindow;
   cen::keyboard mKeyboard;
   cen::mouse mMouse;
 
@@ -277,7 +263,8 @@ class engine final
 
   auto update_input() -> bool
   {
-    if (auto renderer = cen::get_renderer(mWindow)) {
+    const auto window = cen::get_window(1);
+    if (auto renderer = cen::get_renderer(window)) {
       mMouse.update(renderer.output_size());
     }
     else {

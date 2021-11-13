@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // ipoint
-#include <entt.hpp>       // registry
+#include <entt/entt.hpp>  // registry
 
 namespace wanderer::sys {
 

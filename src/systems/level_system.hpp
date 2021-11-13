@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/level.hpp"
 #include "events/custom_animation_halfway_event.hpp"

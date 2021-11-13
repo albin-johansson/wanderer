@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // farea
-#include <entt.hpp>       // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/viewport.hpp"
 #include "wanderer_std.hpp"

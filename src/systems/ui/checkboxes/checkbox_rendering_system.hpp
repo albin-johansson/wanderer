@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt/entt.hpp>  // registry
 
 #include "components/ui/checkbox.hpp"
 #include "core/graphics/graphics_context.hpp"
