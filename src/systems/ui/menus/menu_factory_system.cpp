@@ -148,8 +148,7 @@ auto MakeInGameMenu(entt::registry& registry) -> entt::entity
 
 auto MakeDevConsoleMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity =
-      MakeMenu(registry, "Developer Console", MenuId::DevConsole, true, false);
+  const auto entity = MakeMenu(registry, std::string{}, MenuId::DevConsole, false, false);
   registry.set<DevConsoleMenu>(entity);
 
   AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoInGame});
