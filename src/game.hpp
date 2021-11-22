@@ -51,8 +51,9 @@ class Game final
 
  private:
   CenDispatcher mCenDispatcher;
-  rune::engine mEngine;
+  cen::window mWindow;
   GraphicsContext mGraphics;
+  rune::engine mEngine;
   cen::ipoint mMousePos;  // TODO remove
   mutable bool mUpdateSnapshot{};
   bool mQuit{};

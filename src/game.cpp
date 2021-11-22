@@ -50,8 +50,9 @@
 namespace wanderer {
 
 Game::Game()
-    : mEngine{rune::configuration{.window_title = "Wanderer", .max_tick_rate = 240}}
-    , mGraphics{mEngine.window()}
+    : mWindow{"Wanderer"}
+    , mGraphics{mWindow}
+    , mEngine{rune::configuration{.max_tick_rate = 240}}
 {
   mCenDispatcher.bind<cen::quit_event>().to<&Game::OnWindowClose>(this);
   mCenDispatcher.bind<cen::keyboard_event>().to<&Game::OnKeyboardEvent>(this);
@@ -88,7 +89,10 @@ Game::Game()
 
 auto Game::Run() -> int
 {
-  return mEngine.run();
+  mWindow.show();
+  mEngine.run();
+  mWindow.hide();
+  return 0;
 }
 
 void Game::OnStart()
@@ -343,18 +347,16 @@ void Game::OnTextInputEvent(const cen::text_input_event& event)
 
 void Game::OnFullscreenToggled(const FullscreenToggledEvent& event)
 {
-  auto& window = mEngine.window();
-
   // TODO make it possible to specify whether to use real fullscreen or fullscreen
   // desktop
   if (event.enabled) {
-    window.set_size(cen::screen::size().value());
-    window.set_fullscreen_desktop(true);
+    mWindow.set_size(cen::screen::size().value());
+    mWindow.set_fullscreen_desktop(true);
   }
   else {
-    window.set_fullscreen_desktop(false);
-    window.set_width(cen::screen::width().value() / 2);
-    window.set_height(cen::screen::height().value() / 2);
+    mWindow.set_fullscreen_desktop(false);
+    mWindow.set_width(cen::screen::width().value() / 2);
+    mWindow.set_height(cen::screen::height().value() / 2);
   }
 }
 
