@@ -12,6 +12,6 @@ void SaveGame(const std::string& name,
               const entt::registry& shared,
               const cen::surface& snapshot);
 
-void create_exit_save(const entt::registry& shared, const cen::surface& snapshot);
+void CreateExitSave(const entt::registry& shared, const cen::surface& snapshot);
 
 }  // namespace wanderer

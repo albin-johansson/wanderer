@@ -47,7 +47,7 @@ void SaveGame(const std::string& name,
   SaveCommon(shared, dir, snapshot);
 }
 
-void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
+void CreateExitSave(const entt::registry& shared, const cen::surface& snapshot)
 {
   SaveCommon(shared, GetSavesDirectory() / "exit_save", snapshot);
 }

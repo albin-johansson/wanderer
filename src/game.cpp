@@ -463,7 +463,7 @@ void Game::OnQuit()
 {
   auto& shared = mEngine.registry();
   if (const auto* snapshot = shared.try_ctx<ctx::RendererSnapshot>()) {
-    create_exit_save(shared, snapshot->surface);
+    CreateExitSave(shared, snapshot->surface);
   }
 
   mQuit = true;
