@@ -13,6 +13,8 @@
     "glm",
     "fmt",
     "magic-enum",
+    "boost-assert",
+    "boost-stacktrace",
     "gtest"
   ]
 }
