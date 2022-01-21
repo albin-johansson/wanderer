@@ -13,7 +13,7 @@ set(TEST_FILES
 add_executable(${TARGET_WANDERER_TEST} ${TEST_FILES})
 add_dependencies(${TARGET_WANDERER_TEST} ${TARGET_WANDERER_LIB})
 
-#target_precompile_headers(${TARGET_WANDERER_TEST} REUSE_FROM ${TARGET_WANDERER_LIB})
+target_precompile_headers(${TARGET_WANDERER_TEST} REUSE_FROM ${TARGET_WANDERER_LIB})
 
 target_include_directories(${TARGET_WANDERER_TEST} PUBLIC unit-tests)
 

@@ -57,11 +57,11 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU|AppleClang")
                          )
 endif ()
 
-#target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
-#                          <centurion.hpp>
-#                          <entt/entt.hpp>
-#                          <glm/glm.hpp>
-#                          )
+target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
+                          <centurion.hpp>
+                          <entt/entt.hpp>
+                          <glm/glm.hpp>
+                          )
 
 add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
@@ -71,6 +71,6 @@ target_link_libraries(${TARGET_WANDERER_EXE} PRIVATE
                       SDL2::SDL2main
                       )
 
-#target_precompile_headers(${TARGET_WANDERER_EXE} REUSE_FROM ${TARGET_WANDERER_LIB})
+target_precompile_headers(${TARGET_WANDERER_EXE} REUSE_FROM ${TARGET_WANDERER_LIB})
 
 copy_directory_post_build(${TARGET_WANDERER_EXE} ${WANDERER_RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resources")
