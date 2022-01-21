@@ -7,27 +7,24 @@ find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
 set(TEST_FILES
-    unit/test_main.cpp
+    unit-tests/test_main.cpp
     )
 
-add_executable(${WANDERER_TEST} ${TEST_FILES})
-add_dependencies(${WANDERER_TEST} ${WANDERER_LIB})
+add_executable(${TARGET_WANDERER_TEST} ${TEST_FILES})
+add_dependencies(${TARGET_WANDERER_TEST} ${TARGET_WANDERER_LIB})
 
-target_precompile_headers(${WANDERER_TEST} REUSE_FROM ${WANDERER_LIB})
+#target_precompile_headers(${TARGET_WANDERER_TEST} REUSE_FROM ${TARGET_WANDERER_LIB})
 
-target_include_directories(${WANDERER_TEST} PUBLIC unit)
+target_include_directories(${TARGET_WANDERER_TEST} PUBLIC unit-tests)
 
-target_link_libraries(${WANDERER_TEST} PUBLIC
-    ${WANDERER_LIB}
-    SDL2::SDL2main
-    GTest::gtest
-    )
+target_link_libraries(${TARGET_WANDERER_TEST}
+                      PRIVATE
+                      ${TARGET_WANDERER_LIB}
+                      SDL2::SDL2main
+                      GTest::gtest
+                      )
 
-add_test(NAME ${WANDERER_TEST} COMMAND ${WANDERER_TEST})
+add_test(NAME ${TARGET_WANDERER_TEST} COMMAND ${TARGET_WANDERER_TEST})
 
-if (WIN32)
-  copy_directory_post_build(${WANDERER_TEST} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-endif ()
-
-copy_directory_post_build(${WANDERER_TEST} ${CMAKE_CURRENT_SOURCE_DIR}/test-resources "${CMAKE_CURRENT_BINARY_DIR}/test-resources")
-copy_directory_post_build(${WANDERER_TEST} ${RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resources")
+copy_directory_post_build(${TARGET_WANDERER_TEST} "${CMAKE_CURRENT_SOURCE_DIR}/test-resources" "${CMAKE_CURRENT_BINARY_DIR}/test-resources")
+copy_directory_post_build(${TARGET_WANDERER_TEST} ${WANDERER_RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resources")

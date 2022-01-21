@@ -14,11 +14,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Helper variables for directory paths
-set(ROOT_DIR "${PROJECT_SOURCE_DIR}")
-set(BINARY_DIR "${ROOT_DIR}/bin")
-set(RESOURCE_DIR "${ROOT_DIR}/resources")
-set(LIBRARY_DIR "${ROOT_DIR}/lib")
-set(GENERATED_PROTOBUF_DIR "${ROOT_DIR}/proto/generated")
+set(WANDERER_ROOT_DIR "${PROJECT_SOURCE_DIR}")
+set(WANDERER_RESOURCE_DIR "${PROJECT_SOURCE_DIR}/resources")
+set(WANDERER_LIBRARY_DIR "${PROJECT_SOURCE_DIR}/lib")
 
 set(TARGET_WANDERER_PROTO WandererProto)
 set(TARGET_WANDERER_LIB WandererCore)
@@ -37,6 +35,8 @@ find_package(glm CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 
+find_package(Boost REQUIRED)
+
 add_subdirectory(proto)
-add_subdirectory(src)
+add_subdirectory(source)
 add_subdirectory(test)
