@@ -7,11 +7,6 @@ find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
 set(TEST_FILES
-    unit/dev_console_system_test.cpp
-    unit/event_connections_test.cpp
-    unit/hitbox_test.cpp
-    unit/humanoid_state_test.cpp
-    unit/load_save_game_test.cpp
     unit/test_main.cpp
     )
 
