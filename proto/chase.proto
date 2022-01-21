@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message Chase {
-  optional uint32 target_entity = 1;
-  optional float range = 2;
-  optional bool is_active = 3;
-}

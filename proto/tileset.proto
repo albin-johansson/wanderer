@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message Tileset {
-  map<int32, uint32> tile_to_entity = 1;
-}

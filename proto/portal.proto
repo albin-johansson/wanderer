@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message Portal {
-  optional int32 map_id = 1;
-  optional string path = 2;
-}

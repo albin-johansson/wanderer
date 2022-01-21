@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-src CXX)
 
-find_package(EnTT CONFIG REQUIRED)
-find_package(fmt CONFIG REQUIRED)
-find_package(magic_enum CONFIG REQUIRED)
-find_package(glm CONFIG REQUIRED)
-
 set(SOURCE_FILES
     profile.hpp
     )

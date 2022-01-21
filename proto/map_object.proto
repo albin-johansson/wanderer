@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message MapObject {
-  optional int32 id = 1;
-}

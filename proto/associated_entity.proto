@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message AssociatedEntity {
-  optional uint32 entity = 1;
-}

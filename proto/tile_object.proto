@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package wanderer.proto;
-
-message TileObject {
-  optional uint32 tile_entity = 1;
-}

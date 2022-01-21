@@ -20,11 +20,10 @@ set(RESOURCE_DIR "${ROOT_DIR}/resources")
 set(LIBRARY_DIR "${ROOT_DIR}/lib")
 set(GENERATED_PROTOBUF_DIR "${ROOT_DIR}/proto/generated")
 
-# The various targets used
-set(WANDERER_PROTO WandererProto)
-set(WANDERER_LIB WandererCore)
-set(WANDERER_TEST WandererTests)
-set(WANDERER_EXE Wanderer)
+set(TARGET_WANDERER_PROTO WandererProto)
+set(TARGET_WANDERER_LIB WandererCore)
+set(TARGET_WANDERER_TEST WandererTests)
+set(TARGET_WANDERER_EXE Wanderer)
 
 include(Utilities)
 
@@ -32,6 +31,11 @@ find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2-image CONFIG REQUIRED)
 find_package(SDL2-mixer CONFIG REQUIRED)
 find_package(SDL2-ttf CONFIG REQUIRED)
+find_package(Protobuf CONFIG REQUIRED)
+find_package(EnTT CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
 
 add_subdirectory(proto)
 add_subdirectory(src)
