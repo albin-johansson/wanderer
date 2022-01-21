@@ -39,7 +39,4 @@ add_library(${WANDERER_PROTO} ${PROTO_HEADERS} ${PROTO_SOURCES})
 
 target_include_directories(${WANDERER_PROTO} SYSTEM PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(${WANDERER_PROTO} PUBLIC
-    protobuf::libprotobuf
-    protobuf::libprotobuf-lite
-    )
+target_link_libraries(${WANDERER_PROTO} PUBLIC protobuf::libprotobuf)
