@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package wanderer.proto;
+
+message float3 {
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
+}
