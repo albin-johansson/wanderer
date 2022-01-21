@@ -1,11 +1,9 @@
-#ifndef CENTURION_HAPTIC_PERIODIC_HEADER
-#define CENTURION_HAPTIC_PERIODIC_HEADER
+#ifndef CENTURION_INPUT_HAPTIC_PERIODIC_HPP_
+#define CENTURION_INPUT_HAPTIC_PERIODIC_HPP_
 
 #include <SDL.h>
 
-#include "../core/integers.hpp"
-#include "../core/time.hpp"
-#include "../core/to_underlying.hpp"
+#include "../common.hpp"
 #include "haptic_effect.hpp"
 
 namespace cen {
@@ -24,8 +22,7 @@ namespace cen {
  *
  * \since 5.2.0
  */
-class haptic_periodic final : public haptic_effect<haptic_periodic>
-{
+class haptic_periodic final : public haptic_effect<haptic_periodic> {
  public:
   inline constexpr static bool hasDirection = true;
   inline constexpr static bool hasEnvelope = true;
@@ -40,8 +37,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  enum periodic_type : u16
-  {
+  enum periodic_type : uint16 {
     sine = SDL_HAPTIC_SINE,
     left_right = SDL_HAPTIC_LEFTRIGHT,
     triangle = SDL_HAPTIC_TRIANGLE,
@@ -79,7 +75,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  void set_period(const milliseconds<u16> period) noexcept(noexcept(period.count()))
+  void set_period(const u16ms period) noexcept(noexcept(period.count()))
   {
     representation().period = period.count();
   }
@@ -94,7 +90,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  void set_magnitude(const i16 magnitude) noexcept
+  void set_magnitude(const int16 magnitude) noexcept
   {
     representation().magnitude = magnitude;
   }
@@ -106,10 +102,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  void set_mean(const i16 mean) noexcept
-  {
-    representation().offset = mean;
-  }
+  void set_mean(const int16 mean) noexcept { representation().offset = mean; }
 
   /**
    * \brief Sets the phase shift.
@@ -118,10 +111,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  void set_phase_shift(const u16 shift) noexcept
-  {
-    representation().phase = shift;
-  }
+  void set_phase_shift(const uint16 shift) noexcept { representation().phase = shift; }
 
   /**
    * \brief Returns the current period of the wave.
@@ -130,10 +120,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto period() const -> milliseconds<u16>
-  {
-    return milliseconds<u16>{representation().period};
-  }
+  [[nodiscard]] auto period() const -> u16ms { return u16ms{representation().period}; }
 
   /**
    * \brief Returns the current magnitude (peak value) of the wave.
@@ -142,10 +129,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto magnitude() const noexcept -> i16
-  {
-    return representation().magnitude;
-  }
+  [[nodiscard]] auto magnitude() const noexcept -> int16 { return representation().magnitude; }
 
   /**
    * \brief Returns the current mean value of the wave.
@@ -154,10 +138,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto mean() const noexcept -> i16
-  {
-    return representation().offset;
-  }
+  [[nodiscard]] auto mean() const noexcept -> int16 { return representation().offset; }
 
   /**
    * \brief Returns the current positive phase shift of the wave.
@@ -166,10 +147,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto phase_shift() const noexcept -> u16
-  {
-    return representation().phase;
-  }
+  [[nodiscard]] auto phase_shift() const noexcept -> uint16 { return representation().phase; }
 
   /**
    * \brief Returns the internal representation.
@@ -194,4 +172,4 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
 
 }  // namespace cen
 
-#endif  // CENTURION_HAPTIC_PERIODIC_HEADER
+#endif  // CENTURION_INPUT_HAPTIC_PERIODIC_HPP_

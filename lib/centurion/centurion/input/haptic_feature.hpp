@@ -1,13 +1,12 @@
-#ifndef CENTURION_HAPTIC_FEATURE_HEADER
-#define CENTURION_HAPTIC_FEATURE_HEADER
+#ifndef CENTURION_INPUT_HAPTIC_FEATURE_HPP_
+#define CENTURION_INPUT_HAPTIC_FEATURE_HPP_
 
 #include <SDL.h>
 
 #include <ostream>      // ostream
 #include <string_view>  // string_view
 
-#include "../core/exception.hpp"
-#include "../core/integers.hpp"
+#include "../common.hpp"
 
 namespace cen {
 
@@ -21,8 +20,7 @@ namespace cen {
  *
  * \since 5.2.0
  */
-enum class haptic_feature : uint
-{
+enum class haptic_feature : uint {
   constant = SDL_HAPTIC_CONSTANT,
   sine = SDL_HAPTIC_SINE,
   left_right = SDL_HAPTIC_LEFTRIGHT,
@@ -48,17 +46,17 @@ enum class haptic_feature : uint
  * \brief Returns a textual version of the supplied haptic feature.
  *
  * \details This function returns a string that mirrors the name of the enumerator, e.g.
- * `to_string(haptic_feature::spring) == "spring"`.
+ * `ToString(haptic_feature::spring) == "spring"`.
  *
  * \param feature the enumerator that will be converted.
  *
  * \return a string that mirrors the name of the enumerator.
  *
- * \throws cen_error if the enumerator is not recognized.
+ * \throws exception if the enumerator is not recognized.
  *
  * \since 6.2.0
  */
-[[nodiscard]] constexpr auto to_string(const haptic_feature feature) -> std::string_view
+[[nodiscard]] constexpr auto ToString(const haptic_feature feature) -> std::string_view
 {
   switch (feature) {
     case haptic_feature::constant:
@@ -110,7 +108,7 @@ enum class haptic_feature : uint
       return "pause";
 
     default:
-      throw cen_error{"Did not recognize haptic feature!"};
+      throw exception{"Did not recognize haptic feature!"};
   }
 }
 
@@ -125,7 +123,7 @@ enum class haptic_feature : uint
  * \param stream the output stream that will be used.
  * \param feature the enumerator that will be printed.
  *
- * \see `to_string(haptic_feature)`
+ * \see `ToString(haptic_feature)`
  *
  * \return the used stream.
  *
@@ -133,7 +131,7 @@ enum class haptic_feature : uint
  */
 inline auto operator<<(std::ostream& stream, const haptic_feature feature) -> std::ostream&
 {
-  return stream << to_string(feature);
+  return stream << ToString(feature);
 }
 
 /// \} End of streaming
@@ -142,4 +140,4 @@ inline auto operator<<(std::ostream& stream, const haptic_feature feature) -> st
 
 }  // namespace cen
 
-#endif  // CENTURION_HAPTIC_FEATURE_HEADER
+#endif  // CENTURION_INPUT_HAPTIC_FEATURE_HPP_

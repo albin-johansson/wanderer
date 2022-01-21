@@ -1,5 +1,5 @@
-#ifndef CENTURION_HAPTIC_HEADER
-#define CENTURION_HAPTIC_HEADER
+#ifndef CENTURION_INPUT_HAPTIC_HPP_
+#define CENTURION_INPUT_HAPTIC_HPP_
 
 #include <SDL.h>
 
@@ -8,7 +8,14 @@
 #include <ostream>   // ostream
 #include <string>    // string
 
-#include "../compiler/features.hpp"
+#include "../common.hpp"
+#include "../detail/owner_handle_api.hpp"
+#include "../detail/stdlib.hpp"
+#include "../features.hpp"
+#include "../joystick.hpp"
+#include "../math.hpp"
+#include "haptic_effect.hpp"
+#include "haptic_feature.hpp"
 
 #if CENTURION_HAS_FEATURE_FORMAT
 
@@ -16,25 +23,16 @@
 
 #endif  // CENTURION_HAS_FEATURE_FORMAT
 
-#include "../core/exception.hpp"
-#include "../core/integers.hpp"
-#include "../core/owner.hpp"
-#include "../core/result.hpp"
-#include "../core/str.hpp"
-#include "../core/str_or_na.hpp"
-#include "../core/time.hpp"
-#include "../core/to_underlying.hpp"
-#include "../detail/address_of.hpp"
-#include "../detail/clamp.hpp"
-#include "../detail/owner_handle_api.hpp"
-#include "../math/vector3.hpp"
-#include "haptic_effect.hpp"
-#include "haptic_feature.hpp"
-#include "joystick.hpp"
-
 namespace cen {
 
-/// \addtogroup input
+/**
+ * \ingroup input
+ * \defgroup haptic Haptic
+ *
+ * \brief Provides the force feedback API.
+ */
+
+/// \addtogroup haptic
 /// \{
 
 template <typename B>
@@ -47,7 +45,7 @@ class basic_haptic;
  *
  * \since 5.2.0
  */
-using haptic = basic_haptic<detail::owning_type>;
+using haptic = basic_haptic<detail::owner_tag>;
 
 /**
  * \typedef haptic_handle
@@ -56,7 +54,7 @@ using haptic = basic_haptic<detail::owning_type>;
  *
  * \since 5.2.0
  */
-using haptic_handle = basic_haptic<detail::handle_type>;
+using haptic_handle = basic_haptic<detail::handle_tag>;
 
 /**
  * \class basic_haptic
@@ -71,8 +69,7 @@ using haptic_handle = basic_haptic<detail::handle_type>;
  * \since 5.2.0
  */
 template <typename T>
-class basic_haptic final
-{
+class basic_haptic final {
  public:
   using effect_id = int;
 
@@ -87,16 +84,16 @@ class basic_haptic final
    *
    * \param haptic a pointer to the haptic device data.
    *
-   * \throws cen_error if the supplied pointer is null and the class has owning semantics.
+   * \throws exception if the supplied pointer is null and the class has owning semantics.
    *
    * \since 5.2.0
    */
-  explicit basic_haptic(maybe_owner<SDL_Haptic*> haptic) noexcept(!detail::is_owning<T>())
+  explicit basic_haptic(maybe_owner<SDL_Haptic*> haptic) noexcept(detail::is_handle<T>)
       : m_haptic{haptic}
   {
-    if constexpr (detail::is_owning<T>()) {
+    if constexpr (detail::is_owner<T>) {
       if (!m_haptic) {
-        throw cen_error{"Null haptic pointer!"};
+        throw exception{"Null haptic pointer!"};
       }
     }
   }
@@ -112,7 +109,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = 0>
+  template <typename TT = T, detail::enable_for_owner<TT> = 0>
   explicit basic_haptic(const int index = 0) : m_haptic{SDL_HapticOpen(index)}
   {
     if (!m_haptic) {
@@ -127,7 +124,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = 0>
+  template <typename TT = T, detail::enable_for_handle<TT> = 0>
   explicit basic_haptic(const haptic& owner) noexcept : m_haptic{owner.get()}
   {}
 
@@ -144,7 +141,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename U, typename TT = T, detail::is_owner<TT> = 0>
+  template <typename U, typename TT = T, detail::enable_for_owner<TT> = 0>
   [[nodiscard]] static auto from_joystick(const basic_joystick<U>& joystick) -> basic_haptic
   {
     if (auto* ptr = SDL_HapticOpenFromJoystick(joystick.get())) {
@@ -166,7 +163,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = 0>
+  template <typename TT = T, detail::enable_for_owner<TT> = 0>
   [[nodiscard]] static auto from_mouse() -> basic_haptic
   {
     if (auto* ptr = SDL_HapticOpenFromMouse()) {
@@ -190,10 +187,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  auto init_rumble() noexcept -> result
-  {
-    return SDL_HapticRumbleInit(m_haptic) == 0;
-  }
+  auto init_rumble() noexcept -> result { return SDL_HapticRumbleInit(m_haptic) == 0; }
 
   /**
    * \brief Plays a rumble effect.
@@ -208,8 +202,7 @@ class basic_haptic final
    * \since 5.2.0
    */
   auto play_rumble(const float strength,
-                   const milliseconds<u32> duration) noexcept(noexcept(duration.count()))
-      -> result
+                   const u32ms duration) noexcept(noexcept(duration.count())) -> result
   {
     return SDL_HapticRumblePlay(m_haptic,
                                 detail::clamp(strength, 0.0f, 1.0f),
@@ -223,10 +216,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  auto stop_rumble() noexcept -> result
-  {
-    return SDL_HapticRumbleStop(m_haptic) == 0;
-  }
+  auto stop_rumble() noexcept -> result { return SDL_HapticRumbleStop(m_haptic) == 0; }
 
   /**
    * \brief Indicates whether or not rumble playback is supported.
@@ -270,10 +260,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  auto unpause() noexcept -> result
-  {
-    return SDL_HapticUnpause(m_haptic) == 0;
-  }
+  auto unpause() noexcept -> result { return SDL_HapticUnpause(m_haptic) == 0; }
 
   /**
    * \brief Uploads an effect to the device.
@@ -334,7 +321,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  auto run(const effect_id id, const u32 iterations = 1) noexcept -> result
+  auto run(const effect_id id, const uint32 iterations = 1) noexcept -> result
   {
     return SDL_HapticRunEffect(m_haptic, id, iterations) == 0;
   }
@@ -360,10 +347,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  auto stop_all() noexcept -> result
-  {
-    return SDL_HapticStopAll(m_haptic) == 0;
-  }
+  auto stop_all() noexcept -> result { return SDL_HapticStopAll(m_haptic) == 0; }
 
   /**
    * \brief Destroys the effect associated with the specified ID.
@@ -377,10 +361,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  void destroy(const effect_id id) noexcept
-  {
-    SDL_HapticDestroyEffect(m_haptic, id);
-  }
+  void destroy(const effect_id id) noexcept { SDL_HapticDestroyEffect(m_haptic, id); }
 
   /**
    * \brief Sets the gain the is used.
@@ -731,7 +712,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto name() const noexcept -> str
+  [[nodiscard]] auto name() const noexcept -> const char*
   {
     if (const auto i = index()) {
       return SDL_HapticName(*i);
@@ -791,10 +772,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto axis_count() const noexcept -> int
-  {
-    return SDL_HapticNumAxes(m_haptic);
-  }
+  [[nodiscard]] auto axis_count() const noexcept -> int { return SDL_HapticNumAxes(m_haptic); }
 
   /// \} End of device information
 
@@ -805,10 +783,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  [[nodiscard]] static auto count() noexcept -> int
-  {
-    return SDL_NumHaptics();
-  }
+  [[nodiscard]] static auto count() noexcept -> int { return SDL_NumHaptics(); }
 
   /**
    * \brief Indicates whether or not a joystick has haptic capabilities.
@@ -833,10 +808,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  [[nodiscard]] static auto is_mouse_haptic() noexcept -> bool
-  {
-    return SDL_MouseIsHaptic();
-  }
+  [[nodiscard]] static auto is_mouse_haptic() noexcept -> bool { return SDL_MouseIsHaptic(); }
 
   /**
    * \brief Indicates whether or not a haptic device at a specified index has
@@ -860,7 +832,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = 0>
+  template <typename TT = T, detail::enable_for_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_haptic != nullptr;
@@ -875,20 +847,10 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto get() const noexcept -> SDL_Haptic*
-  {
-    return m_haptic.get();
-  }
+  [[nodiscard]] auto get() const noexcept -> SDL_Haptic* { return m_haptic.get(); }
 
  private:
-  struct deleter final
-  {
-    void operator()(SDL_Haptic* haptic) noexcept
-    {
-      SDL_HapticClose(haptic);
-    }
-  };
-  detail::pointer_manager<T, SDL_Haptic, deleter> m_haptic;
+  detail::pointer<T, SDL_Haptic> m_haptic;
 
   /**
    * \brief Indicates whether or not the haptic device supports the specified features.
@@ -940,7 +902,7 @@ class basic_haptic final
  * \since 5.2.0
  */
 template <typename T>
-[[nodiscard]] auto to_string(const basic_haptic<T>& haptic) -> std::string
+[[nodiscard]] auto ToString(const basic_haptic<T>& haptic) -> std::string
 {
 #if CENTURION_HAS_FEATURE_FORMAT
   return std::format("haptic{{data: {}, name: {}}}",
@@ -970,13 +932,13 @@ template <typename T>
 template <typename T>
 auto operator<<(std::ostream& stream, const basic_haptic<T>& haptic) -> std::ostream&
 {
-  return stream << to_string(haptic);
+  return stream << ToString(haptic);
 }
 
 /// \} End of streaming
 
-/// \} End of input group
+/// \} End of input haptic
 
 }  // namespace cen
 
-#endif  // CENTURION_HAPTIC_HEADER
+#endif  // CENTURION_INPUT_HAPTIC_HPP_
