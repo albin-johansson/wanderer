@@ -4,23 +4,15 @@
   "version-semver": "0.1.0",
   "builtin-baseline": "70033dbb31527fb3e69654731f540f59c87787f9",
   "dependencies": [
-    {
-      "name": "sdl2",
-      "version>=": "2.0.16"
-    },
-    {
-      "name": "sdl2-image",
-      "features": [
-        "libjpeg-turbo"
-      ]
-    },
+    "sdl2",
+    "sdl2-image",
     "sdl2-ttf",
     "sdl2-mixer",
+    "protobuf",
     "entt",
+    "glm",
     "fmt",
     "magic-enum",
-    "protobuf",
-    "glm",
     "gtest"
   ]
 }
