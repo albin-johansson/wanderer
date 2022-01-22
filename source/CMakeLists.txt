@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-source CXX)
 
 set(SOURCE_FILES
+    build.hpp
+    common.hpp
+    constants.hpp
+    exception.hpp
     logging.cpp
     logging.hpp
     profile.hpp
