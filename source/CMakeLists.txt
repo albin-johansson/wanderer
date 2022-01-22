@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-source CXX)
 
 set(SOURCE_FILES
+    assert.cpp
+    assert.hpp
     build.hpp
     common.hpp
     constants.hpp
@@ -18,10 +20,11 @@ set(SOURCE_FILES
     )
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
+
 add_dependencies(${TARGET_WANDERER_LIB} ${TARGET_WANDERER_PROTO})
 
 target_include_directories(${TARGET_WANDERER_LIB}
-                           PRIVATE
+                           PUBLIC
                            ${PROJECT_SOURCE_DIR}
 
                            SYSTEM PUBLIC
