@@ -63,7 +63,8 @@ target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
                           <glm/glm.hpp>
                           )
 
-add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
+add_executable(${TARGET_WANDERER_EXE} WIN32 ${SOURCE_FILES} main.cpp)
+
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
 
 target_link_libraries(${TARGET_WANDERER_EXE} PRIVATE
