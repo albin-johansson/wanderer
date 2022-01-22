@@ -43,6 +43,7 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       glm::glm
                       fmt::fmt
                       magic_enum::magic_enum
+                      yaml-cpp
                       ${Boost_LIBRARIES}
                       )
 
