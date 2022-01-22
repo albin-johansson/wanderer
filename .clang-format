@@ -1,66 +1,83 @@
----
 BasedOnStyle: Google
-IndentWidth: 2
----
+
 Language: Cpp
 Standard: c++20
 
 ColumnLimit: 90
+IndentWidth: 2
 
 DerivePointerAlignment: false
 PointerAlignment: Left
 
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowAllArgumentsOnNextLine: false
-AllowShortLambdasOnASingleLine: All
-AllowShortFunctionsOnASingleLine: None
-AllowShortBlocksOnASingleLine: Never
-AllowShortEnumsOnASingleLine: false
-AlwaysBreakAfterReturnType: None
+IndentRequires: true
+IndentCaseLabels: true
 
-BinPackParameters: false
-BinPackArguments: false
-
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterClass: true
-  AfterStruct: true
-  AfterUnion: true
-  AfterEnum: true
-  AfterFunction: true
-  AfterExternBlock: true
-  AfterControlStatement: MultiLine
-  AfterCaseLabel: false
-  BeforeElse: true
-  BeforeCatch: true
-  SplitEmptyNamespace: false
-  SplitEmptyRecord: false
-  SplitEmptyFunction: false
-
-BreakBeforeBinaryOperators: None
-
-EmptyLineBeforeAccessModifier: Always
+IndentAccessModifiers: false
+AccessModifierOffset: -1
 
 NamespaceIndentation: None
 FixNamespaceComments: true
 
-BreakInheritanceList: BeforeColon
-BreakConstructorInitializers: BeforeComma
+EmptyLineBeforeAccessModifier: Always
+
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 
-IndentRequires: true
+BinPackParameters: false
+BinPackArguments: false
+
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortBlocksOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: All
+AllowShortEnumsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+BreakBeforeConceptDeclarations: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: true
+  AfterStruct: true
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+BreakStringLiterals: true
+
+BreakInheritanceList: BeforeComma
+BreakConstructorInitializers: BeforeComma
 
 SortIncludes: CaseSensitive
 IncludeBlocks: Regroup
 IncludeCategories:
   # Standard headers, located in <> with no extension.
   - Regex: '<([A-Za-z0-9\_\-]+)>'
-    Priority: 10
+    SortPriority: 1
+    Priority: 1
 
   # Headers in <> with extension and optional prefix.
   - Regex: '<([A-Za-z0-9\_\-]+\/)*(\.\.)*([A-Za-z0-9\_\-]+)\.([A-Za-z0-9\_\-]+)>'
-    Priority: 15
+    SortPriority: 2
+    Priority: 2
 
   # Headers in "" with extension.
   - Regex: '"([A-Za-z0-9.\Q/-_\E])+"'
-    Priority: 40
+    SortPriority: 3
+    Priority: 3
