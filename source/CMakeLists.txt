@@ -19,6 +19,7 @@ target_include_directories(${TARGET_WANDERER_LIB}
 
                            SYSTEM PUBLIC
                            "${WANDERER_LIBRARY_DIR}/centurion"
+                           ${Boost_INCLUDE_DIRS}
                            )
 
 target_link_libraries(${TARGET_WANDERER_LIB} PUBLIC
@@ -31,7 +32,7 @@ target_link_libraries(${TARGET_WANDERER_LIB} PUBLIC
                       glm::glm
                       fmt::fmt
                       magic_enum::magic_enum
-                      Boost::boost
+                      ${Boost_LIBRARIES}
                       )
 
 target_compile_definitions(${TARGET_WANDERER_LIB}
