@@ -12,6 +12,7 @@
     "glm",
     "fmt",
     "magic-enum",
+    "yaml-cpp",
     "gtest"
   ]
 }
