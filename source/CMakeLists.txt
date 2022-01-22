@@ -76,7 +76,8 @@ add_executable(${TARGET_WANDERER_EXE} WIN32 ${SOURCE_FILES} main.cpp)
 
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
 
-target_link_libraries(${TARGET_WANDERER_EXE} PRIVATE
+target_link_libraries(${TARGET_WANDERER_EXE}
+                      PRIVATE
                       ${TARGET_WANDERER_LIB}
                       SDL2::SDL2main
                       )
