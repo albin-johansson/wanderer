@@ -1,0 +1,4 @@
+# This file specifies the maps that will be loaded
+levels:
+  - source: main.yaml
+  - source: tent1.yaml
