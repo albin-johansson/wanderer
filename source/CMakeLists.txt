@@ -8,6 +8,9 @@ set(SOURCE_FILES
     profile.hpp
     wanderer_game.cpp
     wanderer_game.hpp
+
+    io/directories.cpp
+    io/directories.hpp
     )
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
