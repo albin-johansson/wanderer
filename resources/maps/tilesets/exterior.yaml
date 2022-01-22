@@ -1,0 +1,971 @@
+version: 1
+name: exterior
+tile-count: 1024
+tile-width: 32
+tile-height: 32
+column-count: 32
+image-path: ../images/lpc/exterior.png
+image-width: 1024
+image-height: 1024
+properties:
+  - name: id
+    type: int
+    value: 4
+tiles:
+  - id: 994
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 993
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 590
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 589
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 588
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 558
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 557
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 556
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 526
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 525
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 524
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 497
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 496
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 495
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 494
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 493
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 492
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 491
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 490
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 489
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 488
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 487
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 486
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 485
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 484
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 483
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 482
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 481
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 480
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 465
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 464
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 463
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 462
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 461
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 460
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 459
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 458
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 457
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 456
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 455
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 454
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 453
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 452
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 451
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 450
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 449
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 448
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 430
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 429
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 428
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 427
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 426
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 425
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 424
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 423
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 422
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 421
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 420
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 419
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 418
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 417
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 416
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 395
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 394
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 393
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 392
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 391
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 390
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 389
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 388
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 387
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 386
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 385
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 384
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 11
+        width: 32
+        height: 21
+    properties:
+      - name: depth
+        type: int
+        value: 7
+  - id: 360
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 359
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 354
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 353
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 352
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 324
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 323
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 322
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 321
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 320
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 292
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 291
+    properties:
+      - name: depth
+        type: int
+        value: 4
+  - id: 290
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 289
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 288
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 207
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 25
+        height: 20
+  - id: 206
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 7
+        width: 25
+        height: 20
+  - id: 200
+    properties:
+      - name: depth
+        type: int
+        value: 8
+  - id: 199
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 3
+        y: 5
+        width: 24
+        height: 20
+  - id: 175
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 25
+        height: 32
+  - id: 174
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 7
+        width: 25
+        height: 32
+  - id: 168
+    properties:
+      - name: depth
+        type: int
+        value: 8
+  - id: 143
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        y: 25
+        width: 25
+        height: 7
+  - id: 142
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 7
+        y: 25
+        width: 25
+        height: 7
+  - id: 100
+    properties:
+      - name: depth
+        type: int
+        value: 3
+  - id: 80
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 79
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 78
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 20
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 68
+    properties:
+      - name: depth
+        type: int
+        value: 3
+  - id: 48
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 47
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 32
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 46
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 16
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 15
+    properties:
+      - name: depth
+        type: int
+        value: 1
+  - id: 14
+    objects:
+      - id: 1
+        type: rect
+        tag: Hitbox
+        x: 2
+        width: 30
+        height: 32
+    properties:
+      - name: depth
+        type: int
+        value: 1
