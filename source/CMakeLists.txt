@@ -31,7 +31,7 @@ target_include_directories(${TARGET_WANDERER_LIB}
 
 target_link_libraries(${TARGET_WANDERER_LIB} PUBLIC
                       ${TARGET_WANDERER_PROTO}
-                      SDL2::SDL2
+                      SDL2::SDL2-static
                       SDL2::SDL2_image
                       SDL2::SDL2_mixer
                       SDL2::SDL2_ttf
