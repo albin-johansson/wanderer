@@ -36,6 +36,7 @@ target_link_libraries(${TARGET_WANDERER_LIB} PUBLIC
 
 target_compile_definitions(${TARGET_WANDERER_LIB}
                            PUBLIC
+                           BOOST_ENABLE_ASSERT_DEBUG_HANDLER
                            BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
                            )
 
