@@ -46,7 +46,6 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
                          /W4
                          /Zc:__cplusplus
                          /Zc:preprocessor
-                         /wd5105  # Disable C5105: "macro expansion producing 'defined' has undefined behavior"
                          )
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU|AppleClang")
   target_compile_options(${TARGET_WANDERER_LIB} PUBLIC
