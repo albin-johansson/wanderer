@@ -16,7 +16,8 @@ namespace cen {
 /// \addtogroup event
 /// \{
 
-enum class mouse_wheel_direction : uint32 {
+enum class mouse_wheel_direction : uint32
+{
   normal = SDL_MOUSEWHEEL_NORMAL,
   flipped = SDL_MOUSEWHEEL_FLIPPED
 };
@@ -45,7 +46,8 @@ inline auto operator<<(std::ostream& stream, const mouse_wheel_direction dir) ->
 
 /// \} End of mouse wheel direction functions
 
-class mouse_button_event final : public event_base<SDL_MouseButtonEvent> {
+class mouse_button_event final : public event_base<SDL_MouseButtonEvent>
+{
  public:
   mouse_button_event() : event_base{event_type::mouse_button_down} {}
 
@@ -110,7 +112,8 @@ inline auto as_sdl_event(const event_base<SDL_MouseButtonEvent>& event) -> SDL_E
   return e;
 }
 
-class mouse_motion_event final : public event_base<SDL_MouseMotionEvent> {
+class mouse_motion_event final : public event_base<SDL_MouseMotionEvent>
+{
  public:
   mouse_motion_event() : event_base{event_type::mouse_motion} {}
 
@@ -159,7 +162,8 @@ inline auto as_sdl_event(const event_base<SDL_MouseMotionEvent>& event) -> SDL_E
   return e;
 }
 
-class mouse_wheel_event final : public event_base<SDL_MouseWheelEvent> {
+class mouse_wheel_event final : public event_base<SDL_MouseWheelEvent>
+{
  public:
   mouse_wheel_event() : event_base{event_type::mouse_wheel} {}
 
@@ -173,6 +177,14 @@ class mouse_wheel_event final : public event_base<SDL_MouseWheelEvent> {
 
   void set_y(const int32 yScroll) noexcept { mEvent.y = yScroll; }
 
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+  void set_precise_x(const float x) noexcept { mEvent.preciseX = x; }
+
+  void set_precise_y(const float y) noexcept { mEvent.preciseY = y; }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
+
   void set_direction(const mouse_wheel_direction direction) noexcept
   {
     mEvent.direction = to_underlying(direction);
@@ -185,6 +197,14 @@ class mouse_wheel_event final : public event_base<SDL_MouseWheelEvent> {
   [[nodiscard]] auto x() const noexcept -> int32 { return mEvent.x; }
 
   [[nodiscard]] auto y() const noexcept -> int32 { return mEvent.y; }
+
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+  [[nodiscard]] auto precise_x() const noexcept -> float { return mEvent.preciseX; }
+
+  [[nodiscard]] auto precise_y() const noexcept -> float { return mEvent.preciseY; }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
 
   [[nodiscard]] auto direction() const noexcept -> mouse_wheel_direction
   {

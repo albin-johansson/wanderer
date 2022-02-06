@@ -69,7 +69,8 @@ using haptic_handle = basic_haptic<detail::handle_tag>;
  * \since 5.2.0
  */
 template <typename T>
-class basic_haptic final {
+class basic_haptic final
+{
  public:
   using effect_id = int;
 
@@ -219,7 +220,7 @@ class basic_haptic final {
   auto stop_rumble() noexcept -> result { return SDL_HapticRumbleStop(m_haptic) == 0; }
 
   /**
-   * \brief Indicates whether or not rumble playback is supported.
+   * \brief Indicates whether rumble playback is supported.
    *
    * \return `true` if rumble playback is supported; `false` otherwise.
    *
@@ -407,7 +408,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device can run the specified effect.
+   * \brief Indicates whether the device can run the specified effect.
    *
    * \param effect the effect that will be checked.
    *
@@ -423,7 +424,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the specified effect is playing on the device.
+   * \brief Indicates whether the specified effect is playing on the device.
    *
    * \pre The device must support the `status` feature.
    *
@@ -443,13 +444,11 @@ class basic_haptic final {
   /// \{
 
   /**
-   * \brief Indicates whether or not the device supports the specified feature.
+   * \brief Indicates whether the device supports the specified feature.
    *
    * \param feature the haptic feature to be checked.
    *
    * \return `true` if the feature is supported; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature(const haptic_feature feature) const noexcept -> bool
   {
@@ -457,13 +456,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `constant` feature.
+   * \brief Indicates whether the device has the `constant` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_constant() const noexcept -> bool
   {
@@ -471,7 +468,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `sine` feature.
+   * \brief Indicates whether the device has the `sine` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -485,7 +482,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `left_right` feature.
+   * \brief Indicates whether the device has the `left_right` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -499,7 +496,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `triangle` feature.
+   * \brief Indicates whether the device has the `triangle` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -513,7 +510,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `sawtooth_up` feature.
+   * \brief Indicates whether the device has the `sawtooth_up` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -527,7 +524,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `sawtooth_down` feature.
+   * \brief Indicates whether the device has the `sawtooth_down` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -541,7 +538,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `ramp` feature.
+   * \brief Indicates whether the device has the `ramp` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -555,7 +552,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `spring` feature.
+   * \brief Indicates whether the device has the `spring` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
@@ -569,13 +566,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `damper` feature.
+   * \brief Indicates whether the device has the `damper` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_damper() const noexcept -> bool
   {
@@ -583,13 +578,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `inertia` feature.
+   * \brief Indicates whether the device has the `inertia` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_inertia() const noexcept -> bool
   {
@@ -597,13 +590,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `friction` feature.
+   * \brief Indicates whether the device has the `friction` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_friction() const noexcept -> bool
   {
@@ -611,13 +602,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `gain` feature.
+   * \brief Indicates whether the device has the `gain` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_gain() const noexcept -> bool
   {
@@ -625,13 +614,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `autocenter` feature.
+   * \brief Indicates whether the device has the `autocenter` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_autocenter() const noexcept -> bool
   {
@@ -639,13 +626,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `status` feature.
+   * \brief Indicates whether the device has the `status` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_status() const noexcept -> bool
   {
@@ -653,13 +638,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `pause` feature.
+   * \brief Indicates whether the device has the `pause` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_pause() const noexcept -> bool
   {
@@ -667,13 +650,11 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the device has the `custom` feature.
+   * \brief Indicates whether the device has the `custom` feature.
    *
    * \note This is a convenience function that calls `has_feature()`.
    *
    * \return `true` if the device has the feature; `false` otherwise.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto has_feature_custom() const noexcept -> bool
   {
@@ -690,8 +671,6 @@ class basic_haptic final {
    *
    * \return the index associated with the haptic device; `std::nullopt` if something goes
    * wrong.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto index() const noexcept -> std::optional<int>
   {
@@ -709,8 +688,6 @@ class basic_haptic final {
    *
    * \return the name associated with the haptic device; a null pointer is returned if no
    * name was found.
-   *
-   * \since 5.2.0
    */
   [[nodiscard]] auto name() const noexcept -> const char*
   {
@@ -786,7 +763,7 @@ class basic_haptic final {
   [[nodiscard]] static auto count() noexcept -> int { return SDL_NumHaptics(); }
 
   /**
-   * \brief Indicates whether or not a joystick has haptic capabilities.
+   * \brief Indicates whether a joystick has haptic capabilities.
    *
    * \param joystick the joystick that will be checked.
    *
@@ -802,7 +779,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the system mouse has haptic capabilities.
+   * \brief Indicates whether the system mouse has haptic capabilities.
    *
    * \return `true` if the mouse has haptic capabilities; `false` otherwise.
    *
@@ -811,7 +788,7 @@ class basic_haptic final {
   [[nodiscard]] static auto is_mouse_haptic() noexcept -> bool { return SDL_MouseIsHaptic(); }
 
   /**
-   * \brief Indicates whether or not a haptic device at a specified index has
+   * \brief Indicates whether a haptic device at a specified index has
    * been opened.
    *
    * \param index the index of the haptic device that will be queried.
@@ -826,7 +803,7 @@ class basic_haptic final {
   }
 
   /**
-   * \brief Indicates whether or not the handle holds a non-null pointer.
+   * \brief Indicates whether the handle holds a non-null pointer.
    *
    * \return `true` if the handle holds a non-null pointer; `false` otherwise.
    *
@@ -853,7 +830,7 @@ class basic_haptic final {
   detail::pointer<T, SDL_Haptic> m_haptic;
 
   /**
-   * \brief Indicates whether or not the haptic device supports the specified features.
+   * \brief Indicates whether the haptic device supports the specified features.
    *
    * \details The supplied value must be a masked subset of the following flags:
    *
@@ -889,53 +866,29 @@ class basic_haptic final {
   }
 };
 
-/// \name String conversions
+/// \name Basic haptic functions
 /// \{
 
-/**
- * \brief Returns a textual representation of a haptic device.
- *
- * \param haptic the haptic device that will be converted.
- *
- * \return a string that represents a haptic device.
- *
- * \since 5.2.0
- */
 template <typename T>
-[[nodiscard]] auto ToString(const basic_haptic<T>& haptic) -> std::string
+[[nodiscard]] auto to_string(const basic_haptic<T>& haptic) -> std::string
 {
 #if CENTURION_HAS_FEATURE_FORMAT
-  return std::format("haptic{{data: {}, name: {}}}",
+  return std::format("haptic(data: {}, name: {})",
                      detail::address_of(haptic.get()),
                      str_or_na(haptic.name()));
 #else
-  return "haptic{data: " + detail::address_of(haptic.get()) +
-         ", name: " + str_or_na(haptic.name()) + "}";
+  return "haptic(data: " + detail::address_of(haptic.get()) +
+         ", name: " + str_or_na(haptic.name()) + ")";
 #endif  // CENTURION_HAS_FEATURE_FORMAT
 }
 
-/// \} End of string conversions
-
-/// \name Streaming
-/// \{
-
-/**
- * \brief Prints a textual representation of a haptic device using a stream.
- *
- * \param stream the stream that will be used.
- * \param haptic the haptic device that will be printed.
- *
- * \return the used stream.
- *
- * \since 5.2.0
- */
 template <typename T>
 auto operator<<(std::ostream& stream, const basic_haptic<T>& haptic) -> std::ostream&
 {
-  return stream << ToString(haptic);
+  return stream << to_string(haptic);
 }
 
-/// \} End of streaming
+/// \} End of basic haptic functions
 
 /// \} End of input haptic
 

@@ -97,7 +97,8 @@ inline constexpr bool on_android = false;
 /**
  * \brief Represents various operating systems.
  */
-enum class platform_id {
+enum class platform_id
+{
   unknown,   ///< An unknown platform.
   windows,   ///< The Windows operating system.
   macos,     ///< The macOS operating system.
@@ -145,7 +146,8 @@ inline auto operator<<(std::ostream& stream, const platform_id id) -> std::ostre
 /**
  * \brief Represents a shared object, e.g. dynamic libraries.
  */
-class shared_object final {
+class shared_object final
+{
  public:
   /**
    * \brief Loads a shared object.
@@ -190,7 +192,8 @@ class shared_object final {
   }
 
  private:
-  struct deleter final {
+  struct deleter final
+  {
     void operator()(void* object) noexcept { SDL_UnloadObject(object); }
   };
   std::unique_ptr<void, deleter> mObject;
@@ -358,24 +361,26 @@ class shared_object final {
  *
  * \return the time since SDL was initialized.
  */
-[[nodiscard]] inline auto ticks() noexcept(noexcept(u64ms{uint64{}})) -> u64ms
+[[nodiscard]] inline auto ticks64() noexcept(noexcept(u64ms{uint64{}})) -> u64ms
 {
   return u64ms{SDL_GetTicks64()};
 }
 
-#else
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
 
 /**
  * \brief Returns the amount of milliseconds since SDL was initialized.
  *
  * \return the time since SDL was initialized.
+ *
+ * \deprecated since 7.0.0, since underlying `SDL_GetTicks()` is deprecated.
+ *
+ * \see `ticks64()`
  */
-[[nodiscard, deprecated]] inline auto ticks() noexcept(noexcept(u32ms{uint32{}})) -> u32ms
+[[nodiscard, deprecated]] inline auto ticks32() noexcept(noexcept(u32ms{uint32{}})) -> u32ms
 {
   return u32ms{SDL_GetTicks()};
 }
-
-#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
 
 /// \} End of system counter functions
 

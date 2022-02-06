@@ -42,7 +42,8 @@ namespace cen {
 /**
  * \brief Represents various game controller buttons.
  */
-enum class controller_button {
+enum class controller_button
+{
   invalid = SDL_CONTROLLER_BUTTON_INVALID,
 
   a = SDL_CONTROLLER_BUTTON_A,
@@ -173,7 +174,8 @@ inline auto operator<<(std::ostream& stream, const controller_button button) -> 
 /**
  * \brief Represents different game controller axes.
  */
-enum class controller_axis {
+enum class controller_axis
+{
   invalid = SDL_CONTROLLER_AXIS_INVALID,
 
   left_x = SDL_CONTROLLER_AXIS_LEFTX,
@@ -232,7 +234,8 @@ inline auto operator<<(std::ostream& stream, const controller_axis axis) -> std:
 /**
  * \brief Represents different game controller bind types.
  */
-enum class controller_bind_type {
+enum class controller_bind_type
+{
   none = SDL_CONTROLLER_BINDTYPE_NONE,
   button = SDL_CONTROLLER_BINDTYPE_BUTTON,
   axis = SDL_CONTROLLER_BINDTYPE_AXIS,
@@ -274,7 +277,8 @@ inline auto operator<<(std::ostream& stream, const controller_bind_type type) ->
 /**
  * \brief Represents different game controller types.
  */
-enum class controller_type {
+enum class controller_type
+{
   unknown = SDL_CONTROLLER_TYPE_UNKNOWN,
 
   xbox_360 = SDL_CONTROLLER_TYPE_XBOX360,
@@ -359,7 +363,8 @@ inline auto operator<<(std::ostream& stream, const controller_type type) -> std:
 /**
  * \brief Represents different results from adding controller mappings.
  */
-enum class controller_mapping_result {
+enum class controller_mapping_result
+{
   error,    ///< An error occurred.
   updated,  ///< Updated a previous mapping.
   added     ///< Added a new mapping.
@@ -393,7 +398,8 @@ inline auto operator<<(std::ostream& stream, const controller_mapping_result res
 
 /// \} End of controller mapping result functions
 
-struct controller_finger_state final {
+struct controller_finger_state final
+{
   button_state state{};  ///< Whether or not the finger is pressed or release.
   float x{};             ///< The current x-coordinate.
   float y{};             ///< The current y-coordinate.
@@ -428,7 +434,8 @@ using controller_handle = basic_controller<detail::handle_tag>;  ///< A non-owni
  * \see `SDL_GameController`
  */
 template <typename T>
-class basic_controller final {
+class basic_controller final
+{
  public:
   using mapping_index = int;
   using joystick_index = int;
@@ -515,6 +522,8 @@ class basic_controller final {
    * \return the created controller.
    *
    * \throws sdl_error if the game controller cannot be created.
+   *
+   * \atleastsdl 2.0.12
    */
   template <typename TT = T, detail::enable_for_owner<TT> = 0>
   [[nodiscard]] static auto from_index(const player_index index) -> basic_controller
@@ -577,6 +586,8 @@ class basic_controller final {
    * \param duration the duration of the rumble effect.
    *
    * \return `success` if the rumble was successful; `failure` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   auto rumble_triggers(const uint16 left,
                        const uint16 right,
@@ -586,6 +597,34 @@ class basic_controller final {
   }
 
 #endif  // SDL_VERSION_ATLEAST(2, 0, 14)
+
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+  /**
+   * \brief Indicates whether the controller has rumble support.
+   *
+   * \return `true` if there is rumble support; `false` otherwise.
+   *
+   * \atleastsdl 2.0.18
+   */
+  [[nodiscard]] auto has_rumble() const noexcept -> bool
+  {
+    return SDL_GameControllerHasRumble(mController) == SDL_TRUE;
+  }
+
+  /**
+   * \brief Indicates whether the controller has rumble support for triggers.
+   *
+   * \return `true` if there is trigger rumble support; `false` otherwise.
+   *
+   * \atleastsdl 2.0.18
+   */
+  [[nodiscard]] auto has_rumble_triggers() const noexcept -> bool
+  {
+    return SDL_GameControllerHasRumbleTriggers(mController) == SDL_TRUE;
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18
 
   /// \} End of rumble functions
 
@@ -670,6 +709,8 @@ class basic_controller final {
    * \param button the button to look for.
    *
    * \return `true` if the controller has the button; `false` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto has_button(const controller_button button) const noexcept -> bool
   {
@@ -699,6 +740,26 @@ class basic_controller final {
       return std::nullopt;
     }
   }
+
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+  /**
+   * \brief Returns the `sfSymbolsName` property for a button (on Apple platforms).
+   *
+   * \param button the controller button to query.
+   *
+   * \return a potentially null string.
+   *
+   * \atleastsdl 2.0.18
+   */
+  [[nodiscard]] auto apple_sf_symbols_name(const controller_button button) const noexcept
+      -> const char*
+  {
+    const auto value = static_cast<SDL_GameControllerButton>(button);
+    return SDL_GameControllerGetAppleSFSymbolsNameForButton(mController, value);
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
 
   /// \} End of button functions
 
@@ -757,6 +818,8 @@ class basic_controller final {
    * \brief Indicates whether the controller has a specific axis.
    *
    * \return `true` if the controller has the axis; `false` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto has_axis(const controller_axis axis) const noexcept -> bool
   {
@@ -787,6 +850,26 @@ class basic_controller final {
     }
   }
 
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+  /**
+   * \brief Returns the `sfSymbolsName` property for an axis (on Apple platforms).
+   *
+   * \param axis the controller axis to query.
+   *
+   * \return a potentially null string.
+   *
+   * \atleastsdl 2.0.18
+   */
+  [[nodiscard]] auto apple_sf_symbols_name(const controller_axis axis) const noexcept -> const
+      char*
+  {
+    const auto value = static_cast<SDL_GameControllerAxis>(axis);
+    return SDL_GameControllerGetAppleSFSymbolsNameForAxis(mController, value);
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
+
   /// \} End of axis functions
 
   /// \name Sensor functions
@@ -801,6 +884,8 @@ class basic_controller final {
    * \param enabled `true` if data reporting should be enabled; `false` otherwise.
    *
    * \return `success` if the sensor was updated; `failure` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   auto set_sensor(const sensor_type type, const bool enabled) noexcept -> result
   {
@@ -815,6 +900,8 @@ class basic_controller final {
    * \param type the sensor to look for.
    *
    * \return `true` if the controller has the sensor; `false` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto has_sensor(const sensor_type type) const noexcept -> bool
   {
@@ -828,6 +915,8 @@ class basic_controller final {
    * \param type the sensor that will be queried.
    *
    * \return `true` if data reporting is enabled for the sensor; `false` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto is_sensor_enabled(const sensor_type type) const noexcept -> bool
   {
@@ -843,6 +932,8 @@ class basic_controller final {
    * \param type the type of the sensor that will be queried.
    *
    * \return the sensor data; an empty optional is returned upon failure.
+   *
+   * \atleastsdl 2.0.14
    */
   template <std::size_t Size>
   [[nodiscard]] auto sensor_data(const sensor_type type) const noexcept
@@ -872,6 +963,8 @@ class basic_controller final {
    * \param type the sensor that will be queried.
    *
    * \return the data rate; zero if the data rate is unavailable.
+   *
+   * \atleastsdl 2.0.16
    */
   [[nodiscard]] auto sensor_data_rate(const sensor_type type) const noexcept -> float
   {
@@ -893,6 +986,8 @@ class basic_controller final {
    * \param color the new LED color.
    *
    * \return `success` if the LED color was updated; `failure` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   auto set_led(const color& color) noexcept -> result
   {
@@ -904,6 +999,8 @@ class basic_controller final {
    * \brief Indicates whether the controller features a LED light.
    *
    * \return `true` if the controller has a LED light; `false` otherwise.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto has_led() const noexcept -> bool
   {
@@ -974,6 +1071,8 @@ class basic_controller final {
    * \brief Returns the amount of touchpads on the controller.
    *
    * \return the amount of controller touchpads.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto touchpad_count() const noexcept -> int
   {
@@ -986,6 +1085,8 @@ class basic_controller final {
    * \param touchpad the index associated with the touchpad that will be queried.
    *
    * \return the maximum amount of fingers.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto touchpad_finger_capacity(const int touchpad) const noexcept -> int
   {
@@ -999,6 +1100,8 @@ class basic_controller final {
    * \param finger the index of the finger that will be queried.
    *
    * \return the state of the finger; an empty optional is returned upon failure.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto touchpad_finger_state(const int touchpad, const int finger) const noexcept
       -> std::optional<controller_finger_state>
@@ -1094,6 +1197,8 @@ class basic_controller final {
    * \brief Returns the type of the controller.
    *
    * \return the controller type.
+   *
+   * \atleastsdl 2.0.12
    */
   [[nodiscard]] auto type() const noexcept -> controller_type
   {
@@ -1106,6 +1211,8 @@ class basic_controller final {
    * \param index the joystick index of the controller to query.
    *
    * \return the controller type.
+   *
+   * \atleastsdl 2.0.12
    */
   [[nodiscard]] static auto type(const joystick_index index) noexcept -> controller_type
   {
@@ -1119,8 +1226,10 @@ class basic_controller final {
   /**
    * \brief Returns the serial number associated with the controller.
    *
-   * \return the serial number associated with the controller; a null pointer is returned if
-   * the serial number is unavailable.
+   * \return the serial number associated with the controller;
+   *         a null pointer is returned if the serial number is unavailable.
+   *
+   * \atleastsdl 2.0.14
    */
   [[nodiscard]] auto serial() const noexcept -> const char*
   {
@@ -1142,8 +1251,10 @@ class basic_controller final {
    * \param data the data that will be sent.
    * \param size the size of the data.
    *
-   * \return `success` if the data was sent successfully; `failure` if the controller or driver
-   * doesn't support effect packets.
+   * \return `success` if the data was sent successfully;
+   *         `failure` if the controller or driver doesn't support effect packets.
+   *
+   * \atleastsdl 2.0.16
    */
   auto send_effect(const void* data, const int size) -> result
   {
@@ -1161,6 +1272,8 @@ class basic_controller final {
    * \brief Sets the player index associated with the controller.
    *
    * \param index the player index that will be used.
+   *
+   * \atleastsdl 2.0.12
    */
   void set_player_index(const player_index index) noexcept
   {

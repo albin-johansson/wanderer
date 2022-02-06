@@ -47,7 +47,8 @@ namespace cen {
  *
  * \details An example usage of this class can be found \subpage page-event-handler "here".
  */
-class event_handler final {
+class event_handler final
+{
  public:
   /**
    * \brief Creates an empty event handler.
@@ -276,6 +277,8 @@ class event_handler final {
     return queue_count(type) > 0;
   }
 
+  [[nodiscard]] auto data() const noexcept -> const SDL_Event* { return &mEvent; }
+
  private:
   /* Behold, the beast! */
   using data_type = std::variant<std::monostate,
@@ -310,17 +313,21 @@ class event_handler final {
 
                                  window_event>;
 
-  event_type mType{event_type::last_event}; /* `last_event` is used as the "empty" state */
+  SDL_Event mEvent{}; /* Only here to support data() member function */
+  event_type mType{event_type::last_event};
   data_type mData{};
 
   void reset_state()
   {
+    mEvent = {};
     mType = event_type::last_event;
     mData.emplace<std::monostate>();
   }
 
   void store(const SDL_Event& event) noexcept
   {
+    mEvent = event;
+
     const auto type = static_cast<SDL_EventType>(event.type);
     mType = static_cast<event_type>(type);
 
@@ -520,7 +527,8 @@ class event_handler final {
  * \see `event_dispatcher`
  */
 template <typename E>
-class event_sink final {
+class event_sink final
+{
  public:
   using event_type = std::decay_t<E>;              ///< Associated event type.
   using signature_type = void(const event_type&);  ///< Signature of handler.
@@ -592,7 +600,8 @@ class event_sink final {
  * \tparam Events the list of events to "subscribe" to, all other events are ignored.
  */
 template <typename... Events>
-class event_dispatcher final {
+class event_dispatcher final
+{
   static_assert((!std::is_const_v<Events> && ...));
   static_assert((!std::is_volatile_v<Events> && ...));
   static_assert((!std::is_reference_v<Events> && ...));

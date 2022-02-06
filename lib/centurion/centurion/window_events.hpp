@@ -11,7 +11,8 @@ namespace cen {
 /// \addtogroup event
 /// \{
 
-enum class window_event_id {
+enum class window_event_id
+{
   none = SDL_WINDOWEVENT_NONE,
   shown = SDL_WINDOWEVENT_SHOWN,
   hidden = SDL_WINDOWEVENT_HIDDEN,
@@ -28,6 +29,12 @@ enum class window_event_id {
   focus_lost = SDL_WINDOWEVENT_FOCUS_LOST,
   close = SDL_WINDOWEVENT_CLOSE,
   take_focus = SDL_WINDOWEVENT_TAKE_FOCUS,
+
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+  display_changed = SDL_WINDOWEVENT_DISPLAY_CHANGED,
+  icc_profile_changed = SDL_WINDOWEVENT_ICCPROF_CHANGED,
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
+
   hit_test = SDL_WINDOWEVENT_HIT_TEST
 };
 
@@ -88,6 +95,16 @@ enum class window_event_id {
     case window_event_id::hit_test:
       return "hit_test";
 
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+
+    case window_event_id::display_changed:
+      return "display_changed";
+
+    case window_event_id::icc_profile_changed:
+      return "icc_profile_changed";
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 18)
+
     default:
       throw exception{"Did not recognize window event ID!"};
   }
@@ -100,7 +117,8 @@ inline auto operator<<(std::ostream& stream, const window_event_id id) -> std::o
 
 /// \} End of window event ID functions
 
-class window_event final : public event_base<SDL_WindowEvent> {
+class window_event final : public event_base<SDL_WindowEvent>
+{
  public:
   window_event() : event_base{event_type::window} {}
 
