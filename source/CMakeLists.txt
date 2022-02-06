@@ -7,6 +7,9 @@ set(SOURCE_FILES
     wanderer/wanderer_game.cpp
     wanderer/wanderer_game.hpp
 
+    wanderer/core/game_loop.cpp
+    wanderer/core/game_loop.hpp
+
     wanderer/data/constants.hpp
     wanderer/data/context/level.hpp
 

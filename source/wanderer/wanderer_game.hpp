@@ -4,43 +4,32 @@
 #include <entt/entt.hpp>
 
 #include "common.hpp"
+#include "core/game_loop.hpp"
 
 namespace wanderer {
 
-struct loop_state final
-{
-  float64 rate{};               ///< Refresh rate (in Hz).
-  float64 delta{};              ///< Fixed delta time.
-  float64 then{};               ///< Time of last update.
-  float64 frequency{};          ///< The frequency of the system counter.
-  int32 max_ticks_per_frame{};  ///< Maximum amount of ticks per frame.
-};
-
-class wanderer_game final
+class wanderer_game final : game_loop
 {
  public:
   wanderer_game();
 
   void run();
 
+ protected:
+  void process_events() override;
+
+  void update(float32 dt) override;
+
+  void render() override;
+
  private:
-  loop_state mLoopState;
+  cen::window _window;
+  cen::renderer _renderer;
+  cen::keyboard _keyboard;
+  cen::mouse _mouse;
 
-  cen::window mWindow;
-  cen::renderer mRenderer;
-  cen::keyboard mKeyboard;
-  cen::mouse mMouse;
-
-  entt::registry mMainRegistry;
-  entt::dispatcher mDispatcher;
-
-  bool mRunning{true};
-
-  void process_events();
-
-  void update(float32 dt);
-
-  void render();
+  entt::registry _registry;
+  entt::dispatcher _dispatcher;
 };
 
 }  // namespace wanderer
