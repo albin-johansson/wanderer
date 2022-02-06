@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "common.hpp"
+#include "wanderer/common.hpp"
 
 namespace wanderer {
 

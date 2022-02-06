@@ -2,8 +2,8 @@
 
 #include <algorithm>  // min
 
-#include "constants.hpp"
-#include "logging.hpp"
+#include "wanderer/data/constants.hpp"
+#include "wanderer/misc/logging.hpp"
 
 namespace wanderer {
 namespace {
@@ -91,10 +91,14 @@ void wanderer_game::process_events()
       break;
     }
   }
+
+  mKeyboard.refresh();
 }
 
 void wanderer_game::update(const float32 dt)
 {
+  mDispatcher.update();
+
   // TODO
 }
 

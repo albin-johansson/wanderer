@@ -5,7 +5,7 @@
 #include <boost/stacktrace.hpp>
 #include <fmt/ostream.h>
 
-#include "logging.hpp"
+#include "wanderer/misc/logging.hpp"
 
 namespace boost {
 

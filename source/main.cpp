@@ -4,11 +4,11 @@
 #include <centurion.hpp>
 #include <fmt/ostream.h>
 
-#include "assert.hpp"  // Do not remove!
-#include "exception.hpp"
-#include "io/directories.hpp"
-#include "logging.hpp"
-#include "wanderer_game.hpp"
+#include "wanderer/io/directories.hpp"
+#include "wanderer/misc/assert.hpp"  // Do not remove!
+#include "wanderer/misc/exception.hpp"
+#include "wanderer/misc/logging.hpp"
+#include "wanderer/wanderer_game.hpp"
 
 int main(int, char**)
 {

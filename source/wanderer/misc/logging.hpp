@@ -5,7 +5,7 @@
 #include <fmt/color.h>
 #include <fmt/core.h>
 
-#include "build.hpp"
+#include "wanderer/meta/build.hpp"
 
 namespace wanderer {
 namespace logging {

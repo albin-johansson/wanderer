@@ -38,6 +38,25 @@ find_package(yaml-cpp CONFIG REQUIRED)
 
 find_package(Boost REQUIRED)
 
+function(wanderer_add_compiler_options target)
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(${target} PRIVATE
+                           /EHsc
+                           /MP
+                           /WX
+                           /Zc:__cplusplus
+                           /Zc:preprocessor
+                           )
+  elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU|AppleClang")
+    target_compile_options(${target} PRIVATE
+                           -Wall
+                           -Wextra
+                           -Wpedantic
+                           -Wconversion
+                           )
+  endif ()
+endfunction()
+
 add_subdirectory(proto)
 add_subdirectory(source)
 add_subdirectory(test)

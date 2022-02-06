@@ -2,7 +2,7 @@
 
 #include <boost/assert.hpp>
 
-#include "build.hpp"
+#include "wanderer/meta/build.hpp"
 
 #if WANDERER_DEBUG_BUILD
 
@@ -17,12 +17,6 @@
 #endif  // WANDERER_DEBUG_BUILD
 
 namespace boost {
-
-void assertion_failed_msg(const char* expr,
-                          const char* msg,
-                          const char* function,
-                          const char* file,
-                          long line);
 
 inline void assertion_failed(const char* expr,
                              const char* function,

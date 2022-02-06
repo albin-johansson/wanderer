@@ -31,7 +31,7 @@ class wanderer_game final
   cen::keyboard mKeyboard;
   cen::mouse mMouse;
 
-  entt::registry mSharedRegistry;
+  entt::registry mMainRegistry;
   entt::dispatcher mDispatcher;
 
   bool mRunning{true};

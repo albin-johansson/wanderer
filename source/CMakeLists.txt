@@ -3,20 +3,27 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-source CXX)
 
 set(SOURCE_FILES
-    assert.cpp
-    assert.hpp
-    build.hpp
-    common.hpp
-    constants.hpp
-    exception.hpp
-    logging.cpp
-    logging.hpp
-    profile.hpp
-    wanderer_game.cpp
-    wanderer_game.hpp
+    wanderer/common.hpp
+    wanderer/wanderer_game.cpp
+    wanderer/wanderer_game.hpp
 
-    io/directories.cpp
-    io/directories.hpp
+    wanderer/data/constants.hpp
+    wanderer/data/context/level.hpp
+
+    wanderer/io/directories.cpp
+    wanderer/io/directories.hpp
+
+    wanderer/io/level-parsing/parse_levels.cpp
+    wanderer/io/level-parsing/parse_levels.hpp
+
+    wanderer/meta/build.hpp
+    wanderer/meta/profile.hpp
+
+    wanderer/misc/assert.cpp
+    wanderer/misc/assert.hpp
+    wanderer/misc/exception.hpp
+    wanderer/misc/logging.cpp
+    wanderer/misc/logging.hpp
     )
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
@@ -28,7 +35,7 @@ target_include_directories(${TARGET_WANDERER_LIB}
                            ${PROJECT_SOURCE_DIR}
 
                            SYSTEM PUBLIC
-                           "${WANDERER_LIBRARY_DIR}/centurion"
+                           ${WANDERER_LIBRARY_DIR}/centurion
                            ${Boost_INCLUDE_DIRS}
                            )
 
@@ -53,22 +60,7 @@ target_compile_definitions(${TARGET_WANDERER_LIB}
                            BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
                            )
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  target_compile_options(${TARGET_WANDERER_LIB} PUBLIC
-                         /EHsc
-                         /MP
-                         /W4
-                         /Zc:__cplusplus
-                         /Zc:preprocessor
-                         )
-elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU|AppleClang")
-  target_compile_options(${TARGET_WANDERER_LIB} PUBLIC
-                         -Wall
-                         -Wextra
-                         -Wpedantic
-                         -Wconversion
-                         )
-endif ()
+wanderer_add_compiler_options(${TARGET_WANDERER_LIB})
 
 target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
                           <centurion.hpp>
