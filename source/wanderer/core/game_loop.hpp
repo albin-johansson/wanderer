@@ -7,7 +7,7 @@ namespace wanderer {
 struct loop_state final
 {
   float64 rate{};               ///< Refresh rate (in Hz).
-  float64 delta{};              ///< Fixed delta time.
+  float64 fixed_dt{};           ///< Fixed delta time.
   float64 then{};               ///< Time of last update.
   float64 frequency{};          ///< The frequency of the system counter.
   int32 max_ticks_per_frame{};  ///< Maximum amount of ticks per frame.

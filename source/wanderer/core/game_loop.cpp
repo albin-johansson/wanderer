@@ -11,15 +11,15 @@ namespace {
 
 [[nodiscard]] auto make_loop_state() -> loop_state
 {
-  const auto mode = cen::display_mode::desktop();
+  const auto display = cen::display_mode::desktop();
 
   loop_state state;
 
-  state.rate = std::min(240.0, static_cast<float64>(mode.refresh_rate().value()));
-  state.delta = 1.0 / state.rate;
+  state.rate = std::min(240.0, static_cast<float64>(display.refresh_rate().value()));
+  state.fixed_dt = 1.0 / state.rate;
 
-  state.then = static_cast<float64>(cen::now());
   state.frequency = static_cast<float64>(cen::frequency());
+  state.then = static_cast<float64>(cen::now()) / state.frequency;
 
   state.max_ticks_per_frame = 5;
 
@@ -31,35 +31,38 @@ namespace {
 game_loop::game_loop() : _state{make_loop_state()}
 {
   log_debug("Game loop refresh rate is '{}'", _state.rate);
-  log_debug("Game loop fixed delta is '{}'", _state.delta);
+  log_debug("Game loop fixed delta is '{}'", _state.fixed_dt);
   log_debug("Maximum amount of ticks per frame is '{}'", _state.max_ticks_per_frame);
 }
 
 void game_loop::start()
 {
+  const auto now = [this]() noexcept {
+    return static_cast<float64>(cen::now()) / _state.frequency;
+  };
+
   _running = true;
-  _state.then = static_cast<float64>(cen::now());
+  _state.then = now();
 
   while (_running) {
-    const auto newTime = static_cast<float64>(cen::now());
+    const auto newTime = now();
     auto frameTime = newTime - _state.then;
+    _state.then = newTime;
 
-    _state.then = static_cast<float64>(newTime) / _state.frequency;
-
-    int steps = 0;
+    int32 steps = 0;
     while (frameTime > 0) {
       /* Avoids spiral-of-death by limiting maximum amount of steps */
       if (steps > _state.max_ticks_per_frame) {
         break;
       }
 
-      process_events();  // TODO should we process events here?
+      process_events();
 
       if (!_running) {
         break;
       }
 
-      const auto dt = std::min(frameTime, _state.delta);
+      const auto dt = std::min(frameTime, _state.fixed_dt);
       update(static_cast<float32>(dt));
 
       frameTime -= dt;
