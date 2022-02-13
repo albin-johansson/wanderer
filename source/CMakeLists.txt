@@ -2,32 +2,13 @@ cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-source CXX)
 
-set(SOURCE_FILES
-    wanderer/common.hpp
-    wanderer/wanderer_game.cpp
-    wanderer/wanderer_game.hpp
-
-    wanderer/core/game_loop.cpp
-    wanderer/core/game_loop.hpp
-
-    wanderer/data/constants.hpp
-    wanderer/data/context/level.hpp
-
-    wanderer/io/directories.cpp
-    wanderer/io/directories.hpp
-
-    wanderer/io/level-parsing/parse_levels.cpp
-    wanderer/io/level-parsing/parse_levels.hpp
-
-    wanderer/meta/build.hpp
-    wanderer/meta/profile.hpp
-
-    wanderer/misc/assert.cpp
-    wanderer/misc/assert.hpp
-    wanderer/misc/exception.hpp
-    wanderer/misc/logging.cpp
-    wanderer/misc/logging.hpp
-    )
+file(GLOB_RECURSE SOURCE_FILES
+     CONFIGURE_DEPENDS
+     wanderer/**/*.cpp
+     wanderer/**/*.hpp
+     wanderer/*.cpp
+     wanderer/*.hpp
+     )
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
 
@@ -71,7 +52,7 @@ target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
                           <glm/glm.hpp>
                           )
 
-add_executable(${TARGET_WANDERER_EXE} WIN32 ${SOURCE_FILES} main.cpp)
+add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
 
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
 
