@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 # See https://github.com/actions/virtual-environments/tree/main/images/win
 env:
-  BOOST_ROOT: C:\boost
+  BOOST_ROOT: ${{github.workspace}}\boost\boost_1_78_0
   BOOST_VERSION: 1.78.0
   BOOST_VERSION_IN_URL: 1_78_0
   BOOST_CACHE_EDITION: 1
