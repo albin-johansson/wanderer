@@ -21,6 +21,10 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: lukka/get-cmake@latest
 
+      - name: Update Vcpkg
+        working-directory: ${{env.VCPKG_ROOT}}
+        run: git checkout ${{env.VCPKG_COMMIT}}
+
       - name: Restore cached Boost
         id: restore-cached-boost
         uses: actions/cache@v2
