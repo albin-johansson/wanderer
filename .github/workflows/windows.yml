@@ -3,62 +3,50 @@ name: "CI: Windows"
 on: [ push, pull_request ]
 
 env:
-  SDL_VERSION: 2.0.16
-  IMG_VERSION: 2.0.5
-  MIX_VERSION: 2.0.4
-  TTF_VERSION: 2.0.15
+  BOOST_ROOT: C:\boost
+  BOOST_VERSION: 1.78.0
+  BOOST_VERSION_IN_URL: 1_78_0
+  BOOST_CACHE_EDITION: 1
+  VCPKG_COMMIT: c93faafe6d892aca636765e3a7e67797736b0b09
+  VCPKG_TARGET_TRIPLET: x64-windows-static-md
+#  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache
 
 jobs:
   windows-test:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
       - uses: ilammy/msvc-dev-cmd@v1
-      - uses: seanmiddleditch/gha-setup-ninja@v3
       - uses: lukka/get-cmake@latest
 
-      - name: Create binaries directory
-        run: mkdir bin
-        shell: cmd
-
-      - name: Download SDL2
-        uses: albin-johansson/download-sdl2@latest
+      - name: Restore cached Boost
+        id: restore-cached-boost
+        uses: actions/cache@v2
         with:
-          version: ${{env.SDL_VERSION}}
-          sources_destination: .
-          binaries_destination: bin
+          path: ${{env.BOOST_ROOT}}
+          key: wanderer-windows-boost-${{env.BOOST_VERSION}}-${{env.BOOST_CACHE_EDITION}}
 
-      - name: Download SDL2_image
-        uses: albin-johansson/download-sdl2-image@latest
-        with:
-          version: ${{env.IMG_VERSION}}
-          sources_destination: .
-          binaries_destination: bin
+      - name: Install Boost
+        if: steps.restore-cached-boost.outputs.cache-hit == 'false'
+        shell: powershell
+        run: |
+          mkdir boost
+          cd boost
+          Invoke-WebRequest -Uri "https://boostorg.jfrog.io/artifactory/main/release/${{env.BOOST_VERSION}}/source/boost_${{env.BOOST_VERSION_IN_URL}.zip" `
+                            -OutFile boost.zip
+          7z x -y boost.zip
 
-      - name: Download SDL2_mixer
-        uses: albin-johansson/download-sdl2-mixer@latest
-        with:
-          version: ${{env.MIX_VERSION}}
-          sources_destination: .
-          binaries_destination: bin
+      - name: Create build directory
+        run: mkdir build
 
-      - name: Download SDL2_ttf
-        uses: albin-johansson/download-sdl2-ttf@latest
-        with:
-          version: ${{env.TTF_VERSION}}
-          sources_destination: .
-          binaries_destination: bin
-
-      - name: Create build folder
-        run: cmake -E make_directory ./build
+      - name: Generate build files
+        working-directory: ./build
+        run: cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
 
       - name: Build
         working-directory: ./build
-        env:
-          SDL2DIR: ${{github.workspace}}/SDL2-${{env.SDL_VERSION}}
-          SDL2IMAGEDIR: ${{github.workspace}}/SDL2_image-${{env.IMG_VERSION}}
-          SDL2MIXERDIR: ${{github.workspace}}/SDL2_mixer-${{env.MIX_VERSION}}
-          SDL2TTFDIR: ${{github.workspace}}/SDL2_ttf-${{env.TTF_VERSION}}
-        run: |
-          cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
-          ninja
+        run: ninja
+
+      - name: Run tests
+        working-directory: ./build/test
+        run: WandererTests.exe
