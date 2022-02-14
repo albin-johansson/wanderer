@@ -2,8 +2,10 @@ name: "CI: macOS"
 
 on: [ push, pull_request ]
 
+# See https://github.com/actions/virtual-environments/blob/main/images/macos
 env:
   BOOST_ROOT: /opt/homebrew/Cellar/boost/1.76.0
+  VCPKG_ROOT: /usr/local/share/vcpkg
   VCPKG_COMMIT: c93faafe6d892aca636765e3a7e67797736b0b09
   VCPKG_CACHE_EDITION: 1
   VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}/vcpkg/bincache
@@ -15,14 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Define VCPKG_ROOT environment variable
-        run: echo 'export VCPKG_ROOT="VCPKG_INSTALLATION_ROOT"' >> ~/.bashrc
-
       - name: Install Boost
         run: brew install boost
 
       - name: Update Vcpkg
-        working-directory: ${{env.VCPKG_INSTALLATION_ROOT}}
+        working-directory: ${{env.VCPKG_ROOT}}
         run: git checkout ${{env.VCPKG_COMMIT}}
 
       - name: Make build directory
