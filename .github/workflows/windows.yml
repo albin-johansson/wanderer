@@ -21,7 +21,7 @@ jobs:
 
       - name: Define VCPKG_ROOT environment variable
         shell: cmd
-        run: setx VCPKG_ROOT "${{env.VCPKG_INSTALLATION_ROOT}}"
+        run: setx VCPKG_ROOT %VCPKG_INSTALLATION_ROOT%
 
       - name: Restore cached Boost
         id: restore-cached-boost
