@@ -1,34 +1,39 @@
 #include "wanderer_game.hpp"
 
+#include <centurion.hpp>
+
 #include "data/cfg.hpp"
+#include "events/misc_events.hpp"
+#include "systems/registry_system.hpp"
+#include "misc/logging.hpp"
+#include "misc/exception.hpp"
 
 namespace wanderer {
-namespace {
-
-constexpr auto _window_flags = cen::window::hidden | cen::window::allow_high_dpi;
-
-constexpr auto _renderer_flags = cen::renderer::accelerated |      //
-                                 cen::renderer::target_textures |  //
-                                 cen::renderer::vsync;
-
-}  // namespace
 
 wanderer_game::wanderer_game()
-    : _cfg{make_game_cfg()}
-    , _window{"Wanderer", cen::window::default_size(), _window_flags}
-    , _renderer{_window.create_renderer(_renderer_flags)}
+    : mCfg{make_game_cfg()}
+    , mGraphics{mCfg}
+    , mMenus{mCfg}
+    , mRegistry{sys::make_main_registry()}
 {
-  _renderer.set_logical_size({_cfg.logical_size.x, _cfg.logical_size.y});
+  mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
+
+  // TODO load levels
+
+  const auto output = mGraphics.renderer().output_size();
+  log_debug("Output size... ({}, {})", output.width, output.height);
 }
 
 void wanderer_game::run()
 {
-  _window.set_fullscreen_desktop(true);
-  _window.show();
+  auto& window = mGraphics.window();
+  window.center();
+  //  window.set_fullscreen_desktop(true);
+  window.show();
 
   start();
 
-  _window.hide();
+  window.hide();
 }
 
 void wanderer_game::process_events()
@@ -49,21 +54,54 @@ void wanderer_game::process_events()
     }
   }
 
-  _keyboard.refresh();
+  mInput.refresh(mGraphics.renderer());
+  mMenus.poll(mInput, mDispatcher);
 }
 
 void wanderer_game::update(const float32 dt)
 {
-  _dispatcher.update();
-
-  // TODO
+  mDispatcher.update();
+  if (!mMenus.is_blocking()) {
+    //
+  }
 }
 
 void wanderer_game::render()
 {
-  _renderer.clear_with(cen::colors::hot_pink);
+  auto& renderer = mGraphics.renderer();
+  renderer.clear_with(cen::colors::hot_pink);
 
-  _renderer.present();
+  mMenus.render(mGraphics);
+
+  const auto mx = mInput.mouse_logical_x();
+  const auto my = mInput.mouse_logical_y();
+  renderer.set_color(cen::colors::lime);
+  renderer.fill_circle<float>({mx, my}, 3);
+
+  renderer.present();
+}
+
+void wanderer_game::on_action(const action_event& event)
+{
+  switch (event.action) {
+    case action_id::noop:
+      break;
+
+    case action_id::quit:
+      stop();
+      break;
+
+    case action_id::goto_game:
+      mMenus.switch_to(menu_id::game);
+      break;
+
+    case action_id::goto_main_menu:
+      mMenus.switch_to(menu_id::home);
+      break;
+
+    default:
+      throw_traced(wanderer_error{"Invalid action!"});
+  }
 }
 
 }  // namespace wanderer

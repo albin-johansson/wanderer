@@ -1,14 +1,20 @@
 #pragma once
 
-#include <centurion.hpp>
 #include <entt/entt.hpp>
 
-#include "common.hpp"
-#include "core/game_loop.hpp"
-#include "data/cfg.hpp"
+#include "wanderer/common.hpp"
+#include "wanderer/core/game_loop.hpp"
+#include "wanderer/core/graphics.hpp"
+#include "wanderer/core/input_state.hpp"
+#include "wanderer/data/cfg.hpp"
+#include "wanderer/fwd.hpp"
+#include "wanderer/ui/menu_manager.hpp"
 
 namespace wanderer {
 
+/**
+ * \brief The heart of the game.
+ */
 class wanderer_game final : game_loop
 {
  public:
@@ -24,14 +30,17 @@ class wanderer_game final : game_loop
   void render() override;
 
  private:
-  game_cfg _cfg;
+  game_cfg mCfg;
 
-  cen::window _window;
-  cen::renderer _renderer;
-  cen::keyboard _keyboard;
+  graphics_ctx mGraphics;
+  input_state mInput;
 
-  entt::registry _registry;
-  entt::dispatcher _dispatcher;
+  menu_manager mMenus;
+
+  entt::dispatcher mDispatcher;
+  entt::registry mRegistry;
+
+  void on_action(const action_event& event);
 };
 
 }  // namespace wanderer
