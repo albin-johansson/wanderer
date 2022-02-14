@@ -9,7 +9,7 @@ env:
   BOOST_VERSION_IN_URL: 1_78_0
   BOOST_CACHE_EDITION: 1
   VCPKG_ROOT: C:\vcpkg
-  VCPKG_COMMIT: 898d6b1
+  VCPKG_COMMIT: 8dbd66f5a7821ced1ed57696b50375a977006813
   VCPKG_TARGET_TRIPLET: x64-windows-static-md
 #  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache
 
