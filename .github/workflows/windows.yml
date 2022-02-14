@@ -10,8 +10,9 @@ env:
   BOOST_CACHE_EDITION: 1
   VCPKG_ROOT: ${{github.workspace}}\vcpkg
   VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache # https://github.com/microsoft/vcpkg/blob/master/docs/users/binarycaching.md#configuration
-  VCPKG_COMMIT: 8dbd66f5a7821ced1ed57696b50375a977006813
+  VCPKG_COMMIT: c93faafe6
   VCPKG_CACHE_EDITION: 1
+  VCPKG_DEFAULT_TRIPLET: x64-windows-static-md
   VCPKG_TARGET_TRIPLET: x64-windows-static-md
 
 jobs:
