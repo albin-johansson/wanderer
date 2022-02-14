@@ -18,10 +18,8 @@ class menu_manager final
  public:
   /**
    * \brief Initializes all menus.
-   *
-   * \param cfg the configuration that will be used.
    */
-  explicit menu_manager(const game_cfg& cfg);
+  menu_manager();
 
   /**
    * \brief Changes the active menu.

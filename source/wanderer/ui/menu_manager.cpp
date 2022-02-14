@@ -4,10 +4,12 @@
 
 namespace wanderer {
 
-menu_manager::menu_manager(const game_cfg& cfg)
+menu_manager::menu_manager()
 {
-  mMenus[menu_id::home] = make_main_menu(cfg);
-  mMenus[menu_id::game] = make_in_game_menu(cfg);
+  mMenus[menu_id::game] = make_in_game_menu();
+  mMenus[menu_id::home] = make_main_menu();
+  mMenus[menu_id::options] = make_options_menu();
+  mMenus[menu_id::credits] = make_credits_menu();
 }
 
 void menu_manager::switch_to(const menu_id menu)

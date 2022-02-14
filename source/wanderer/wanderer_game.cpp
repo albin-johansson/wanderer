@@ -4,16 +4,15 @@
 
 #include "data/cfg.hpp"
 #include "events/misc_events.hpp"
-#include "systems/registry_system.hpp"
-#include "misc/logging.hpp"
 #include "misc/exception.hpp"
+#include "misc/logging.hpp"
+#include "systems/registry_system.hpp"
 
 namespace wanderer {
 
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
     , mGraphics{mCfg}
-    , mMenus{mCfg}
     , mRegistry{sys::make_main_registry()}
 {
   mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
@@ -99,6 +98,19 @@ void wanderer_game::on_action(const action_event& event)
       mMenus.switch_to(menu_id::home);
       break;
 
+    case action_id::goto_options_menu:
+      mMenus.switch_to(menu_id::options);
+      break;
+
+    case action_id::goto_credits_menu:
+      mMenus.switch_to(menu_id::credits);
+      break;
+
+    case action_id::toggle_fullscreen: {
+      auto& window = mGraphics.window();
+      window.set_fullscreen_desktop(!window.is_fullscreen_desktop());
+      break;
+    }
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }
