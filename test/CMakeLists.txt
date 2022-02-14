@@ -4,9 +4,11 @@ project(wanderer-test CXX)
 
 enable_testing()
 
-set(TEST_FILES
-    unit-tests/test_main.cpp
-    )
+file(GLOB_RECURSE TEST_FILES
+     CONFIGURE_DEPENDS
+     unit-tests/**/*.cpp
+     unit-tests/*.cpp
+     )
 
 add_executable(${TARGET_WANDERER_TEST} ${TEST_FILES})
 add_dependencies(${TARGET_WANDERER_TEST} ${TARGET_WANDERER_LIB})
