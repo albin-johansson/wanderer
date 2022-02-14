@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir boost
           cd boost
-          Invoke-WebRequest -Uri "https://boostorg.jfrog.io/artifactory/main/release/${{env.BOOST_VERSION}}/source/boost_${{env.BOOST_VERSION_IN_URL}.zip" `
+          Invoke-WebRequest -Uri "https://boostorg.jfrog.io/artifactory/main/release/${{env.BOOST_VERSION}}/source/boost_${{env.BOOST_VERSION_IN_URL}}.zip" `
                             -OutFile boost.zip
           7z x -y boost.zip
 
