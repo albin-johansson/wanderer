@@ -1,0 +1,39 @@
+name: "CI: macOS"
+
+on: [ push, pull_request ]
+
+env:
+  BOOST_ROOT: /opt/homebrew/Cellar/boost/1.76.0
+  VCPKG_ROOT: ${{env.VCPKG_INSTALLATION_ROOT}}
+  VCPKG_COMMIT: c93faafe6d892aca636765e3a7e67797736b0b09
+  VCPKG_CACHE_EDITION: 1
+  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}/vcpkg/bincache
+  VCPKG_TARGET_TRIPLET: x64-osx
+
+jobs:
+  macos-test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Install Boost
+        run: brew install boost
+
+      - name: Update Vcpkg
+        working-directory: ${{env.VCPKG_INSTALLATION_ROOT}}
+        run: git checkout ${{env.VCPKG_COMMIT}}
+
+      - name: Make build directory
+        run: mkdir build
+
+      - name: Generate build files
+        working-directory: ./build
+        run: cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
+
+      - name: Build
+        working-directory: ./build
+        run: ninja
+
+      - name: Run tests
+        working-directory: ./build/test
+        run: ./WandererTests
