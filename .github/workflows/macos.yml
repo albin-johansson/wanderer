@@ -20,9 +20,9 @@ jobs:
       - name: Install Boost
         run: brew install boost
 
-      - name: Update Vcpkg
-        working-directory: ${{env.VCPKG_ROOT}}
-        run: git checkout ${{env.VCPKG_COMMIT}}
+#      - name: Update Vcpkg
+#        working-directory: ${{env.VCPKG_ROOT}}
+#        run: git checkout ${{env.VCPKG_COMMIT}}
 
       - name: Make build directory
         run: mkdir build
