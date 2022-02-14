@@ -54,6 +54,8 @@ target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
 
 add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
 
+wanderer_add_compiler_options(${TARGET_WANDERER_EXE})
+
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
 
 target_link_libraries(${TARGET_WANDERER_EXE}

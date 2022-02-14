@@ -5,6 +5,8 @@
 #include "wanderer/common.hpp"
 #include "wanderer/fwd.hpp"
 
+#undef small
+
 namespace wanderer {
 
 enum class font_id
