@@ -8,10 +8,11 @@ env:
   BOOST_VERSION: 1.78.0
   BOOST_VERSION_IN_URL: 1_78_0
   BOOST_CACHE_EDITION: 1
-  VCPKG_ROOT: C:\vcpkg
+  VCPKG_ROOT: ${{github.workspace}}\vcpkg
+  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache # https://github.com/microsoft/vcpkg/blob/master/docs/users/binarycaching.md#configuration
   VCPKG_COMMIT: 8dbd66f5a7821ced1ed57696b50375a977006813
+  VCPKG_CACHE_EDITION: 1
   VCPKG_TARGET_TRIPLET: x64-windows-static-md
-#  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache
 
 jobs:
   windows-test:
@@ -20,10 +21,6 @@ jobs:
       - uses: actions/checkout@main
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: lukka/get-cmake@latest
-
-#      - name: Update Vcpkg
-#        working-directory: ${{env.VCPKG_ROOT}}
-#        run: git checkout ${{env.VCPKG_COMMIT}}
 
       - name: Restore cached Boost
         id: restore-cached-boost
@@ -41,6 +38,27 @@ jobs:
           Invoke-WebRequest -Uri "https://boostorg.jfrog.io/artifactory/main/release/${{env.BOOST_VERSION}}/source/boost_${{env.BOOST_VERSION_IN_URL}}.zip" `
                             -OutFile boost.zip
           7z x -y boost.zip
+
+      - name: Restore cached Vcpkg
+        id: restore-vcpkg-and-artifacts
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{env.VCPKG_ROOT}}
+            !${{env.VCPKG_ROOT}}\buildtrees
+            !${{env.VCPKG_ROOT}}\packages
+            !${{env.VCPKG_ROOT}}\downloads
+            !${{env.VCPKG_ROOT}}\installed
+          key: wanderer-windows-vcpkg-${{hashFiles('vcpkg.json')}}-${{env.VCPKG_COMMIT}}-${{env.VCPKG_CACHE_EDITION}}
+
+      - name: Install Vcpkg
+        if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
+        shell: cmd
+        run: |
+          git clone https://github.com/microsoft/vcpkg
+          git checkout master ${{env.VCPKG_COMMIT}}
+          .\vcpkg\bootstrap-vcpkg.bat -disableMetrics
+          .\vcpkg\vcpkg integrate install
 
       - name: Create build directory
         run: mkdir build
