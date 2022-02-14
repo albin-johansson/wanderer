@@ -55,7 +55,7 @@ jobs:
         if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
         run: |
           git clone https://github.com/microsoft/vcpkg
-          git checkout ${{env.VCPKG_COMMIT}}
+          git checkout -b master ${{env.VCPKG_COMMIT}}
           .\vcpkg\bootstrap-vcpkg.bat -disableMetrics
           .\vcpkg\vcpkg integrate install
 
