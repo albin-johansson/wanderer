@@ -30,7 +30,7 @@ jobs:
           key: wanderer-windows-boost-${{env.BOOST_VERSION}}-${{env.BOOST_CACHE_EDITION}}
 
       - name: Install Boost
-        if: steps.restore-cached-boost.outputs.cache-hit == 'false'
+        if: steps.restore-cached-boost.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           mkdir boost
