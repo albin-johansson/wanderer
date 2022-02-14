@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package wanderer.proto;
+
+message fvec2
+{
+  optional float x = 1;
+  optional float y = 2;
+}
+
+message ivec2
+{
+  optional int32 x = 1;
+  optional int32 y = 2;
+}
+
+message fvec3
+{
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
+}
+
+message ivec3
+{
+  optional int32 x = 1;
+  optional int32 y = 2;
+  optional int32 z = 3;
+}
+
+message fvec4
+{
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
+  optional float w = 4;
+}
+
+message ivec4
+{
+  optional int32 x = 1;
+  optional int32 y = 2;
+  optional int32 z = 3;
+  optional int32 w = 4;
+}
