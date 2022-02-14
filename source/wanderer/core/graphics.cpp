@@ -3,6 +3,8 @@
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/misc/exception.hpp"
 
+#undef small
+
 namespace wanderer {
 namespace {
 
