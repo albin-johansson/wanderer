@@ -2,11 +2,13 @@ name: "CI: Windows"
 
 on: [ push, pull_request ]
 
+# See https://github.com/actions/virtual-environments/tree/main/images/win
 env:
   BOOST_ROOT: C:\boost
   BOOST_VERSION: 1.78.0
   BOOST_VERSION_IN_URL: 1_78_0
   BOOST_CACHE_EDITION: 1
+  VCPKG_ROOT: C:\vcpkg
   VCPKG_COMMIT: c93faafe6d892aca636765e3a7e67797736b0b09
   VCPKG_TARGET_TRIPLET: x64-windows-static-md
 #  VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}\vcpkg\bincache
@@ -18,10 +20,6 @@ jobs:
       - uses: actions/checkout@main
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: lukka/get-cmake@latest
-
-      - name: Define VCPKG_ROOT environment variable
-        shell: cmd
-        run: setx VCPKG_ROOT %VCPKG_INSTALLATION_ROOT%
 
       - name: Restore cached Boost
         id: restore-cached-boost
