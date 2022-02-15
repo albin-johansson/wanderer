@@ -12,6 +12,8 @@ auto make_in_game_menu() -> ui_menu
   menu.reserve_buttons(1);
   menu.add_button("Pause", action_id::goto_main_menu, {6, 6});
 
+  menu.add_bind(action_id::goto_main_menu, cen::scancodes::escape);
+
   return menu;
 }
 
@@ -29,6 +31,8 @@ auto make_main_menu() -> ui_menu
 
   menu.add_button("Quit", action_id::quit, {ui_button::centered, 400});
 
+  menu.add_bind(action_id::goto_game, cen::scancodes::escape);
+
   return menu;
 }
 
@@ -44,6 +48,8 @@ auto make_options_menu() -> ui_menu
                   action_id::toggle_fullscreen,
                   {ui_button::centered, 250});
 
+  menu.add_bind(action_id::goto_main_menu, cen::scancodes::escape);
+
   return menu;
 }
 
@@ -54,6 +60,8 @@ auto make_credits_menu() -> ui_menu
   menu.set_blocking(true);
 
   menu.add_button("Return", action_id::goto_main_menu, {ui_button::centered, 150});
+
+  menu.add_bind(action_id::goto_main_menu, cen::scancodes::escape);
 
   return menu;
 }

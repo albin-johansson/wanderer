@@ -16,6 +16,15 @@
 namespace wanderer {
 
 /**
+ * \brief Represents an action triggered when a key is released.
+ */
+struct ui_key_bind
+{
+  action_id action{action_id::noop};
+  cen::scan_code key;
+};
+
+/**
  * \brief The general representation of menus in the game.
  */
 class ui_menu final
@@ -70,6 +79,8 @@ class ui_menu final
    */
   void add_button(std::string label, action_id action, const glm::vec2& pos);
 
+  void add_bind(action_id action, cen::scan_code key);
+
   /**
    * \brief Indicates whether the menu blocks game updates.
    *
@@ -80,6 +91,7 @@ class ui_menu final
  private:
   maybe<ui_text> mTitle;
   std::vector<ui_button> mButtons;
+  std::vector<ui_key_bind> mBinds;
   maybe<usize> mHoverButtonIndex;
   bool mBlocking{};
 };

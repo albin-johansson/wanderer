@@ -3,6 +3,8 @@
 #include <utility>  // move
 
 #include "wanderer/core/graphics.hpp"
+#include "wanderer/core/input_state.hpp"
+#include "wanderer/events/misc_events.hpp"
 
 namespace wanderer {
 
@@ -25,7 +27,11 @@ void ui_menu::poll(const input_state& input, entt::dispatcher& dispatcher)
     ++index;
   }
 
-  // TODO key bindings
+  for (const auto& bind : mBinds) {
+    if (input.was_released(bind.key)) {
+      dispatcher.enqueue<action_event>(bind.action);
+    }
+  }
 }
 
 void ui_menu::render(graphics_ctx& graphics)
@@ -69,6 +75,13 @@ void ui_menu::add_button(std::string label, const action_id action, const glm::v
   auto& button = mButtons.emplace_back(label, font_size::small);
   button.set_action(action);
   button.set_position(pos);
+}
+
+void ui_menu::add_bind(const action_id action, const cen::scan_code key)
+{
+  auto& bind = mBinds.emplace_back();
+  bind.action = action;
+  bind.key = key;
 }
 
 }  // namespace wanderer
