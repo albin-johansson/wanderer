@@ -37,6 +37,8 @@ void wanderer_game::run()
 
 void wanderer_game::process_events()
 {
+  mInput.refresh(mGraphics.renderer());
+
   cen::event_handler event;
 
   while (event.poll()) {
@@ -53,7 +55,6 @@ void wanderer_game::process_events()
     }
   }
 
-  mInput.refresh(mGraphics.renderer());
   mMenus.poll(mInput, mDispatcher);
 }
 
