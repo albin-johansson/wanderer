@@ -4,6 +4,7 @@
 
 #include <fmt/color.h>
 #include <fmt/core.h>
+#include <fmt/ostream.h>
 
 #include "wanderer/meta/build.hpp"
 
@@ -33,7 +34,9 @@ void print([[maybe_unused]] const fmt::color color,
 template <typename... Args>
 void log_debug(const std::string_view fmt, const Args&... args)
 {
-  logging::log_debug(fmt, fmt::make_format_args(args...));
+  if constexpr (is_debug_build) {
+    logging::log_debug(fmt, fmt::make_format_args(args...));
+  }
 }
 
 template <typename... Args>
