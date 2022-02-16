@@ -8,6 +8,7 @@
 
 namespace wanderer::comp {
 
+using tile_row = std::vector<tile_id>;
 using tile_matrix = std::vector<std::vector<tile_id>>;
 
 /**
@@ -16,6 +17,7 @@ using tile_matrix = std::vector<std::vector<tile_id>>;
 struct tile_layer final
 {
   tile_matrix tiles;  ///< The tile data.
+  int32 z{};          ///< Rendering depth index.
 };
 
 /**
@@ -26,6 +28,7 @@ struct tilemap final
   int32 humanoid_layer_index{};  ///< The layer index inhabited by humanoids.
   usize row_count{};             ///< Total amount of tile rows.
   usize col_count{};             ///< Total amount of tile columns.
+  glm::vec2 size{};              ///< Map size in pixels.
 };
 
 /**
