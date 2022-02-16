@@ -13,6 +13,7 @@
     "fmt",
     "magic-enum",
     "yaml-cpp",
+    "nlohmann-json",
     "doctest"
   ]
 }
