@@ -2,6 +2,7 @@
 
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/misc/exception.hpp"
+#include "wanderer/misc/logging.hpp"
 
 #undef small
 
@@ -43,6 +44,10 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   mHandwritingFontId = mFontBundle.load_font(handwritingPath, _handwriting_size_s);
   mFontBundle.load_font(handwritingPath, _handwriting_size_m);
   mFontBundle.load_font(handwritingPath, _handwriting_size_l);
+
+  const auto output = mRenderer.output_size();
+  log_debug("Output size... ({}, {})", output.width, output.height);
+}
 }
 
 auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&
