@@ -13,6 +13,8 @@ struct game_cfg final
 {
   glm::ivec2 logical_size{};
   glm::fvec2 logical_size_f{};
+  glm::fvec2 tile_size{};
+  glm::fvec2 humanoid_draw_size{};
 };
 
 /**

@@ -8,6 +8,8 @@ namespace wanderer {
 
 auto make_game_cfg() -> game_cfg
 {
+  // TODO persistent UI scale factor?
+
   const auto display = cen::display_mode::desktop();
 
   const auto screenSize = display.size();
@@ -22,6 +24,9 @@ auto make_game_cfg() -> game_cfg
   cfg.logical_size.y = static_cast<int32>(cfg.logical_size_f.y);
 
   debug("Logical size is {}", cfg.logical_size_f);
+
+  cfg.tile_size = {64, 64};
+  cfg.humanoid_draw_size = cfg.tile_size * 2.0f;
 
   return cfg;
 }
