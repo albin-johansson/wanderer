@@ -12,6 +12,24 @@
 
 #endif  // NDEBUG
 
+#ifdef _MSC_VER
+#define WANDERER_COMPILER_MSVC 1
+#else
+#define WANDERER_COMPILER_MSVC 0
+#endif  // _MSC_VER
+
+#ifdef __GNUC__
+#define WANDERER_COMPILER_GCC 1
+#else
+#define WANDERER_COMPILER_GCC 0
+#endif  // __GNUC__
+
+#ifdef __clang__
+#define WANDERER_COMPILER_CLANG 1
+#else
+#define WANDERER_COMPILER_CLANG 0
+#endif  // __clang__
+
 namespace wanderer {
 
 #if WANDERER_DEBUG_BUILD
