@@ -63,8 +63,8 @@ void wanderer_game::update(const float32 dt)
 {
   mDispatcher.update();
 
-  auto& registry = current_registry();
   if (!mMenus.is_blocking()) {
+    auto& registry = current_registry();
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry, mCfg);
   }
