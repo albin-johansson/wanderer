@@ -2,9 +2,8 @@
 
 #include <cstdlib>  // abort
 
-#include <boost/stacktrace.hpp>
-#include <fmt/ostream.h>
-
+#include "boost.hpp"
+#include "wanderer/meta/build.hpp"
 #include "wanderer/misc/logging.hpp"
 
 namespace boost {

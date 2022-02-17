@@ -2,8 +2,8 @@
 
 #include <exception>  // exception
 
-#include <boost/exception/all.hpp>
-#include <boost/stacktrace.hpp>
+#include "boost.hpp"
+#include "wanderer/meta/build.hpp"
 
 namespace wanderer {
 
