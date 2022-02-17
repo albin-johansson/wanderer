@@ -75,7 +75,7 @@ void wanderer_game::render()
   const auto& registry = current_registry();
 
   auto& renderer = mGraphics.renderer();
-  renderer.clear_with(cen::colors::hot_pink);
+  renderer.clear_with(cen::colors::black);
 
   sys::render_tiles(registry, mCfg, mGraphics);
 
