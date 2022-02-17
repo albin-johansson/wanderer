@@ -106,10 +106,16 @@ void wanderer_game::on_action(const action_event& event)
       mMenus.switch_to(menu_id::options);
       break;
 
+    case action_id::goto_saves_menu:
+      mMenus.switch_to(menu_id::saves);
+      break;
+
     case action_id::goto_credits_menu:
       mMenus.switch_to(menu_id::credits);
       break;
 
+    case action_id::quick_save:
+      // TODO
       break;
 
     case action_id::toggle_fullscreen:

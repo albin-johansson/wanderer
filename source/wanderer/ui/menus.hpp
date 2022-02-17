@@ -21,6 +21,8 @@ namespace wanderer {
 
 [[nodiscard]] auto make_options_menu() -> ui_menu;
 
+[[nodiscard]] auto make_saves_menu() -> ui_menu;
+
 [[nodiscard]] auto make_credits_menu() -> ui_menu;
 
 }  // namespace wanderer

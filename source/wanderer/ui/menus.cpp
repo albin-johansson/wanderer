@@ -27,9 +27,10 @@ auto make_main_menu() -> ui_menu
   menu.add_button("Play", action_id::goto_game, {ui_button::centered, 150});
 
   menu.add_button("Options", action_id::goto_options_menu, {ui_button::centered, 250});
-  menu.add_button("Credits", action_id::goto_credits_menu, {ui_button::centered, 300});
+  menu.add_button("Saves", action_id::goto_saves_menu, {ui_button::centered, 300});
+  menu.add_button("Credits", action_id::goto_credits_menu, {ui_button::centered, 350});
 
-  menu.add_button("Quit", action_id::quit, {ui_button::centered, 400});
+  menu.add_button("Quit", action_id::quit, {ui_button::centered, 450});
 
   menu.add_bind(action_id::goto_game, cen::scancodes::escape);
 
@@ -47,6 +48,19 @@ auto make_options_menu() -> ui_menu
   menu.add_button("Toggle Fullscreen",
                   action_id::toggle_fullscreen,
                   {ui_button::centered, 250});
+
+  menu.add_bind(action_id::goto_main_menu, cen::scancodes::escape);
+
+  return menu;
+}
+
+auto make_saves_menu() -> ui_menu
+{
+  ui_menu menu;
+  menu.set_title("Saves");
+  menu.set_blocking(true);
+
+  menu.add_button("Return", action_id::goto_main_menu, {ui_button::centered, 150});
 
   menu.add_bind(action_id::goto_main_menu, cen::scancodes::escape);
 
