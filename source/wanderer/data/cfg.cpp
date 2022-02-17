@@ -21,7 +21,7 @@ auto make_game_cfg() -> game_cfg
   cfg.logical_size.x = static_cast<int32>(cfg.logical_size_f.x);
   cfg.logical_size.y = static_cast<int32>(cfg.logical_size_f.y);
 
-  log_debug("Logical size is ({}, {})", cfg.logical_size_f.x, cfg.logical_size_f.y);
+  debug("Logical size is {}", cfg.logical_size_f);
 
   return cfg;
 }

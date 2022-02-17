@@ -20,8 +20,8 @@ int main(int, char**)
     const cen::mix mix;
     const cen::ttf ttf;
 
-    wanderer::log_debug("Persistent file directory is {}",
-                        wanderer::get_persistent_file_dir());
+    wanderer::debug("Persistent file directory is {}",
+                    wanderer::get_persistent_file_dir());
 
     wanderer::wanderer_game game;
     game.run();

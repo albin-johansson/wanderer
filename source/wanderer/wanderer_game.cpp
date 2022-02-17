@@ -19,8 +19,6 @@ wanderer_game::wanderer_game()
 
   // TODO load levels
 
-  const auto output = mGraphics.renderer().output_size();
-  log_debug("Output size... ({}, {})", output.width, output.height);
 }
 
 void wanderer_game::run()

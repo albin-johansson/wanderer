@@ -30,9 +30,9 @@ namespace {
 
 game_loop::game_loop() : _state{make_loop_state()}
 {
-  log_debug("Game loop refresh rate is '{}'", _state.rate);
-  log_debug("Game loop fixed delta is '{}'", _state.fixed_dt);
-  log_debug("Maximum amount of ticks per frame is '{}'", _state.max_ticks_per_frame);
+  debug("Game loop refresh rate is '{}'", _state.rate);
+  debug("Game loop fixed delta is '{}'", _state.fixed_dt);
+  debug("Maximum amount of ticks per frame is '{}'", _state.max_ticks_per_frame);
 }
 
 void game_loop::start()

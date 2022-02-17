@@ -33,7 +33,7 @@ void print([[maybe_unused]] const fmt::color color,
 }
 
 template <typename... Args>
-void log_debug(const std::string_view fmt, const Args&... args)
+void debug(const std::string_view fmt, const Args&... args)
 {
   if constexpr (is_debug_build) {
     logging::log_debug(fmt, fmt::make_format_args(args...));
@@ -41,19 +41,19 @@ void log_debug(const std::string_view fmt, const Args&... args)
 }
 
 template <typename... Args>
-void log_info(const std::string_view fmt, const Args&... args)
+void info(const std::string_view fmt, const Args&... args)
 {
   logging::log_info(fmt, fmt::make_format_args(args...));
 }
 
 template <typename... Args>
-void log_warn(const std::string_view fmt, const Args&... args)
+void warn(const std::string_view fmt, const Args&... args)
 {
   logging::log_warn(fmt, fmt::make_format_args(args...));
 }
 
 template <typename... Args>
-void log_error(const std::string_view fmt, const Args&... args)
+void error(const std::string_view fmt, const Args&... args)
 {
   logging::log_error(fmt, fmt::make_format_args(args...));
 }

@@ -45,8 +45,7 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   mFontBundle.load_font(handwritingPath, _handwriting_size_m);
   mFontBundle.load_font(handwritingPath, _handwriting_size_l);
 
-  const auto output = mRenderer.output_size();
-  log_debug("Output size... ({}, {})", output.width, output.height);
+  debug("Output size... {}", mRenderer.output_size());
 }
 }
 
