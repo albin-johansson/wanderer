@@ -20,10 +20,12 @@ constexpr auto _renderer_flags = cen::renderer::accelerated |      //
 constexpr int _pixelated_size_s = 8;
 constexpr int _pixelated_size_m = _pixelated_size_s * 2;
 constexpr int _pixelated_size_l = _pixelated_size_s * 3;
+constexpr int _pixelated_size_h = _pixelated_size_s * 5;
 
 constexpr int _handwriting_size_s = 9;
 constexpr int _handwriting_size_m = 12;
 constexpr int _handwriting_size_l = 16;
+constexpr int _handwriting_size_h = 32;
 
 }  // namespace
 
@@ -41,11 +43,13 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   mPixelatedFontId = mFontBundle.load_font(pixelatedPath, _pixelated_size_s);
   mFontBundle.load_font(pixelatedPath, _pixelated_size_m);
   mFontBundle.load_font(pixelatedPath, _pixelated_size_l);
+  mFontBundle.load_font(pixelatedPath, _pixelated_size_h);
 
   const char* handwritingPath = "resources/fonts/daniel.ttf";
   mHandwritingFontId = mFontBundle.load_font(handwritingPath, _handwriting_size_s);
   mFontBundle.load_font(handwritingPath, _handwriting_size_m);
   mFontBundle.load_font(handwritingPath, _handwriting_size_l);
+  mFontBundle.load_font(handwritingPath, _handwriting_size_h);
 
   debug("Output size... {}", mRenderer.output_size());
 }
@@ -86,6 +90,9 @@ auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&
     case font_size::large:
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_l).get_font();
 
+    case font_size::huge:
+      return mFontBundle.at(mPixelatedFontId, _pixelated_size_h).get_font();
+
     default:
       throw_traced(wanderer_error{"Invalid font size!"});
   }
@@ -102,6 +109,9 @@ auto graphics_ctx::get_handwriting_font(const font_size size) -> cen::font&
 
     case font_size::large:
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_l).get_font();
+
+    case font_size::huge:
+      return mFontBundle.at(mHandwritingFontId, _handwriting_size_h).get_font();
 
     default:
       throw_traced(wanderer_error{"Invalid font size!"});

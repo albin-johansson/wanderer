@@ -17,7 +17,8 @@ enum class font_size
 {
   small,
   medium,
-  large
+  large,
+  huge
 };
 
 /**
