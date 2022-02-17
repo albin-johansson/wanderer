@@ -38,9 +38,11 @@ class wanderer_game final : game_loop
   menu_manager mMenus;
 
   entt::dispatcher mDispatcher;
-  entt::registry mRegistry;
+  entt::registry mSharedRegistry;
 
   void on_action(const action_event& event);
+
+  [[nodiscard]] auto current_registry() -> entt::registry&;
 };
 
 }  // namespace wanderer

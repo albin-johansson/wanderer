@@ -2,30 +2,33 @@
 
 #include <centurion.hpp>
 
-#include "data/cfg.hpp"
-#include "events/misc_events.hpp"
-#include "misc/exception.hpp"
-#include "misc/logging.hpp"
-#include "systems/registry_system.hpp"
+#include "wanderer/data/cfg.hpp"
+#include "wanderer/data/components/levels.hpp"
+#include "wanderer/events/misc_events.hpp"
+#include "wanderer/io/level-parsing/parse_levels.hpp"
+#include "wanderer/misc/exception.hpp"
+#include "wanderer/systems/registry_system.hpp"
+#include "wanderer/systems/tile_system.hpp"
+#include "wanderer/systems/viewport_system.hpp"
 
 namespace wanderer {
 
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
     , mGraphics{mCfg}
-    , mRegistry{sys::make_main_registry()}
+    , mSharedRegistry{sys::make_main_registry()}
 {
   mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
 
-  // TODO load levels
-
+  /* Make sure that we can render background */
+  auto& registry = current_registry();
+  sys::update_render_bounds(registry, mCfg);
 }
 
 void wanderer_game::run()
 {
   auto& window = mGraphics.window();
   window.center();
-  //  window.set_fullscreen_desktop(true);
   window.show();
 
   start();
@@ -59,22 +62,24 @@ void wanderer_game::process_events()
 void wanderer_game::update(const float32 dt)
 {
   mDispatcher.update();
+
+  auto& registry = current_registry();
   if (!mMenus.is_blocking()) {
-    //
+    sys::update_viewport(registry, dt);
+    sys::update_render_bounds(registry, mCfg);
   }
 }
 
 void wanderer_game::render()
 {
+  const auto& registry = current_registry();
+
   auto& renderer = mGraphics.renderer();
   renderer.clear_with(cen::colors::hot_pink);
 
-  mMenus.render(mGraphics);
+  sys::render_tiles(registry, mCfg, mGraphics);
 
-  const auto mx = mInput.mouse_logical_x();
-  const auto my = mInput.mouse_logical_y();
-  renderer.set_color(cen::colors::lime);
-  renderer.fill_circle<float>({mx, my}, 3);
+  mMenus.render(mGraphics);
 
   renderer.present();
 }
@@ -113,6 +118,12 @@ void wanderer_game::on_action(const action_event& event)
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }
+}
+
+auto wanderer_game::current_registry() -> entt::registry&
+{
+  auto& levels = mSharedRegistry.ctx<comp::level_ctx>();
+  return levels.levels.at(levels.current);
 }
 
 }  // namespace wanderer
