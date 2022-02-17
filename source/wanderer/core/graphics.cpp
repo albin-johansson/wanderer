@@ -1,6 +1,8 @@
 #include "graphics.hpp"
 
+#include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/data/cfg.hpp"
+#include "wanderer/misc/assert.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
 
@@ -47,6 +49,24 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
 
   debug("Output size... {}", mRenderer.output_size());
 }
+
+auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
+{
+  /* This approach requires that textures are never removed, which is fine  */
+  const auto id = mTextures.size();
+  debug("Loading texture '{}' from {}", id, path);
+
+  mTextures.push_back(mRenderer.create_texture(path));
+  return id;
+}
+
+void graphics_ctx::render_texture(const texture_id id,
+                                  const glm::ivec4& source,
+                                  const glm::vec4& dest)
+{
+  WANDERER_ASSERT_MSG(id < mTextures.size(), "Invalid texture identifier!");
+  const auto& texture = mTextures[id];
+  mRenderer.render(texture, as_rect(source), as_rect(dest));
 }
 
 auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&
