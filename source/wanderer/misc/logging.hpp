@@ -6,6 +6,7 @@
 #include <fmt/core.h>
 #include <fmt/ostream.h>
 
+#include "fmt_specializations.hpp"
 #include "wanderer/meta/build.hpp"
 
 namespace wanderer {
