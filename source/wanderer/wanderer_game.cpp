@@ -110,11 +110,12 @@ void wanderer_game::on_action(const action_event& event)
       mMenus.switch_to(menu_id::credits);
       break;
 
-    case action_id::toggle_fullscreen: {
-      auto& window = mGraphics.window();
-      window.set_fullscreen_desktop(!window.is_fullscreen_desktop());
       break;
-    }
+
+    case action_id::toggle_fullscreen:
+      mGraphics.toggle_fullscreen();
+      break;
+
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }

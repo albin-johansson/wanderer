@@ -29,6 +29,11 @@ class graphics_ctx final
   explicit graphics_ctx(const game_cfg& cfg);
 
   /**
+   * \brief Toggles the fullscreen mode of the window.
+   */
+  void toggle_fullscreen();
+
+  /**
    * \brief Loads a texture.
    *
    * \param path the file path to the source texture.

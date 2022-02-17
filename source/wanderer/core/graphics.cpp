@@ -50,6 +50,11 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   debug("Output size... {}", mRenderer.output_size());
 }
 
+void graphics_ctx::toggle_fullscreen()
+{
+  mWindow.set_fullscreen_desktop(!mWindow.is_fullscreen_desktop());
+}
+
 auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
 {
   /* This approach requires that textures are never removed, which is fine  */
