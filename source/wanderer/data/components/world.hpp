@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct world_position final
+struct position final
 {
   glm::vec2 pos{};
 };

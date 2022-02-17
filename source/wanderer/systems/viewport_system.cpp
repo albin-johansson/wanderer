@@ -47,9 +47,9 @@ void update_viewport(entt::registry& registry, const float32 dt)
   WANDERER_ASSERT_MSG(view.size() == 1, "There cannot be more than 1 viewport target!");
   const auto targetEntity = view.front();
 
-  WANDERER_ASSERT(registry.all_of<comp::world_position>(targetEntity));
+  WANDERER_ASSERT(registry.all_of<comp::position>(targetEntity));
   const auto& viewportTarget = registry.get<comp::viewport_target>(targetEntity);
-  const auto& viewportTargetPos = registry.get<comp::world_position>(targetEntity);
+  const auto& viewportTargetPos = registry.get<comp::position>(targetEntity);
 
   const auto target =
       (viewportTargetPos.pos + (viewportTarget.size / 2.0f)) - (viewport.size / 2.0f);

@@ -34,7 +34,7 @@ struct viewport final
  * Furthermore, it is expected that a maximum of one entity per registry features this
  * component.
  *
- * \note An entity featuring this component must also feature a `world_position`
+ * \note An entity featuring this component must also feature a `position`
  * component.
  */
 struct viewport_target final
