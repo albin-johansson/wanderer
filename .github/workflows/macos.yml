@@ -40,9 +40,10 @@ jobs:
         if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
         run: |
           git clone https://github.com/microsoft/vcpkg
+          cd vcpkg
           git fetch
           git checkout -b tmp-branch ${{env.VCPKG_COMMIT}}
-          ./vcpkg/bootstrap-vcpkg.sh -disableMetrics
+          ./bootstrap-vcpkg.sh -disableMetrics
 
       - name: Create directory ${{env.VCPKG_DEFAULT_BINARY_CACHE}}
         if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
