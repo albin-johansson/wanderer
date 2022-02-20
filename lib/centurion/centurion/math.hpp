@@ -124,18 +124,26 @@ struct basic_area final
   value_type width{};
   value_type height{};
 
+  /**
+   * \brief Returns the area as an `farea`.
+   *
+   * \return a floating-point based area.
+   */
   template <typename TT = T, std::enable_if_t<std::is_integral_v<TT>, int> = 0>
   [[nodiscard]] constexpr auto as_f() const noexcept -> farea
   {
-    return {static_cast<farea::value_type>(width),
-            static_cast<farea::value_type>(height)};
+    return {static_cast<farea::value_type>(width), static_cast<farea::value_type>(height)};
   }
 
+  /**
+   * \brief Returns the point as an `iarea`.
+   *
+   * \return a integer based area.
+   */
   template <typename TT = T, std::enable_if_t<std::is_floating_point_v<TT>, int> = 0>
   [[nodiscard]] constexpr auto as_i() const noexcept -> iarea
   {
-    return {static_cast<iarea::value_type>(width),
-            static_cast<iarea::value_type>(height)};
+    return {static_cast<iarea::value_type>(width), static_cast<iarea::value_type>(height)};
   }
 };
 
@@ -324,6 +332,11 @@ class basic_point final
   /// \name Casting functions
   /// \{
 
+  /**
+   * \brief Returns the point as an `fpoint`.
+   *
+   * \return a floating-point based point.
+   */
   template <typename TT = T, std::enable_if_t<std::is_integral_v<TT>, int> = 0>
   [[nodiscard]] constexpr auto as_f() const noexcept -> fpoint
   {
@@ -331,6 +344,11 @@ class basic_point final
             static_cast<fpoint::value_type>(mPoint.y)};
   }
 
+  /**
+   * \brief Returns the point as an `ipoint`.
+   *
+   * \return a integer based point.
+   */
   template <typename TT = T, std::enable_if_t<std::is_floating_point_v<TT>, int> = 0>
   [[nodiscard]] constexpr auto as_i() const noexcept -> ipoint
   {
@@ -842,6 +860,39 @@ class basic_rect final
   }
 
   /// \} End of queries
+
+  /// \name Casting functions
+  /// \{
+
+  /**
+   * \brief Returns the rectangle as an `frect`.
+   *
+   * \return a floating-point based rectangle.
+   */
+  template <typename TT = T, std::enable_if_t<std::is_integral_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_f() const noexcept -> frect
+  {
+    return {static_cast<frect::value_type>(mRect.x),
+            static_cast<frect::value_type>(mRect.y),
+            static_cast<frect::value_type>(mRect.w),
+            static_cast<frect::value_type>(mRect.h)};
+  }
+
+  /**
+   * \brief Returns the rectangle as an `irect`.
+   *
+   * \return a integer based rectangle.
+   */
+  template <typename TT = T, std::enable_if_t<std::is_floating_point_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_i() const noexcept -> irect
+  {
+    return {static_cast<irect::value_type>(mRect.x),
+            static_cast<irect::value_type>(mRect.y),
+            static_cast<irect::value_type>(mRect.w),
+            static_cast<irect::value_type>(mRect.h)};
+  }
+
+  /// \} End of casting functions
 
   /// \name Misc functions
   /// \{
