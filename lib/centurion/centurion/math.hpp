@@ -123,6 +123,20 @@ struct basic_area final
 
   value_type width{};
   value_type height{};
+
+  template <typename TT = T, std::enable_if_t<std::is_integral_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_f() const noexcept -> farea
+  {
+    return {static_cast<farea::value_type>(width),
+            static_cast<farea::value_type>(height)};
+  }
+
+  template <typename TT = T, std::enable_if_t<std::is_floating_point_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_i() const noexcept -> iarea
+  {
+    return {static_cast<iarea::value_type>(width),
+            static_cast<iarea::value_type>(height)};
+  }
 };
 
 /// \name Area functions
