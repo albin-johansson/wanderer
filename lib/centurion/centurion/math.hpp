@@ -84,9 +84,9 @@ template <typename T>
 [[nodiscard]] auto to_string(const basic_vector3<T>& vector) -> std::string
 {
 #if CENTURION_HAS_FEATURE_FORMAT
-  return std::format("vector3(x: {}, y: {}, z: {})", vector.x, vector.y, vector.z);
+  return std::format("(x: {}, y: {}, z: {})", vector.x, vector.y, vector.z);
 #else
-  return "vector3(x: " + std::to_string(vector.x) + ", y: " + std::to_string(vector.y) +
+  return "(x: " + std::to_string(vector.x) + ", y: " + std::to_string(vector.y) +
          ", z: " + std::to_string(vector.z) + ")";
 #endif  // CENTURION_HAS_FEATURE_FORMAT
 }
@@ -307,6 +307,25 @@ class basic_point final
 
   /// \} End of getters
 
+  /// \name Casting functions
+  /// \{
+
+  template <typename TT = T, std::enable_if_t<std::is_integral_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_f() const noexcept -> fpoint
+  {
+    return {static_cast<fpoint::value_type>(mPoint.x),
+            static_cast<fpoint::value_type>(mPoint.y)};
+  }
+
+  template <typename TT = T, std::enable_if_t<std::is_floating_point_v<TT>, int> = 0>
+  [[nodiscard]] constexpr auto as_i() const noexcept -> ipoint
+  {
+    return {static_cast<ipoint::value_type>(mPoint.x),
+            static_cast<ipoint::value_type>(mPoint.y)};
+  }
+
+  /// \} End of casting functions
+
   /// \name Misc functions
   /// \{
 
@@ -387,9 +406,9 @@ template <typename T>
 [[nodiscard]] auto to_string(const basic_point<T>& point) -> std::string
 {
 #if CENTURION_HAS_FEATURE_FORMAT
-  return std::format("point(x: {}, y: {})", point.x(), point.y());
+  return std::format("(x: {}, y: {})", point.x(), point.y());
 #else
-  return "point(x: " + std::to_string(point.x()) + ", y: " + std::to_string(point.y()) + ")";
+  return "(x: " + std::to_string(point.x()) + ", y: " + std::to_string(point.y()) + ")";
 #endif  // CENTURION_HAS_FEATURE_FORMAT
 }
 
@@ -931,13 +950,13 @@ template <typename T>
 [[nodiscard]] auto to_string(const basic_rect<T>& rect) -> std::string
 {
 #if CENTURION_HAS_FEATURE_FORMAT
-  return std::format("irect(x: {}, y: {}, width: {}, height: {})",
+  return std::format("(x: {}, y: {}, width: {}, height: {})",
                      rect.x(),
                      rect.y(),
                      rect.width(),
                      rect.height());
 #else
-  return "irect(x: " + std::to_string(rect.x()) + ", y: " + std::to_string(rect.y()) +
+  return "(x: " + std::to_string(rect.x()) + ", y: " + std::to_string(rect.y()) +
          ", width: " + std::to_string(rect.width()) +
          ", height: " + std::to_string(rect.height()) + ")";
 #endif  // CENTURION_HAS_FEATURE_FORMAT
