@@ -8,7 +8,6 @@
 #include "wanderer/core/input_state.hpp"
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/fwd.hpp"
-#include "wanderer/ui/menu_manager.hpp"
 
 namespace wanderer {
 
@@ -35,10 +34,8 @@ class wanderer_game final : game_loop
   graphics_ctx mGraphics;
   input_state mInput;
 
-  menu_manager mMenus;
-
   entt::dispatcher mDispatcher;
-  entt::registry mSharedRegistry;
+  entt::registry mMainRegistry;
 
   void on_action(const action_event& event);
 

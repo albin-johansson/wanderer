@@ -11,6 +11,7 @@ namespace wanderer::sys {
  *
  * \details The main registry has the following context components:
  * - `comp::level_ctx`
+ * - `comp::ui_menu_ctx`
  *
  * \return a registry.
  */

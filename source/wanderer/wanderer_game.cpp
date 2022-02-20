@@ -9,6 +9,7 @@
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/systems/registry_system.hpp"
 #include "wanderer/systems/tile_system.hpp"
+#include "wanderer/systems/ui_system.hpp"
 #include "wanderer/systems/viewport_system.hpp"
 
 namespace wanderer {
@@ -16,7 +17,7 @@ namespace wanderer {
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
     , mGraphics{mCfg}
-    , mSharedRegistry{sys::make_main_registry()}
+    , mMainRegistry{sys::make_main_registry()}
 {
   mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
 
@@ -56,14 +57,21 @@ void wanderer_game::process_events()
     }
   }
 
-  mMenus.poll(mInput, mDispatcher);
+  sys::update_menus(mMainRegistry, mDispatcher, mInput);
 }
 
 void wanderer_game::update(const float32 dt)
 {
   mDispatcher.update();
 
-  if (!mMenus.is_blocking()) {
+  //  if (static bool first = true; first) {
+  //    sys::schedule_startup_cinematic_fade(mMainRegistry);
+  //    first = false;
+  //  }
+
+  //  sys::update_cinematic_fade(mMainRegistry);
+
+  if (!sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry, mCfg);
@@ -77,9 +85,12 @@ void wanderer_game::render()
   auto& renderer = mGraphics.renderer();
   renderer.clear_with(cen::colors::black);
 
+  sys::init_text_labels(registry, mGraphics);
+  sys::init_text_labels(mMainRegistry, mGraphics);
   sys::render_tiles(registry, mCfg, mGraphics);
+  sys::render_menus(mMainRegistry, mGraphics);
 
-  mMenus.render(mGraphics);
+  //  sys::render_cinematic_fade(mMainRegistry, mGraphics);
 
   renderer.present();
 }
@@ -95,23 +106,23 @@ void wanderer_game::on_action(const action_event& event)
       break;
 
     case action_id::goto_game:
-      mMenus.switch_to(menu_id::game);
+      sys::switch_menu(mMainRegistry, menu_id::game);
       break;
 
     case action_id::goto_main_menu:
-      mMenus.switch_to(menu_id::home);
+      sys::switch_menu(mMainRegistry, menu_id::home);
       break;
 
     case action_id::goto_options_menu:
-      mMenus.switch_to(menu_id::options);
+      sys::switch_menu(mMainRegistry, menu_id::options);
       break;
 
     case action_id::goto_saves_menu:
-      mMenus.switch_to(menu_id::saves);
+      sys::switch_menu(mMainRegistry, menu_id::saves);
       break;
 
     case action_id::goto_credits_menu:
-      mMenus.switch_to(menu_id::credits);
+      sys::switch_menu(mMainRegistry, menu_id::credits);
       break;
 
     case action_id::quick_save:
@@ -129,7 +140,7 @@ void wanderer_game::on_action(const action_event& event)
 
 auto wanderer_game::current_registry() -> entt::registry&
 {
-  auto& levels = mSharedRegistry.ctx<comp::level_ctx>();
+  auto& levels = mMainRegistry.ctx<comp::level_ctx>();
   return levels.levels.at(levels.current);
 }
 
