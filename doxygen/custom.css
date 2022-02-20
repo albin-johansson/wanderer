@@ -16,14 +16,14 @@ html {
 
 /* dark-mode variable overrides go here */
 html.dark-mode {
-  --page-background-color: rgb(29, 30, 41);
+  --page-background-color: #0d1117;
   --page-foreground-color: rgb(255, 255, 255);
 
   --primary-color: #3194e0;
   --primary-dark-color: #2c82c4;
   --primary-light-color: #3ba9fd;
   --primary-lighter-color: #191e21;
-  --primary-lightest-color:rgb(11, 12, 12)c;
+  --primary-lightest-color: rgb(11, 12, 12) c;
 
   --note-color: rgba(55, 49, 10, 0.5);
   --note-color-dark: rgb(255, 246, 86);
@@ -32,4 +32,12 @@ html.dark-mode {
   --warning-color: rgba(171, 0, 0, 0.5);
   --warning-color-dark: rgb(232, 43, 43);
   --warning-color-darker: rgb(202, 43, 43);
+}
+
+.directory .levels span {
+  color: gray;
+}
+
+address {
+  color: gray;
 }
