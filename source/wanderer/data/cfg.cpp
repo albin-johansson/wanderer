@@ -11,14 +11,11 @@ auto make_game_cfg() -> game_cfg
   // TODO persistent UI scale factor?
 
   const auto display = cen::display_mode::desktop();
-
-  const auto screenSize = display.size();
-  const auto screenRatio =
-      static_cast<float32>(screenSize.width) / static_cast<float32>(screenSize.height);
+  const auto screen = display.size().as_f();
 
   game_cfg cfg;
   cfg.logical_size_f.x = 960;
-  cfg.logical_size_f.y = 960 / screenRatio;
+  cfg.logical_size_f.y = 960 * (screen.height / screen.width);
 
   cfg.logical_size.x = static_cast<int32>(cfg.logical_size_f.x);
   cfg.logical_size.y = static_cast<int32>(cfg.logical_size_f.y);

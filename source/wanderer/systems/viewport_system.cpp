@@ -13,8 +13,9 @@ constexpr float32 _camera_speed = 10;
 
 }  // namespace
 
-void update_render_bounds(entt::registry& registry, const game_cfg& cfg)
+void update_render_bounds(entt::registry& registry)
 {
+  const auto& cfg = registry.ctx<game_cfg>();
   const auto& map = registry.ctx<comp::tilemap>();
   const auto& viewport = registry.ctx<comp::viewport>();
 

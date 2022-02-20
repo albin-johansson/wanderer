@@ -9,9 +9,9 @@
 namespace wanderer::sys {
 
 void render_tiles(const entt::registry& registry,
-                  const game_cfg& cfg,
                   graphics_ctx& graphics)
 {
+  const auto& cfg = registry.ctx<game_cfg>();
   const auto& bounds = registry.ctx<comp::render_bounds>();
   const auto& viewport = registry.ctx<comp::viewport>();
   const auto& tilesets = registry.ctx<comp::tilesets>();

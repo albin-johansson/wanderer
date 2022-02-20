@@ -10,9 +10,27 @@
 #include "wanderer/data/menu_id.hpp"
 #include "wanderer/events/misc_events.hpp"
 #include "wanderer/misc/assert.hpp"
+#include "wanderer/data/cfg.hpp"
 
 namespace wanderer::sys {
 namespace {
+
+[[nodiscard]] auto _process_position(const glm::vec2& pos,
+                                     const glm::vec2& size,
+                                     const game_cfg& cfg) -> glm::vec2
+{
+  auto result = pos;
+
+  if (pos.x == -1) {
+    result.x = (cfg.logical_size_f.x - size.x) / 2.0f;
+  }
+
+  if (pos.y == -1) {
+    result.y = (cfg.logical_size_f.x - size.y) / 2.0f;
+  }
+
+  return result;
+}
 
 void _add_label(entt::registry& registry,
                 const entt::entity entity,
@@ -189,10 +207,12 @@ void render_menus(const entt::registry& registry, graphics_ctx& graphics)
   auto& renderer = graphics.renderer();
 
   if (menu.blocking) {
-    renderer.fill_with(cen::colors::black.with_alpha(100));
+    constexpr auto bg = cen::colors::black.with_alpha(100);
+    renderer.fill_with(bg);
   }
 
-  const auto logicalSize = renderer.logical_size();
+  const auto& cfg = registry.ctx<game_cfg>();
+  const auto logicalSize = cfg.logical_size_f;
 
   for (const auto buttonEntity : menu.buttons) {
     const auto& button = registry.get<comp::ui_button>(buttonEntity);
@@ -201,47 +221,29 @@ void render_menus(const entt::registry& registry, graphics_ctx& graphics)
     WANDERER_ASSERT(label.texture.has_value());
     const auto& texture = label.texture.value();
 
-    const auto size = texture.size();
-    button.size = {static_cast<float32>(size.width) * 2.0f,
-                   static_cast<float32>(size.height) * 2.0f};
+    const auto size = texture.size().as_f();
+    button.size = {size.width * 2.0f, size.height * 2.0f};
 
     WANDERER_ASSERT(button.size.has_value());
-
-    if (button.position.x == -1) {
-      button.position.x = (static_cast<float>(logicalSize.width) - button.size->x) / 2.0f;
-    }
-
-    if (button.position.y == -1) {
-      button.position.y =
-          (static_cast<float>(logicalSize.height) - button.size->y) / 2.0f;
-    }
+    button.position = _process_position(button.position, button.size.value(), cfg);
 
     renderer.set_color((button.state & comp::ui_button::hover_bit)
                            ? cen::colors::lime_green
                            : cen::colors::cyan);
     renderer.draw_rect(as_rect(button.position, button.size.value()));
 
-    const auto labelX =
-        button.position.x + (button.size->x - static_cast<float32>(size.width)) / 2.0f;
-    const auto labelY =
-        button.position.y + (button.size->y - static_cast<float32>(size.height)) / 2.0f;
+    const auto labelX = button.position.x + (button.size->x - size.width) / 2.0f;
+    const auto labelY = button.position.y + (button.size->y - size.height) / 2.0f;
     renderer.render(texture, cen::fpoint{labelX, labelY});
   }
 
   for (const auto labelEntity : menu.labels) {
     const auto& label = registry.get<comp::ui_label>(labelEntity);
+
     WANDERER_ASSERT(label.texture.has_value());
+    const auto size = label.texture->size().as_f();
 
-    const auto size = label.texture->size();
-
-    if (label.position.x == -1) {
-      label.position.x = static_cast<float32>(logicalSize.width - size.width) / 2.0f;
-    }
-
-    if (label.position.y == -1) {
-      label.position.y = static_cast<float32>(logicalSize.height - size.height) / 2.0f;
-    }
-
+    label.position = _process_position(label.position, {size.width, size.height}, cfg);
     renderer.render(label.texture.value(), as_point(label.position));
   }
 }

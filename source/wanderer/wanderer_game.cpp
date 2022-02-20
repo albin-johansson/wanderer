@@ -17,13 +17,13 @@ namespace wanderer {
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
     , mGraphics{mCfg}
-    , mMainRegistry{sys::make_main_registry()}
+    , mMainRegistry{sys::make_main_registry(mCfg)}
 {
   mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
 
   /* Make sure that we can render background */
   auto& registry = current_registry();
-  sys::update_render_bounds(registry, mCfg);
+  sys::update_render_bounds(registry);
 }
 
 void wanderer_game::run()
@@ -42,7 +42,6 @@ void wanderer_game::process_events()
   mInput.refresh(mGraphics.renderer());
 
   cen::event_handler event;
-
   while (event.poll()) {
     if (event.is(cen::event_type::quit)) {
       stop();
@@ -74,7 +73,7 @@ void wanderer_game::update(const float32 dt)
   if (!sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
     sys::update_viewport(registry, dt);
-    sys::update_render_bounds(registry, mCfg);
+    sys::update_render_bounds(registry);
   }
 }
 
@@ -87,7 +86,8 @@ void wanderer_game::render()
 
   sys::init_text_labels(registry, mGraphics);
   sys::init_text_labels(mMainRegistry, mGraphics);
-  sys::render_tiles(registry, mCfg, mGraphics);
+
+  sys::render_tiles(registry, mGraphics);
   sys::render_menus(mMainRegistry, mGraphics);
 
   //  sys::render_cinematic_fade(mMainRegistry, mGraphics);
