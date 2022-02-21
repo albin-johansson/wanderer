@@ -11,11 +11,42 @@
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/data/menu_id.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
+enum class h_anchor
+{
+  left,
+  center,
+  right
+};
+
+enum class v_anchor
+{
+  top,
+  center,
+  bottom
+};
+
+namespace comp {
+
+/**
+ * \brief Provides information about how to position UI components.
+ */
+struct ui_anchor final
+{
+  h_anchor horizontal{h_anchor::left};
+  v_anchor vertical{v_anchor::top};
+};
+
+/**
+ * \brief Represents a simple text label.
+ */
 struct ui_label final
 {
-  mutable glm::vec2 position{};
+  /**
+   * \brief The offset from the anchor position.
+   */
+  glm::vec2 offset{};
 
   /**
    * \brief The label text (cannot be empty).
@@ -31,6 +62,11 @@ struct ui_label final
    * \brief Size of the font used.
    */
   font_size size{};
+
+  /**
+   * \brief The lazily initialized label screen position (computed frame-by-frame).
+   */
+  mutable maybe<glm::vec2> position;
 
   /**
    * \brief The lazily initialized texture that holds the rendered label text.
@@ -55,12 +91,9 @@ struct ui_button final
   action_id action{};
 
   /**
-   * \brief The position of the button.
-   *
-   * \details The position is mutable to enable use of -1 as coordinates to request the
-   * button to be centered along either axis on the screen.
+   * \brief Lazily initialized position, based on label attributes.
    */
-  mutable glm::vec2 position{};
+  mutable maybe<glm::vec2> position;
 
   /**
    * \brief The button size (determined when the text label has been initialized).
@@ -107,4 +140,5 @@ struct ui_menu_ctx final
   hash_map<menu_id, entt::entity> menus;
 };
 
-}  // namespace wanderer::comp
+}  // namespace comp
+}  // namespace wanderer

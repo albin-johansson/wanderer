@@ -46,20 +46,43 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
   cinematic.pause = 1'500_ms;
   cinematic.bg = cen::colors::black;
 
-  const auto titleEntity = cinematic.labels.emplace_back(registry.create());
-  auto& title = registry.emplace<comp::ui_label>(titleEntity);
-  title.position = {-1, 250};
-  title.text = "Wanderer";
-  title.color = cen::colors::white;
-  title.size = font_size::huge;
+  {
+    const auto titleEntity = cinematic.labels.emplace_back(registry.create());
+    auto& title = registry.emplace<comp::ui_label>(titleEntity);
+    title.offset = {0, -50};
+    title.text = "Wanderer";
+    title.color = cen::colors::white;
+    title.size = font_size::huge;
+
+    auto& anchor = registry.emplace<comp::ui_anchor>(titleEntity);
+    anchor.horizontal = h_anchor::center;
+    anchor.vertical = v_anchor::center;
+  }
 
   {
     const auto labelEntity = cinematic.labels.emplace_back(registry.create());
     auto& text = registry.emplace<comp::ui_label>(labelEntity);
-    text.position = {-1, 320};
+    text.offset = {0, 0};
     text.text = "A game by Albin Johansson";
     text.color = cen::colors::white;
     text.size = font_size::medium;
+
+    auto& anchor = registry.emplace<comp::ui_anchor>(labelEntity);
+    anchor.horizontal = h_anchor::center;
+    anchor.vertical = v_anchor::center;
+  }
+
+  {
+    const auto labelEntity = cinematic.labels.emplace_back(registry.create());
+    auto& text = registry.emplace<comp::ui_label>(labelEntity);
+    text.offset = {10, 10};
+    text.text = "0.1.0 (pre-release)";
+    text.color = cen::color{0x50, 0x50, 0x50};
+    text.size = font_size::medium;
+
+    auto& anchor = registry.emplace<comp::ui_anchor>(labelEntity);
+    anchor.horizontal = h_anchor::left;
+    anchor.vertical = v_anchor::bottom;
   }
 }
 
