@@ -2,7 +2,15 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
+/**
+ * \brief Tag component used to identify the player entity.
+ */
 struct player final
 {};
+
+/// \} End of group components
 
 }  // namespace wanderer::comp

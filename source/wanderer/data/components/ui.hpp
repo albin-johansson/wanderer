@@ -29,6 +29,9 @@ enum class v_anchor
 
 namespace comp {
 
+/// \addtogroup components
+/// \{
+
 /**
  * \brief Provides information about how to position UI components.
  */
@@ -139,6 +142,8 @@ struct ui_menu_ctx final
    */
   hash_map<menu_id, entt::entity> menus;
 };
+
+/// \} End of group components
 
 }  // namespace comp
 }  // namespace wanderer

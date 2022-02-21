@@ -6,6 +6,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 /**
  * \brief Component featured by all physical objects in the game world.
  */
@@ -23,5 +26,7 @@ struct movable final
   glm::vec2 velocity{};  ///< The current velocity.
   float32 max_speed{};   ///< Maximum total speed.
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp

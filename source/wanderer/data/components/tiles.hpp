@@ -8,6 +8,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 /**
  * \brief Represents a layer of static tiles.
  */
@@ -48,5 +51,7 @@ struct tilesets final
 {
   hash_map<tile_id, entt::entity> tiles;
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp

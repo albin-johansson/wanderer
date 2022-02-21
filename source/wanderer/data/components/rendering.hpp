@@ -11,6 +11,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 /**
  * \brief Represents the region of a tilemap that needs to be rendered.
  */
@@ -56,5 +59,7 @@ struct cinematic_fade final
 
   std::vector<entt::entity> labels;  ///< Associated lazy_text entities.
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp

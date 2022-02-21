@@ -28,6 +28,16 @@
  */
 
 /**
+ * \namespace wanderer::comp
+ * \ingroup components
+ */
+
+/**
+ * \namespace wanderer::sys
+ * \ingroup systems
+ */
+
+/**
  * \mainpage Wanderer
  *
  * Welcome to the source documentation for the Wanderer project!

@@ -6,6 +6,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 /**
  * \brief A context component used to keep track of all levels in the shared registry.
  */
@@ -19,5 +22,7 @@ struct level_ctx final
   hash_map<level_id, entt::registry> levels;
   level_id current{};
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp
