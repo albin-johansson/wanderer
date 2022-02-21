@@ -36,7 +36,7 @@ wanderer_game::wanderer_game()
   auto& registry = current_registry();
   sys::update_render_bounds(registry);
 
-  mGraphics.set_fullscreen(mSettings.flags & settings::fullscreen_bit);
+  mGraphics.set_fullscreen(mSettings.test_flag(settings::fullscreen_bit));
 }
 
 void wanderer_game::run()
