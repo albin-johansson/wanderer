@@ -33,6 +33,22 @@ namespace comp {
 /// \{
 
 /**
+ * \brief Represents key binds in menus.
+ */
+struct ui_bind final
+{
+  /**
+   * \brief The scan code that triggers the action event.
+   */
+  cen::scan_code key;
+
+  /**
+   * \brief The action emitted when the key bind is triggered.
+   */
+  action_id action{action_id::noop};
+};
+
+/**
  * \brief Provides information about how to position UI components.
  */
 struct ui_anchor final
@@ -120,6 +136,11 @@ struct ui_menu final
    * \brief All label entities associated with the menu.
    */
   std::vector<entt::entity> labels;
+
+  /**
+   * \brief All key bind entities associated with the menu.
+   */
+  std::vector<entt::entity> binds;
 
   /**
    * \brief Determines whether the menu should block game updates whilst active.

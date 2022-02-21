@@ -53,6 +53,17 @@ namespace {
   return position;
 }
 
+void _add_bind(entt::registry& registry,
+               comp::ui_menu& menu,
+               const cen::scan_code key,
+               const action_id action)
+{
+  const auto entity = menu.binds.emplace_back(registry.create());
+  auto& bind = registry.emplace<comp::ui_bind>(entity);
+  bind.key = key;
+  bind.action = action;
+}
+
 void _add_label(entt::registry& registry,
                 const entt::entity entity,
                 std::string text,
@@ -136,6 +147,8 @@ void _add_button(entt::registry& registry,
 
   _add_button(registry, menu, "Return", action_id::goto_main_menu, {0, 180});
 
+  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
+
   return menuEntity;
 }
 
@@ -144,6 +157,8 @@ void _add_button(entt::registry& registry,
   auto&& [menuEntity, menu] = _make_menu(registry, "Saves", true);
 
   _add_button(registry, menu, "Return", action_id::goto_main_menu, {0, 180});
+
+  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
 
   return menuEntity;
 }
@@ -160,6 +175,8 @@ void _add_button(entt::registry& registry,
               action_id::toggle_fullscreen,
               {0, 250});
 
+  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
+
   return menuEntity;
 }
 
@@ -173,12 +190,17 @@ void _add_button(entt::registry& registry,
   _add_button(registry, menu, "Credits", action_id::goto_credits_menu, {0, 350});
   _add_button(registry, menu, "Quit", action_id::quit, {0, 420});
 
+  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_game);
+
   return menuEntity;
 }
 
 [[nodiscard]] auto _load_game_menu(entt::registry& registry) -> entt::entity
 {
   auto&& [menuEntity, menu] = _make_menu(registry, "", false);
+
+  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
+
   return menuEntity;
 }
 
@@ -220,6 +242,13 @@ void update_menus(entt::registry& registry,
           dispatcher.enqueue<action_event>(button.action);
         }
       }
+    }
+  }
+
+  for (const auto bindEntity : menu.binds) {
+    const auto& bind = registry.get<comp::ui_bind>(bindEntity);
+    if (input.was_released(bind.key)) {
+      dispatcher.enqueue<action_event>(bind.action);
     }
   }
 }
