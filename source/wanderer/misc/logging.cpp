@@ -7,7 +7,7 @@
 namespace wanderer::logging {
 namespace {
 
-void log_impl(const fmt::color color,
+void log_impl([[maybe_unused]] const fmt::color color,
               const std::string_view category,
               const std::string_view fmt,
               const fmt::format_args args)
@@ -18,7 +18,12 @@ void log_impl(const fmt::color color,
   const auto full = fmt::vformat("{:>9} {:%H:%M:%S} > {}\n",
                                  fmt::make_format_args(category, time, msg));
 
-  fmt::print(fmt::fg(color), "{}", full);
+  if constexpr (on_windows) {
+    fmt::print("{}", full);
+  }
+  else {
+    fmt::print(fmt::fg(color), "{}", full);
+  }
 }
 
 }  // namespace
