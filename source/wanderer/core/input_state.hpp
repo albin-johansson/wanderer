@@ -25,10 +25,6 @@ class input_state final
 
   [[nodiscard]] auto mouse_logical_y() const noexcept -> float { return mMouseLogicalY; }
 
-  [[nodiscard]] auto was_released(cen::scan_code key) const -> bool;
-
-  [[nodiscard]] auto was_released(cen::key_code key) const -> bool;
-
  private:
   cen::keyboard mKeyboard;
   uint32 mMouseCurrentMask{};

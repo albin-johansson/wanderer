@@ -42,14 +42,4 @@ auto input_state::was_rmb_released() const noexcept -> bool
   return !(mMouseCurrentMask & SDL_BUTTON_RMASK) && mMousePreviousMask & SDL_BUTTON_RMASK;
 }
 
-auto input_state::was_released(const cen::scan_code key) const -> bool
-{
-  return mKeyboard.just_released(key);
-}
-
-auto input_state::was_released(const cen::key_code key) const -> bool
-{
-  return mKeyboard.just_released(key);
-}
-
 }  // namespace wanderer
