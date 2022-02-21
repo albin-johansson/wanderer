@@ -81,8 +81,7 @@ jobs:
         working-directory: ./build
         run: ninja
 
-      # TODO this hangs for some reason on the runner
-      # - name: Run tests
-      #   working-directory: ./build/test
-      #   shell: cmd
-      #   run: WandererTests.exe
+      - name: Run tests
+        working-directory: ./build/test
+        shell: cmd
+        run: ctest
