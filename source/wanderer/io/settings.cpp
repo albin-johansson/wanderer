@@ -48,6 +48,7 @@ auto settings::test_flag(const uint64 flag) const noexcept -> bool
 auto load_settings() -> settings
 {
   const auto& path = _settings_file_path();
+  debug("Loading settings from {}", path);
 
   if (std::filesystem::exists(path)) {
     std::ifstream stream{path, std::ios::binary | std::ios::in};
@@ -79,6 +80,8 @@ void save_settings(const settings& s)
   out.set_fullscreen(s.test_flag(settings::fullscreen_bit));
 
   const auto& path = _settings_file_path();
+  debug("Saving settings to {}", path);
+
   std::ofstream stream{path, std::ios::binary | std::ios::out | std::ios::trunc};
 
   out.SerializeToOstream(&stream);
