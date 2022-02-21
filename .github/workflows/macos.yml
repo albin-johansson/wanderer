@@ -21,6 +21,10 @@ jobs:
       - name: Update Brew
         run: brew update
 
+      - name: Install Ninja
+        shell: bash
+        run: brew install ninja
+
       # TODO cache boost
       - name: Install Boost
         run: brew install boost
