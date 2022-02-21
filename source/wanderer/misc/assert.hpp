@@ -18,6 +18,12 @@
 
 namespace boost {
 
+void assertion_failed_msg(const char* expr,
+                          const char* msg,
+                          const char* function,
+                          const char* file,
+                          long line);
+
 inline void assertion_failed(const char* expr,
                              const char* function,
                              const char* file,
