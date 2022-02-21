@@ -1,5 +1,6 @@
 #pragma once
 
+#include "wanderer/common.hpp"
 #include "wanderer/core/action.hpp"
 
 namespace wanderer {
