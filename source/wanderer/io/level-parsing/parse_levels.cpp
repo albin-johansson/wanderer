@@ -1,44 +1,83 @@
 #include "parse_levels.hpp"
 
 #include <filesystem>  // path
-#include <fstream>     // ifstream
+#include <string>      // string
 #include <vector>      // vector
 
 #include <yaml-cpp/yaml.h>
 
-#include "wanderer/data/context/level.hpp"
-#include "wanderer/io/directories.hpp"
-
-namespace std_fs = std::filesystem;
+#include "tiled-json/tiled_json_parser.hpp"
+#include "wanderer/data/components/levels.hpp"
+#include "wanderer/misc/exception.hpp"
+#include "wanderer/misc/logging.hpp"
 
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto get_level_list() -> std::vector<std_fs::path>
+struct level_info final
 {
-  const auto path = std_fs::absolute("resources/maps/main.json");
+  level_id id{};
+  std::filesystem::path source;
+};
 
-  std::ifstream stream{path, std::ios::in};
-  YAML::Parser parser{stream};
+[[nodiscard]] auto parse_level_paths() -> std::vector<level_info>
+{
+  std::vector<level_info> levels;
 
-  std::vector<std_fs::path> levels;
+  const std::filesystem::path resources{"resources/maps"};
+  const auto root = YAML::LoadFile(resources / "levels.yaml");
+
+  if (auto sequence = root["levels"]) {
+    levels.reserve(sequence.size());
+
+    for (auto node : sequence) {
+      const auto relativePath = node["source"].as<std::string>();
+      auto& info = levels.emplace_back();
+      info.id = node["id"].as<level_id>();
+      info.source = resources / relativePath;
+    }
+  }
+
+  if (levels.empty()) {
+    throw_traced(wanderer_error{"Found no levels to load!"});
+  }
 
   return levels;
 }
 
 }  // namespace
 
-void parse_levels(entt::registry& shared)
+void parse_levels(entt::registry& shared, graphics_ctx& graphics)
 {
-  const auto path = std_fs::absolute("resources/maps/main.json");
-  std::ifstream stream{path, std::ios::in};
-  YAML::Parser parser{stream};
+  const auto& cfg = shared.ctx<game_cfg>();
+  auto& levels = shared.ctx<comp::level_ctx>();
+  maybe<level_id> first;
 
-  //  const auto root = LoadLevel(shared, graphics, path);
-  //  shared.emplace<ActiveLevel>(root);
-  //
-  //  auto& rootLevel = shared.get<Level>(root);
-  //  rootLevel.registry.ctx<ctx::Viewport>().keep_in_bounds = true;
+  for (const auto& info : parse_level_paths()) {
+    debug("Loading level '{}' from {}", info.id, info.source);
+
+    if (levels.levels.contains(info.id)) {
+      throw_traced(wanderer_error{"Detected duplicate level identifiers!"});
+    }
+
+    if (!first) {
+      first = info.id;
+    }
+
+    const auto ext = info.source.extension();
+    if (ext == ".json") {
+      levels.levels[info.id] = parse_tiled_json_map(info.source, graphics, cfg);
+    }
+    // TODO
+    // else if (ext == ".yaml") {
+    //
+    // }
+    else {
+      throw_traced(wanderer_error{"Unsupported map file extension!"});
+    }
+  }
+
+  levels.current = first.value();
 }
 
 }  // namespace wanderer

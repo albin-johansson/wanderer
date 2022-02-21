@@ -28,6 +28,8 @@ wanderer_game::wanderer_game()
   mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);
   mDispatcher.sink<stop_player_event>().connect<&self::on_stop_player>(this);
 
+  parse_levels(mMainRegistry, mGraphics );
+
   /* Make sure that we can render background */
   auto& registry = current_registry();
   sys::update_render_bounds(registry);
