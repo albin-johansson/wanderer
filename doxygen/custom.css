@@ -23,6 +23,8 @@ html.dark-mode {
   --page-background-color: #0D1117;
   --page-foreground-color: rgb(255, 255, 255);
 
+  --odd-color: #141A24;
+
   --side-nav-background: var(--page-background-color);
   --code-background: var(--page-background-color);
 
