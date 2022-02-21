@@ -8,14 +8,14 @@
 
 namespace wanderer::comp {
 
-using tile_row = std::vector<tile_id>;
-using tile_matrix = std::vector<std::vector<tile_id>>;
-
 /**
  * \brief Represents a layer of static tiles.
  */
 struct tile_layer final
 {
+  using tile_row = std::vector<tile_id>;
+  using tile_matrix = std::vector<std::vector<tile_id>>;
+
   tile_matrix tiles;  ///< The tile data.
   int32 z{};          ///< Rendering depth index.
 };
