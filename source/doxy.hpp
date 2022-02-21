@@ -27,3 +27,16 @@
  * \defgroup systems
  */
 
+/**
+ * \mainpage Wanderer
+ *
+ * Welcome to the source documentation for the Wanderer project!
+ *
+ * \section section-api API
+ *
+ * - \ref core
+ * - \ref data
+ * - \ref events
+ * - \ref misc
+ * - \ref systems
+ */
