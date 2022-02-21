@@ -115,6 +115,12 @@ void _add_button(entt::registry& registry,
 
   _add_button(registry, menu, "Return", action_id::goto_main_menu, {-1, 180});
 
+  _add_button(registry,
+              menu,
+              "Toggle Fullscreen",
+              action_id::toggle_fullscreen,
+              {-1, 250});
+
   return menuEntity;
 }
 
