@@ -83,4 +83,5 @@ jobs:
 
       - name: Run tests
         working-directory: ./build/test
+        shell: cmd
         run: WandererTests.exe
