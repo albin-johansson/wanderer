@@ -32,11 +32,21 @@
  *
  * Welcome to the source documentation for the Wanderer project!
  *
- * \section section-api API
+ * \section section-api Modules
  *
  * - \ref core
  * - \ref data
  * - \ref events
  * - \ref misc
  * - \ref systems
+ *
+ * \section section-namespaces Namespaces
+ *
+ * - \ref wanderer
+ * - \ref wanderer::comp
+ * - \ref wanderer::sys
+ *
+ * \section section-misc Other
+ *
+ * - <a href="todo.html">TODO</a>
  */
