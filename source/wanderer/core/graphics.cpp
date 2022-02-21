@@ -6,6 +6,7 @@
 #include "wanderer/misc/assert.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
+#include "win32.hpp"
 
 #undef small
 
@@ -36,6 +37,8 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
 {
   const cen::iarea size{cfg.logical_size.x, cfg.logical_size.y};
   mWindow.set_size(size);
+
+  win32::use_immersive_dark_mode(mWindow);
 
   mRenderer.set_logical_size(size);
   mRenderer.set_blend_mode(cen::blend_mode::blend);
