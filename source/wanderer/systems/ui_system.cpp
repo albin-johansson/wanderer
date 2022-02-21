@@ -297,7 +297,7 @@ void render_button(const entt::registry& registry,
 
   auto& renderer = graphics.renderer();
   renderer.set_color((button.state & comp::ui_button::hover_bit) ? cen::colors::lime_green
-                                                                 : cen::colors::cyan);
+                                                                 : cen::colors::white);
   renderer.draw_rect(as_rect(button.position.value(), button.size.value()));
 }
 
