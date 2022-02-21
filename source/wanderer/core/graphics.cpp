@@ -58,9 +58,15 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   debug("Output size... {}", mRenderer.output_size());
 }
 
-void graphics_ctx::toggle_fullscreen()
+auto graphics_ctx::toggle_fullscreen() -> bool
 {
   mWindow.set_fullscreen_desktop(!mWindow.is_fullscreen_desktop());
+  return mWindow.is_fullscreen_desktop();
+}
+
+void graphics_ctx::set_fullscreen(const bool enabled)
+{
+  mWindow.set_fullscreen_desktop(enabled);
 }
 
 auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id

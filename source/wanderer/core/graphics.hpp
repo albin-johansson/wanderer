@@ -31,8 +31,19 @@ class graphics_ctx final
 
   /**
    * \brief Toggles the fullscreen mode of the window.
+   *
+   * \return `true` if the window is now fullscreen; `false` otherwise.
    */
-  void toggle_fullscreen();
+  auto toggle_fullscreen() -> bool;
+
+  /**
+   * \brief Controls whether fullscreen mode is enabled.
+   *
+   * \param enabled `true` if the window should be fullscreen; `false` otherwise.
+   *
+   * \see toggle_fullscreen()
+   */
+  void set_fullscreen(bool enabled);
 
   /**
    * \brief Loads a texture.

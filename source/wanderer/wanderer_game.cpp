@@ -20,6 +20,7 @@ namespace wanderer {
 
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
+    , mSettings{load_settings()}
     , mGraphics{mCfg}
     , mMainRegistry{sys::make_main_registry(mCfg)}
 {
@@ -28,11 +29,13 @@ wanderer_game::wanderer_game()
   mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);
   mDispatcher.sink<stop_player_event>().connect<&self::on_stop_player>(this);
 
-  parse_levels(mMainRegistry, mGraphics );
+  parse_levels(mMainRegistry, mGraphics);
 
   /* Make sure that we can render background */
   auto& registry = current_registry();
   sys::update_render_bounds(registry);
+
+  mGraphics.set_fullscreen(mSettings.flags & settings::fullscreen_bit);
 }
 
 void wanderer_game::run()
@@ -43,6 +46,7 @@ void wanderer_game::run()
 
   start();
 
+  save_settings(mSettings);
   window.hide();
 }
 
@@ -137,10 +141,11 @@ void wanderer_game::on_action(const action_event& event)
       // TODO
       break;
 
-    case action_id::toggle_fullscreen:
-      mGraphics.toggle_fullscreen();
+    case action_id::toggle_fullscreen: {
+      const bool enabled = mGraphics.toggle_fullscreen();
+      mSettings.set_flag(settings::fullscreen_bit, enabled);
       break;
-
+    }
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }

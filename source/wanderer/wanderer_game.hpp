@@ -8,6 +8,7 @@
 #include "wanderer/core/input_state.hpp"
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/fwd.hpp"
+#include "wanderer/io/settings.hpp"
 
 namespace wanderer {
 
@@ -30,6 +31,7 @@ class wanderer_game final : game_loop
 
  private:
   game_cfg mCfg;
+  settings mSettings;
 
   graphics_ctx mGraphics;
   input_state mInput;
