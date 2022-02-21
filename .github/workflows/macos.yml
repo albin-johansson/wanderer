@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 # See https://github.com/actions/virtual-environments/blob/main/images/macos
 env:
-  BOOST_ROOT: /opt/homebrew/Cellar/boost/1.76.0
+  BOOST_ROOT: /opt/homebrew/Cellar/boost/1.78.0
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
   VCPKG_DEFAULT_BINARY_CACHE: ${{github.workspace}}/vcpkg/bincache # https://github.com/microsoft/vcpkg/blob/master/docs/users/binarycaching.md#configuration
   VCPKG_COMMIT: b1642553ec6049bb5ccdf59bea6b4aaca1033e82
@@ -17,6 +17,9 @@ jobs:
     if: contains(github.event.head_commit.message, '[skip-ci]') == false
     steps:
       - uses: actions/checkout@main
+
+      - name: Update Brew
+        run: brew update
 
       # TODO cache boost
       - name: Install Boost
