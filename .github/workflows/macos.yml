@@ -34,14 +34,18 @@ jobs:
             !${{env.VCPKG_ROOT}}\installed
           key: wanderer-macos-vcpkg-${{hashFiles('vcpkg.json')}}-${{env.VCPKG_COMMIT}}-${{env.VCPKG_CACHE_EDITION}}
 
+      - name: Checkout Vcpkg
+        if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
+        uses: actions/checkout@main
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
+          ref: ${{env.VCPKG_COMMIT}}
+
       - name: Install Vcpkg
         if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
-        run: |
-          git clone https://github.com/microsoft/vcpkg
-          cd vcpkg
-          git fetch
-          git checkout -b tmp-branch ${{env.VCPKG_COMMIT}}
-          ./bootstrap-vcpkg.sh -disableMetrics
+        working-directory: ./vcpkg
+        run: ./bootstrap-vcpkg.sh -disableMetrics
 
       - name: Create directory ${{env.VCPKG_DEFAULT_BINARY_CACHE}}
         if: steps.restore-vcpkg-and-artifacts.outputs.cache-hit != 'true'
