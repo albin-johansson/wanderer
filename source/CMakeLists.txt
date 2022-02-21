@@ -53,7 +53,11 @@ target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
                           <glm/glm.hpp>
                           )
 
-add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
+if (CMAKE_BUILD_TYPE STREQUAL RELEASE)
+  add_executable(${TARGET_WANDERER_EXE} WIN32 main.cpp)
+else ()
+  add_executable(${TARGET_WANDERER_EXE} main.cpp)
+endif ()
 
 wanderer_add_compiler_options(${TARGET_WANDERER_EXE})
 
