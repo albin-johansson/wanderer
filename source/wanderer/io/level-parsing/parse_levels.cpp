@@ -25,7 +25,13 @@ struct level_info final
   std::vector<level_info> levels;
 
   const std::filesystem::path resources{"resources/maps"};
-  const auto root = YAML::LoadFile(resources / "levels.yaml");
+  const auto path = resources / "levels.yaml";
+
+#if WANDERER_COMPILER_MSVC
+  const auto root = YAML::LoadFile(path.string());
+#else
+  const auto root = YAML::LoadFile(path);
+#endif  // WANDERER_COMPILER_MSVC
 
   if (auto sequence = root["levels"]) {
     levels.reserve(sequence.size());

@@ -2,6 +2,7 @@
 
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/data/cfg.hpp"
+#include "wanderer/meta/build.hpp"
 #include "wanderer/misc/assert.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
@@ -65,7 +66,12 @@ auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
   const auto id = mTextures.size();
   debug("Loading texture '{}' from {}", id, path);
 
+#if WANDERER_COMPILER_MSVC
+  mTextures.push_back(mRenderer.create_texture(path.string()));
+#else
   mTextures.push_back(mRenderer.create_texture(path));
+#endif  // WANDERER_COMPILER_MSVC
+
   return id;
 }
 
