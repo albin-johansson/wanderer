@@ -11,6 +11,8 @@ namespace wanderer::sys {
 /**
  * \ingroup systems
  * \defgroup input-system Input system
+ *
+ * \brief Responsible for responding to user input.
  */
 
 /// \addtogroup input-system

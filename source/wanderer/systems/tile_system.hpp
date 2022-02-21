@@ -9,6 +9,8 @@ namespace wanderer::sys {
 /**
  * \ingroup systems
  * \defgroup tile-system Tile system
+ *
+ * \brief Handles aspects related to tilemap tiles.
  */
 
 /// \addtogroup tile-system

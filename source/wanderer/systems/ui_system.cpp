@@ -6,11 +6,10 @@
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/core/input_state.hpp"
-#include "wanderer/data/components/ui.hpp"
+#include "wanderer/data/cfg.hpp"
 #include "wanderer/data/menu_id.hpp"
 #include "wanderer/events/misc_events.hpp"
 #include "wanderer/misc/assert.hpp"
-#include "wanderer/data/cfg.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -26,7 +25,7 @@ namespace {
   }
 
   if (pos.y == -1) {
-    result.y = (cfg.logical_size_f.x - size.y) / 2.0f;
+    result.y = (cfg.logical_size_f.y - size.y) / 2.0f;
   }
 
   return result;
@@ -128,9 +127,6 @@ void _add_button(entt::registry& registry,
 {
   auto&& [menuEntity, menu] = _make_menu(registry, "Wanderer", true);
 
-  _add_label(registry, menu, "Developed by Albin Johansson", {6, 6});
-  _add_label(registry, menu, "Version 0.1.0", {6, 26});
-
   _add_button(registry, menu, "Play", action_id::goto_game, {-1, 180});
   _add_button(registry, menu, "Options", action_id::goto_options_menu, {-1, 250});
   _add_button(registry, menu, "Saves", action_id::goto_saves_menu, {-1, 300});
@@ -188,6 +184,19 @@ void update_menus(entt::registry& registry,
   }
 }
 
+void switch_menu(entt::registry& registry, const menu_id menu)
+{
+  auto& ctx = registry.ctx<comp::ui_menu_ctx>();
+  ctx.active_menu = ctx.menus.at(menu);
+}
+
+auto is_current_menu_blocking(const entt::registry& registry) -> bool
+{
+  const auto& ctx = registry.ctx<comp::ui_menu_ctx>();
+  const auto& menu = registry.get<comp::ui_menu>(ctx.active_menu);
+  return menu.blocking;
+}
+
 void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& renderer = graphics.renderer();
@@ -202,69 +211,72 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
   }
 }
 
-void render_menus(const entt::registry& registry, graphics_ctx& graphics)
+void render_active_menu(const entt::registry& registry, graphics_ctx& graphics)
 {
-  const auto& ctx = registry.ctx<comp::ui_menu_ctx>();
-  const auto menuEntity = ctx.active_menu;
+  const auto& menus = registry.ctx<comp::ui_menu_ctx>();
+  const auto menuEntity = menus.active_menu;
   WANDERER_ASSERT(menuEntity != entt::null);
 
   const auto& menu = registry.get<comp::ui_menu>(menuEntity);
 
-  auto& renderer = graphics.renderer();
-
   if (menu.blocking) {
     constexpr auto bg = cen::colors::black.with_alpha(100);
-    renderer.fill_with(bg);
+    graphics.renderer().fill_with(bg);
   }
 
   const auto& cfg = registry.ctx<game_cfg>();
-  const auto logicalSize = cfg.logical_size_f;
 
   for (const auto buttonEntity : menu.buttons) {
-    const auto& button = registry.get<comp::ui_button>(buttonEntity);
-    const auto& label = registry.get<comp::ui_label>(buttonEntity);
-
-    WANDERER_ASSERT(label.texture.has_value());
-    const auto& texture = label.texture.value();
-
-    const auto size = texture.size().as_f();
-    button.size = {size.width * 2.0f, size.height * 2.0f};
-
-    WANDERER_ASSERT(button.size.has_value());
-    button.position = _process_position(button.position, button.size.value(), cfg);
-
-    renderer.set_color((button.state & comp::ui_button::hover_bit)
-                           ? cen::colors::lime_green
-                           : cen::colors::cyan);
-    renderer.draw_rect(as_rect(button.position, button.size.value()));
-
-    const auto labelX = button.position.x + (button.size->x - size.width) / 2.0f;
-    const auto labelY = button.position.y + (button.size->y - size.height) / 2.0f;
-    renderer.render(texture, cen::fpoint{labelX, labelY});
+    render_button(registry, buttonEntity, graphics);
   }
 
   for (const auto labelEntity : menu.labels) {
-    const auto& label = registry.get<comp::ui_label>(labelEntity);
-
-    WANDERER_ASSERT(label.texture.has_value());
-    const auto size = label.texture->size().as_f();
-
-    label.position = _process_position(label.position, {size.width, size.height}, cfg);
-    renderer.render(label.texture.value(), as_point(label.position));
+    render_label(registry, labelEntity, graphics);
   }
 }
 
-void switch_menu(entt::registry& registry, const menu_id menu)
+void render_button(const entt::registry& registry,
+                   const entt::entity buttonEntity,
+                   graphics_ctx& graphics)
 {
-  auto& ctx = registry.ctx<comp::ui_menu_ctx>();
-  ctx.active_menu = ctx.menus.at(menu);
+  const auto& cfg = registry.ctx<game_cfg>();
+
+  const auto& button = registry.get<comp::ui_button>(buttonEntity);
+  const auto& label = registry.get<comp::ui_label>(buttonEntity);
+
+  WANDERER_ASSERT(label.texture.has_value());
+  const auto& texture = label.texture.value();
+
+  const auto size = texture.size().as_f();
+  button.size = {size.width + 20, size.height + 15};
+
+  WANDERER_ASSERT(button.size.has_value());
+  button.position = _process_position(button.position, button.size.value(), cfg);
+
+  auto& renderer = graphics.renderer();
+  renderer.set_color((button.state & comp::ui_button::hover_bit) ? cen::colors::lime_green
+                                                                 : cen::colors::cyan);
+  renderer.draw_rect(as_rect(button.position, button.size.value()));
+
+  label.position = {button.position.x + (button.size->x - size.width) / 2.0f,
+                    button.position.y + (button.size->y - size.height) / 2.0f};
+  render_label(registry, buttonEntity, graphics);
 }
 
-auto is_current_menu_blocking(const entt::registry& registry) -> bool
+void render_label(const entt::registry& registry,
+                  const entt::entity labelEntity,
+                  graphics_ctx& graphics)
 {
-  const auto& ctx = registry.ctx<comp::ui_menu_ctx>();
-  const auto& menu = registry.get<comp::ui_menu>(ctx.active_menu);
-  return menu.blocking;
+  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& label = registry.get<comp::ui_label>(labelEntity);
+
+  WANDERER_ASSERT(label.texture.has_value());
+  const auto size = label.texture->size().as_f();
+
+  label.position = _process_position(label.position, {size.width, size.height}, cfg);
+
+  auto& renderer = graphics.renderer();
+  renderer.render(label.texture.value(), as_point(label.position));
 }
 
 }  // namespace wanderer::sys

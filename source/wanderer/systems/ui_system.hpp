@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 
 #include "wanderer/common.hpp"
+#include "wanderer/data/components/ui.hpp"
 #include "wanderer/data/menu_id.hpp"
 #include "wanderer/fwd.hpp"
 
@@ -11,6 +12,8 @@ namespace wanderer::sys {
 /**
  * \ingroup systems
  * \defgroup ui-system UI System
+ *
+ * \brief Manages all UI related aspects, such as menus, buttons, and labels.
  */
 
 /// \addtogroup ui-system
@@ -38,6 +41,26 @@ void update_menus(entt::registry& registry,
                   const input_state& input);
 
 /**
+ * \brief Changes the active menu.
+ *
+ * \param registry the menu registry.
+ * \param menu the identifier associated with the menu to enable.
+ */
+void switch_menu(entt::registry& registry, menu_id menu);
+
+/**
+ * \brief Indicates whether the currently active menu is blocking.
+ *
+ * \param registry the menu registry.
+ *
+ * \return `true` if the menu is blocking; `false` otherwise.
+ */
+[[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry) -> bool;
+
+/// \name UI rendering
+/// \{
+
+/**
  * \brief Initializes text labels by rendering their text to textures.
  *
  * \details This function should be called very early in the render stage, since many
@@ -57,24 +80,17 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics);
  * \param registry the menu registry.
  * \param graphics the associated graphics context.
  */
-void render_menus(const entt::registry& registry, graphics_ctx& graphics);
+void render_active_menu(const entt::registry& registry, graphics_ctx& graphics);
 
-/**
- * \brief Changes the active menu.
- *
- * \param registry the menu registry.
- * \param menu the identifier associated with the menu to enable.
- */
-void switch_menu(entt::registry& registry, menu_id menu);
+void render_button(const entt::registry& registry,
+                   entt::entity buttonEntity,
+                   graphics_ctx& graphics);
 
-/**
- * \brief Indicates whether the currently active menu is blocking.
- *
- * \param registry the menu registry.
- *
- * \return `true` if the menu is blocking; `false` otherwise.
- */
-[[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry) -> bool;
+void render_label(const entt::registry& registry,
+                  entt::entity labelEntity,
+                  graphics_ctx& graphics);
+
+/// \} End of UI rendering
 
 /// \} End of group ui-system
 

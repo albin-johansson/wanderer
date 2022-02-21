@@ -9,6 +9,8 @@ namespace wanderer::sys {
 /**
  * \ingroup systems
  * \defgroup viewport-system Viewport system
+ *
+ * \brief Responsible for viewport related aspects.
  */
 
 /// \addtogroup viewport-system

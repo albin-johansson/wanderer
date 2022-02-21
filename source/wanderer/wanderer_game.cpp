@@ -5,8 +5,12 @@
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/data/components/levels.hpp"
 #include "wanderer/events/misc_events.hpp"
+#include "wanderer/events/player_events.hpp"
 #include "wanderer/io/level-parsing/parse_levels.hpp"
 #include "wanderer/misc/exception.hpp"
+#include "wanderer/systems/cinematic_system.hpp"
+#include "wanderer/systems/input_system.hpp"
+#include "wanderer/systems/physics_system.hpp"
 #include "wanderer/systems/registry_system.hpp"
 #include "wanderer/systems/tile_system.hpp"
 #include "wanderer/systems/ui_system.hpp"
@@ -19,7 +23,10 @@ wanderer_game::wanderer_game()
     , mGraphics{mCfg}
     , mMainRegistry{sys::make_main_registry(mCfg)}
 {
-  mDispatcher.sink<action_event>().connect<&wanderer_game::on_action>(this);
+  using self = wanderer_game;
+  mDispatcher.sink<action_event>().connect<&self::on_action>(this);
+  mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);
+  mDispatcher.sink<stop_player_event>().connect<&self::on_stop_player>(this);
 
   /* Make sure that we can render background */
   auto& registry = current_registry();
@@ -47,13 +54,10 @@ void wanderer_game::process_events()
       stop();
       break;
     }
-    else if (event.is(cen::event_type::key_up)) {
-      const auto& ke = event.get<cen::keyboard_event>();
-      if (ke.is_active(cen::scancodes::q)) {
-        stop();
-        break;
-      }
-    }
+  }
+
+  if (!sys::is_current_menu_blocking(mMainRegistry)) {
+    sys::update_input(mDispatcher, mInput);
   }
 
   sys::update_menus(mMainRegistry, mDispatcher, mInput);
@@ -63,17 +67,20 @@ void wanderer_game::update(const float32 dt)
 {
   mDispatcher.update();
 
-  //  if (static bool first = true; first) {
-  //    sys::schedule_startup_cinematic_fade(mMainRegistry);
-  //    first = false;
-  //  }
+  if (static bool first = true; first) {
+    sys::schedule_startup_cinematic_fade(mMainRegistry);
+    first = false;
+  }
 
-  //  sys::update_cinematic_fade(mMainRegistry);
+  sys::update_cinematic_fade(mMainRegistry);
 
-  if (!sys::is_current_menu_blocking(mMainRegistry)) {
+  if (!sys::is_cinematic_fade_active(mMainRegistry) &&
+      !sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry);
+
+    sys::update_movable_game_objects(registry, dt);
   }
 }
 
@@ -84,13 +91,12 @@ void wanderer_game::render()
   auto& renderer = mGraphics.renderer();
   renderer.clear_with(cen::colors::black);
 
-  sys::init_text_labels(registry, mGraphics);
   sys::init_text_labels(mMainRegistry, mGraphics);
 
   sys::render_tiles(registry, mGraphics);
-  sys::render_menus(mMainRegistry, mGraphics);
 
-  //  sys::render_cinematic_fade(mMainRegistry, mGraphics);
+  sys::render_active_menu(mMainRegistry, mGraphics);
+  sys::render_cinematic_fade(mMainRegistry, mGraphics);
 
   renderer.present();
 }
@@ -136,6 +142,18 @@ void wanderer_game::on_action(const action_event& event)
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }
+}
+
+void wanderer_game::on_move_player(const move_player_event& event)
+{
+  auto& registry = current_registry();
+  sys::on_move_player(registry, event);
+}
+
+void wanderer_game::on_stop_player(const stop_player_event& event)
+{
+  auto& registry = current_registry();
+  sys::on_stop_player(registry, event);
 }
 
 auto wanderer_game::current_registry() -> entt::registry&

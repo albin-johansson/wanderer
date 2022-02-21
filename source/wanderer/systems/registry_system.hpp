@@ -9,6 +9,8 @@ namespace wanderer::sys {
 /**
  * \ingroup systems
  * \defgroup registry-system Registry system
+ *
+ * \brief Minor system responsible for creation of all registries.
  */
 
 /// \addtogroup registry-system

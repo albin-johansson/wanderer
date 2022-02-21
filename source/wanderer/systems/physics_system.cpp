@@ -4,7 +4,7 @@
 
 namespace wanderer::sys {
 
-void update_physics(entt::registry& registry, const float32 dt)
+void update_movable_game_objects(entt::registry& registry, const float32 dt)
 {
   for (auto&& [entity, object, movable] :
        registry.view<comp::game_object, comp::movable>().each()) {
