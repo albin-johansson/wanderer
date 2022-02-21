@@ -7,6 +7,7 @@
 #include "wanderer/events/misc_events.hpp"
 #include "wanderer/events/player_events.hpp"
 #include "wanderer/io/level-parsing/parse_levels.hpp"
+#include "wanderer/meta/build.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/systems/cinematic_system.hpp"
 #include "wanderer/systems/input_system.hpp"
@@ -143,6 +144,13 @@ void wanderer_game::on_action(const action_event& event)
 
     case action_id::toggle_fullscreen: {
       const bool enabled = mGraphics.toggle_fullscreen();
+
+      if constexpr (on_osx) {
+        if (!enabled) {
+          mGraphics.window().center();
+        }
+      }
+
       mSettings.set_flag(settings::fullscreen_bit, enabled);
       break;
     }
