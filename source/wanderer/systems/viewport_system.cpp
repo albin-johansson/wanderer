@@ -48,12 +48,10 @@ void update_viewport(entt::registry& registry, const float32 dt)
   WANDERER_ASSERT_MSG(view.size() == 1, "There cannot be more than 1 viewport target!");
   const auto targetEntity = view.front();
 
-  WANDERER_ASSERT(registry.all_of<comp::position>(targetEntity));
-  const auto& viewportTarget = registry.get<comp::viewport_target>(targetEntity);
-  const auto& viewportTargetPos = registry.get<comp::position>(targetEntity);
+  WANDERER_ASSERT(registry.all_of<comp::game_object>(targetEntity));
+  const auto& object = registry.get<comp::game_object>(targetEntity);
 
-  const auto target =
-      (viewportTargetPos.pos + (viewportTarget.size / 2.0f)) - (viewport.size / 2.0f);
+  const auto target = (object.position + (object.size / 2.0f)) - (viewport.size / 2.0f);
   auto next = viewport.offset + (target - viewport.offset) * (_camera_speed * dt);
 
   if (viewport.keep_in_bounds) {
