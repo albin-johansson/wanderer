@@ -27,7 +27,7 @@ enum class font_size
 class graphics_ctx final
 {
  public:
-  explicit graphics_ctx(const game_cfg& cfg);
+  graphics_ctx(const game_cfg& cfg, const settings& s);
 
   /**
    * \brief Toggles the fullscreen mode of the window.
@@ -37,13 +37,11 @@ class graphics_ctx final
   auto toggle_fullscreen() -> bool;
 
   /**
-   * \brief Controls whether fullscreen mode is enabled.
+   * \brief Toggles the use of VSync by the renderer.
    *
-   * \param enabled `true` if the window should be fullscreen; `false` otherwise.
-   *
-   * \see toggle_fullscreen()
+   * \return `true` if VSync was enabled; `false` otherwise.
    */
-  void set_fullscreen(bool enabled);
+  auto toggle_vsync() -> bool;
 
   /**
    * \brief Loads a texture.
@@ -81,6 +79,8 @@ class graphics_ctx final
   cen::font_bundle mFontBundle;
   cen::font_bundle::id_type mPixelatedFontId;
   cen::font_bundle::id_type mHandwritingFontId;
+
+  bool mVsync{};
 };
 
 }  // namespace wanderer

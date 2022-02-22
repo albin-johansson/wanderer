@@ -23,7 +23,7 @@ namespace wanderer {
 wanderer_game::wanderer_game()
     : mCfg{make_game_cfg()}
     , mSettings{load_settings()}
-    , mGraphics{mCfg}
+    , mGraphics{mCfg, mSettings}
     , mMainRegistry{sys::make_main_registry(mCfg)}
 {
   using self = wanderer_game;
@@ -36,8 +36,6 @@ wanderer_game::wanderer_game()
   /* Make sure that we can render background */
   auto& registry = current_registry();
   sys::update_render_bounds(registry);
-
-  mGraphics.set_fullscreen(mSettings.test_flag(settings::fullscreen_bit));
 }
 
 void wanderer_game::run()
@@ -154,6 +152,11 @@ void wanderer_game::on_action(const action_event& event)
       }
 
       mSettings.set_flag(settings::fullscreen_bit, enabled);
+      break;
+    }
+    case action_id::toggle_vsync: {
+      const bool enabled = mGraphics.toggle_vsync();
+      mSettings.set_flag(settings::vsync_bit, enabled);
       break;
     }
     default:

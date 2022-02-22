@@ -3,6 +3,7 @@
 namespace wanderer {
 
 struct game_cfg;
+struct settings;
 
 struct action_event;
 struct move_player_event;

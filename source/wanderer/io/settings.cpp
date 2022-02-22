@@ -1,5 +1,3 @@
-#pragma once
-
 #include "settings.hpp"
 
 #include <filesystem>  // exists
@@ -17,7 +15,7 @@ namespace {
 {
   settings s;
 
-  s.flags = settings::fullscreen_bit;
+  s.flags = settings::fullscreen_bit | settings::vsync_bit;
 
   return s;
 }
@@ -61,6 +59,13 @@ auto load_settings() -> settings
         result.set_flag(settings::fullscreen_bit, in.fullscreen());
       }
 
+      if (in.has_vsync()) {
+        result.set_flag(settings::vsync_bit, in.vsync());
+      }
+
+      info("[OPTION] fullscreen = '{}'", result.test_flag(settings::fullscreen_bit));
+      info("[OPTION] vsync = '{}'", result.test_flag(settings::vsync_bit));
+
       return result;
     }
     else {
@@ -78,6 +83,7 @@ void save_settings(const settings& s)
 {
   proto::settings out;
   out.set_fullscreen(s.test_flag(settings::fullscreen_bit));
+  out.set_vsync(s.test_flag(settings::vsync_bit));
 
   const auto& path = _settings_file_path();
   debug("Saving settings to {}", path);

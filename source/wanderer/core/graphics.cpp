@@ -2,6 +2,7 @@
 
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/data/cfg.hpp"
+#include "wanderer/io/settings.hpp"
 #include "wanderer/meta/build.hpp"
 #include "wanderer/misc/assert.hpp"
 #include "wanderer/misc/exception.hpp"
@@ -31,7 +32,7 @@ constexpr int _handwriting_size_h = 32;
 
 }  // namespace
 
-graphics_ctx::graphics_ctx(const game_cfg& cfg)
+graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
 {
@@ -41,6 +42,7 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   win32::use_immersive_dark_mode(mWindow);
 
   mRenderer.set_logical_size(size);
+  // mRenderer.set_logical_integer_scaling(true);
   mRenderer.set_blend_mode(cen::blend_mode::blend);
 
   const char* pixelatedPath = "resources/fonts/type_writer.ttf";
@@ -55,18 +57,28 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg)
   mFontBundle.load_font(handwritingPath, _handwriting_size_l);
   mFontBundle.load_font(handwritingPath, _handwriting_size_h);
 
-  debug("Output size... {}", mRenderer.output_size());
+  mWindow.set_fullscreen_desktop(s.test_flag(settings::fullscreen_bit));
+
+  mVsync = s.test_flag(settings::vsync_bit);
+  mRenderer.set_vsync(mVsync);
 }
 
 auto graphics_ctx::toggle_fullscreen() -> bool
 {
-  mWindow.set_fullscreen_desktop(!mWindow.is_fullscreen_desktop());
+  const auto enabled = !mWindow.is_fullscreen_desktop();
+  debug("Fullscreen mode is now {}", enabled ? "enabled" : "disabled");
+
+  mWindow.set_fullscreen_desktop(enabled);
   return mWindow.is_fullscreen_desktop();
 }
 
-void graphics_ctx::set_fullscreen(const bool enabled)
+auto graphics_ctx::toggle_vsync() -> bool
 {
-  mWindow.set_fullscreen_desktop(enabled);
+  mVsync = !mVsync;
+  debug("VSync is now {}", mVsync ? "enabled" : "disabled");
+
+  mRenderer.set_vsync(mVsync);
+  return mVsync;
 }
 
 auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id

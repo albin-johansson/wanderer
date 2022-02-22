@@ -15,7 +15,8 @@ enum class action_id
 
   quick_save,  ///< Create a quick save.
 
-  toggle_fullscreen  ///< Toggle fullscreen window mode.
+  toggle_fullscreen,  ///< Toggle fullscreen window mode.
+  toggle_vsync        ///< Toggle VSync.
 };
 
 }  // namespace wanderer
