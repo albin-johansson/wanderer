@@ -60,6 +60,25 @@ struct cinematic_fade final
   std::vector<entt::entity> labels;  ///< Associated lazy_text entities.
 };
 
+/**
+ * \brief Represents a general frame-based animation.
+ */
+struct animation final
+{
+  usize frame{0};                  ///< Current frame index.
+  usize frame_count{1};            ///< Amount of frames in the animation.
+  cen::u64ms then{0};              ///< Time of the previous update of the animation.
+  std::vector<cen::u64ms> delays;  ///< Duration of each frame in the animation
+};
+
+/**
+ * \brief Component intended to accompany the `animation` component for tile animations.
+ */
+struct tile_animation final
+{
+  std::vector<tile_id> frames;  ///< Tiles to be rendered for each frame.
+};
+
 /// \} End of group components
 
 }  // namespace wanderer::comp

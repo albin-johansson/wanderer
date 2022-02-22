@@ -9,6 +9,7 @@
 #include "wanderer/io/level-parsing/parse_levels.hpp"
 #include "wanderer/meta/build.hpp"
 #include "wanderer/misc/exception.hpp"
+#include "wanderer/systems/animation_system.hpp"
 #include "wanderer/systems/cinematic_system.hpp"
 #include "wanderer/systems/input_system.hpp"
 #include "wanderer/systems/physics_system.hpp"
@@ -87,6 +88,7 @@ void wanderer_game::update(const float32 dt)
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry);
 
+    sys::update_animations(registry);
     sys::update_movable_game_objects(registry, dt);
   }
 }

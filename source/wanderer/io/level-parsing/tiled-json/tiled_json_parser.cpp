@@ -31,6 +31,39 @@ void _verify_features(const nlohmann::json& json)
   // TODO version
 }
 
+void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
+                                   const tile_id first,
+                                   entt::registry& registry)
+{
+  const auto& tilesets = registry.ctx<comp::tilesets>();
+
+  for (const auto& [_, tileJson] : tilesetJson.at("tiles").items()) {
+    const auto localId = tileJson.at("id").get<tile_id>();
+    const auto globalId = first + localId;
+
+    const auto tileEntity = tilesets.tiles.at(globalId);
+
+    if (tileJson.contains("animation")) {
+      auto& animation = registry.emplace<comp::animation>(tileEntity);
+      auto& tileAnimation = registry.emplace<comp::tile_animation>(tileEntity);
+
+      const auto arr = tileJson.at("animation");
+      animation.frame_count = arr.size();
+
+      animation.delays.reserve(animation.frame_count);
+      tileAnimation.frames.reserve(animation.frame_count);
+
+      for (const auto& [frameKey, frameJson] : arr.items()) {
+        const auto tile = first + frameJson.at("tileid").get<tile_id>();
+        const auto duration = frameJson.at("duration").get<uint64>();
+
+        tileAnimation.frames.push_back(tile);
+        animation.delays.emplace_back(duration);
+      }
+    }
+  }
+}
+
 void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       const std::filesystem::path& dir,
                                       const tile_id first,
@@ -67,6 +100,10 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
     info.source.y = row * tileHeight;
     info.source.z = tileWidth;
     info.source.w = tileHeight;
+  }
+
+  if (json.contains("tiles")) {
+    _parse_tileset_tiles_metadata(json, first, registry);
   }
 }
 

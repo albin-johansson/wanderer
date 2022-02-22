@@ -7,9 +7,46 @@
 #include "wanderer/misc/assert.hpp"
 
 namespace wanderer::sys {
+namespace {
 
-void render_tiles(const entt::registry& registry,
+void _render_tile(const entt::registry& registry,
+                  const comp::tilesets& tileset,
+                  const entt::entity tileEntity,
+                  const glm::vec4& dest,
                   graphics_ctx& graphics)
+{
+  if (const auto* animation = registry.try_get<comp::animation>(tileEntity)) {
+    const auto& tileAnimation = registry.get<comp::tile_animation>(tileEntity);
+    const auto tileToRenderId = tileAnimation.frames.at(animation->frame);
+
+    const auto tileToRenderEntity = tileset.tiles.at(tileToRenderId);
+    const auto tileToRender = registry.get<comp::tile_info>(tileToRenderEntity);
+
+    graphics.render_texture(tileToRender.texture, tileToRender.source, dest);
+  }
+  else {
+    const auto& tile = registry.get<comp::tile_info>(tileEntity);
+    graphics.render_texture(tile.texture, tile.source, dest);
+  }
+}
+
+[[nodiscard]] auto _determine_destination(const usize row,
+                                          const usize col,
+                                          const glm::vec2& tileSize,
+                                          const glm::vec2& viewportOffset) noexcept
+    -> glm::vec4
+{
+  glm::vec4 dest;
+  dest.x = (static_cast<float32>(col) * tileSize.x) - viewportOffset.x;
+  dest.y = (static_cast<float32>(row) * tileSize.y) - viewportOffset.y;
+  dest.z = tileSize.x;
+  dest.w = tileSize.y;
+  return dest;
+}
+
+}  // namespace
+
+void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& cfg = registry.ctx<game_cfg>();
   const auto& bounds = registry.ctx<comp::render_bounds>();
@@ -27,16 +64,11 @@ void render_tiles(const entt::registry& registry,
           continue;
         }
 
+        const auto dest =
+            _determine_destination(row, col, cfg.tile_size, viewport.offset);
+
         const auto tileEntity = tilesets.tiles.at(tileId);
-        const auto& tile = registry.get<comp::tile_info>(tileEntity);
-
-        glm::vec4 dest;
-        dest.x = (static_cast<float32>(col) * cfg.tile_size.x) - viewport.offset.x;
-        dest.y = (static_cast<float32>(row) * cfg.tile_size.y) - viewport.offset.y;
-        dest.z = cfg.tile_size.x;
-        dest.w = cfg.tile_size.y;
-
-        graphics.render_texture(tile.texture, tile.source, dest);
+        _render_tile(registry, tilesets, tileEntity, dest, graphics);
       }
     }
   }
