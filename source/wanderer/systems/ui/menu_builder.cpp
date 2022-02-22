@@ -76,7 +76,7 @@ auto menu_builder::title(std::string title) -> menu_builder&
   menu.title = std::move(title);
 
   if (!menu.title.empty()) {
-    h_label(menu.title, {0, 70}, h_anchor::center, v_anchor::top);
+    h_label(menu.title, {0, 0.1f}, h_anchor::center, v_anchor::top);
   }
 
   return *this;

@@ -23,32 +23,33 @@ namespace {
                                        const v_anchor valign) -> glm::vec2
 {
   glm::vec2 position{};
+  const auto absoluteOffset = offset * cfg.logical_size_f;
 
   switch (halign) {
     case h_anchor::left:
-      position.x = offset.x;
+      position.x = absoluteOffset.x;
       break;
 
     case h_anchor::center:
-      position.x = ((cfg.logical_size_f.x - size.x) / 2.0f) + offset.x;
+      position.x = ((cfg.logical_size_f.x - size.x) / 2.0f) + absoluteOffset.x;
       break;
 
     case h_anchor::right:
-      position.x = cfg.logical_size_f.x - size.x - offset.x;
+      position.x = cfg.logical_size_f.x - size.x - absoluteOffset.x;
       break;
   }
 
   switch (valign) {
     case v_anchor::top:
-      position.y = offset.y;
+      position.y = absoluteOffset.y;
       break;
 
     case v_anchor::center:
-      position.y = ((cfg.logical_size_f.y - size.y) / 2.0f) + offset.y;
+      position.y = ((cfg.logical_size_f.y - size.y) / 2.0f) + absoluteOffset.y;
       break;
 
     case v_anchor::bottom:
-      position.y = cfg.logical_size_f.y - size.y - offset.y;
+      position.y = cfg.logical_size_f.y - size.y - absoluteOffset.y;
       break;
   }
 
@@ -60,8 +61,8 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Credits")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 180})
-      .m_label("Textures by ...", {0, 300}, h_anchor::center, v_anchor::top)
+      .button("Return", action_id::goto_main_menu, {0, 0.25f})
+      .m_label("Textures by ...", {0, 0.4f}, h_anchor::center, v_anchor::top)
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -71,7 +72,7 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Saves")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 180})
+      .button("Return", action_id::goto_main_menu, {0, 0.25f})
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -81,12 +82,12 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Options")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 180})
-      .toggle("Toggle Fullscreen",
+      .button("Return", action_id::goto_main_menu, {0, 0.25f})
+      .toggle("Fullscreen",
               action_id::toggle_fullscreen,
               settings::fullscreen_bit,
-              {0, 300})
-      .toggle("Toggle VSync", action_id::toggle_vsync, settings::vsync_bit, {0, 350})
+              {0, 0.4f})
+      .toggle("VSync", action_id::toggle_vsync, settings::vsync_bit, {0, 0.5f})
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -96,11 +97,15 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Wanderer")
       .blocking()
-      .button("Play", action_id::goto_game, {0, 180})
-      .button("Options", action_id::goto_options_menu, {0, 300})
-      .button("Saves", action_id::goto_saves_menu, {0, 350})
-      .button("Credits", action_id::goto_credits_menu, {0, 400})
-      .button("Quit", action_id::quit, {0, 500})
+      .button("Play", action_id::goto_game, {0, 0.25f})
+      .button("Options", action_id::goto_options_menu, {0, 0.4f})
+      .button("Saves", action_id::goto_saves_menu, {0, 0.5f})
+      .button("Credits", action_id::goto_credits_menu, {0, 0.6f})
+      .button("Quit", action_id::quit, {0, 0.75f})
+      .s_label("Albin Johansson ( C) 2019-2022",
+               {0.01f, 0.01f},
+               h_anchor::left,
+               v_anchor::bottom)
       .bind(cen::scancodes::escape, action_id::goto_game)
       .result();
 }

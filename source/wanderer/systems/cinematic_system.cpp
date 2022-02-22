@@ -49,7 +49,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
   {
     const auto titleEntity = cinematic.labels.emplace_back(registry.create());
     auto& title = registry.emplace<comp::ui_label>(titleEntity);
-    title.offset = {0, -50};
+    title.offset = {0, -0.1f};
     title.text = "Wanderer";
     title.color = cen::colors::white;
     title.size = font_size::huge;
@@ -75,8 +75,8 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
   {
     const auto labelEntity = cinematic.labels.emplace_back(registry.create());
     auto& text = registry.emplace<comp::ui_label>(labelEntity);
-    text.offset = {10, 10};
-    text.text = "0.1.0 (pre-release)";
+    text.offset = {0.01f, 0.01f};
+    text.text = "0.1.0";
     text.color = cen::color{0x50, 0x50, 0x50};
     text.size = font_size::medium;
 

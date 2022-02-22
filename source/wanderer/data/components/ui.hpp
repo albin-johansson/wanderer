@@ -63,7 +63,7 @@ struct ui_anchor final
 struct ui_label final
 {
   /**
-   * \brief The offset from the anchor position.
+   * \brief The normalized offset from the anchor position.
    */
   glm::vec2 offset{};
 
