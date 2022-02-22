@@ -1,5 +1,3 @@
-#pragma once
-
 #include "win32.hpp"
 
 #include <SDL_syswm.h>
@@ -14,7 +12,7 @@
 
 namespace wanderer::win32 {
 
-void use_immersive_dark_mode(cen::window& window)
+void use_immersive_dark_mode([[maybe_unused]] cen::window& window)
 {
 #if WANDERER_PLATFORM_WINDOWS
 
