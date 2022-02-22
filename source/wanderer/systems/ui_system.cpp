@@ -252,7 +252,7 @@ void render_button(const entt::registry& registry,
     renderer.fill_rect(box);
 
     if (settings.test_flag(toggle->flag)) {
-      renderer.set_color(cen::colors::lime);
+      renderer.set_color(cen::colors::white);
       const cen::frect innerBox{box.x() + 4,
                                 box.y() + 4,
                                 box.width() - 8,
