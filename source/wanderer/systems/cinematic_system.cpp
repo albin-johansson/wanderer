@@ -8,6 +8,7 @@
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/data/components/rendering.hpp"
 #include "wanderer/data/components/ui.hpp"
+#include "wanderer/meta/build.hpp"
 
 using namespace cen::literals::time_literals;
 
@@ -76,7 +77,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
     const auto labelEntity = cinematic.labels.emplace_back(registry.create());
     auto& text = registry.emplace<comp::ui_label>(labelEntity);
     text.offset = {0.01f, 0.01f};
-    text.text = "0.1.0";
+    text.text = wanderer_version;
     text.color = cen::color{0x50, 0x50, 0x50};
     text.size = font_size::medium;
 

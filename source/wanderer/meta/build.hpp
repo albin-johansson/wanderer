@@ -44,6 +44,8 @@
 
 namespace wanderer {
 
+inline constexpr auto wanderer_version = "0.1.0";
+
 #if WANDERER_DEBUG_BUILD
 inline constexpr bool is_debug_build = true;
 inline constexpr bool is_release_build = !is_debug_build;
