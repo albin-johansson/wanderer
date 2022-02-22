@@ -120,6 +120,14 @@ struct ui_button final
   mutable maybe<glm::vec2> size;
 };
 
+/**
+ * \brief Component used by toggle buttons for settings.
+ */
+struct ui_setting_toggle final
+{
+  uint64 flag{};  ///< Boolean setting flag.
+};
+
 struct ui_menu final
 {
   /**

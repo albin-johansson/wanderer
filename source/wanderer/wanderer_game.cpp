@@ -102,7 +102,7 @@ void wanderer_game::render()
 
   sys::render_tiles(registry, mGraphics);
 
-  sys::render_active_menu(mMainRegistry, mGraphics);
+  sys::render_active_menu(mMainRegistry, mGraphics, mSettings);
   sys::render_cinematic_fade(mMainRegistry, mGraphics);
 
   renderer.present();

@@ -3,12 +3,14 @@
 #include <string>   // string
 #include <utility>  // move, pair
 
+#include "ui/menu_builder.hpp"
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/core/input_state.hpp"
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/data/menu_id.hpp"
 #include "wanderer/events/misc_events.hpp"
+#include "wanderer/io/settings.hpp"
 #include "wanderer/misc/assert.hpp"
 
 namespace wanderer::sys {
@@ -53,155 +55,61 @@ namespace {
   return position;
 }
 
-void _add_bind(entt::registry& registry,
-               comp::ui_menu& menu,
-               const cen::scan_code key,
-               const action_id action)
-{
-  const auto entity = menu.binds.emplace_back(registry.create());
-  auto& bind = registry.emplace<comp::ui_bind>(entity);
-  bind.key = key;
-  bind.action = action;
-}
-
-void _add_label(entt::registry& registry,
-                const entt::entity entity,
-                std::string text,
-                const glm::vec2& offset,
-                const font_size size,
-                const h_anchor halign,
-                const v_anchor valign)
-{
-  WANDERER_ASSERT_MSG(!text.empty(), "Invalid empty label text!");
-
-  auto& label = registry.emplace<comp::ui_label>(entity);
-  label.offset = offset;
-  label.text = std::move(text);
-  label.size = size;
-  label.color = cen::colors::white;
-
-  auto& anchor = registry.emplace<comp::ui_anchor>(entity);
-  anchor.horizontal = halign;
-  anchor.vertical = valign;
-}
-
-void _add_label(entt::registry& registry,
-                comp::ui_menu& menu,
-                std::string text,
-                const glm::vec2& offset,
-                const font_size size,
-                const h_anchor halign,
-                const v_anchor valign)
-{
-  const auto entity = menu.labels.emplace_back(registry.create());
-  _add_label(registry, entity, std::move(text), offset, size, halign, valign);
-}
-
-void _add_button(entt::registry& registry,
-                 comp::ui_menu& menu,
-                 std::string text,
-                 const action_id action,
-                 const glm::vec2& offset)
-{
-  const auto entity = menu.buttons.emplace_back(registry.create());
-
-  auto& button = registry.emplace<comp::ui_button>(entity);
-  button.action = action;
-
-  _add_label(registry,
-             entity,
-             std::move(text),
-             offset,
-             font_size::medium,
-             h_anchor::center,
-             v_anchor::top);
-}
-
-[[nodiscard]] auto _make_menu(entt::registry& registry,
-                              std::string title,
-                              const bool blocking)
-    -> std::pair<entt::entity, comp::ui_menu&>
-{
-  const auto menuEntity = registry.create();
-
-  auto& menu = registry.emplace<comp::ui_menu>(menuEntity);
-  menu.title = std::move(title);
-  menu.blocking = blocking;
-
-  if (!menu.title.empty()) {
-    _add_label(registry,
-               menu,
-               menu.title,
-               {0, 70},
-               font_size::huge,
-               h_anchor::center,
-               v_anchor::top);
-  }
-
-  return {menuEntity, menu};
-}
-
 [[nodiscard]] auto _load_credits_menu(entt::registry& registry) -> entt::entity
 {
-  auto&& [menuEntity, menu] = _make_menu(registry, "Credits", true);
-
-  _add_button(registry, menu, "Return", action_id::goto_main_menu, {0, 180});
-
-  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
-
-  return menuEntity;
+  return ui::menu_builder::build(registry)
+      .title("Credits")
+      .blocking()
+      .button("Return", action_id::goto_main_menu, {0, 180})
+      .m_label("Textures by ...", {0, 300}, h_anchor::center, v_anchor::top)
+      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .result();
 }
 
 [[nodiscard]] auto _load_saves_menu(entt::registry& registry) -> entt::entity
 {
-  auto&& [menuEntity, menu] = _make_menu(registry, "Saves", true);
-
-  _add_button(registry, menu, "Return", action_id::goto_main_menu, {0, 180});
-
-  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
-
-  return menuEntity;
+  return ui::menu_builder::build(registry)
+      .title("Saves")
+      .blocking()
+      .button("Return", action_id::goto_main_menu, {0, 180})
+      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .result();
 }
 
 [[nodiscard]] auto _load_options_menu(entt::registry& registry) -> entt::entity
 {
-  auto&& [menuEntity, menu] = _make_menu(registry, "Options", true);
-
-  _add_button(registry, menu, "Return", action_id::goto_main_menu, {0, 180});
-
-  _add_button(registry,
-              menu,
-              "Toggle Fullscreen",
+  return ui::menu_builder::build(registry)
+      .title("Options")
+      .blocking()
+      .button("Return", action_id::goto_main_menu, {0, 180})
+      .toggle("Toggle Fullscreen",
               action_id::toggle_fullscreen,
-              {0, 250});
-
-  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
-
-  return menuEntity;
+              settings::fullscreen_bit,
+              {0, 300})
+      .toggle("Toggle VSync", action_id::toggle_vsync, settings::vsync_bit, {0, 350})
+      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .result();
 }
 
 [[nodiscard]] auto _load_main_menu(entt::registry& registry) -> entt::entity
 {
-  auto&& [menuEntity, menu] = _make_menu(registry, "Wanderer", true);
-
-  _add_button(registry, menu, "Play", action_id::goto_game, {0, 180});
-  _add_button(registry, menu, "Options", action_id::goto_options_menu, {0, 250});
-  _add_button(registry, menu, "Saves", action_id::goto_saves_menu, {0, 300});
-  _add_button(registry, menu, "Credits", action_id::goto_credits_menu, {0, 350});
-  _add_button(registry, menu, "Quit", action_id::quit, {0, 420});
-
-  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_game);
-
-  return menuEntity;
+  return ui::menu_builder::build(registry)
+      .title("Wanderer")
+      .blocking()
+      .button("Play", action_id::goto_game, {0, 180})
+      .button("Options", action_id::goto_options_menu, {0, 300})
+      .button("Saves", action_id::goto_saves_menu, {0, 350})
+      .button("Credits", action_id::goto_credits_menu, {0, 400})
+      .button("Quit", action_id::quit, {0, 500})
+      .bind(cen::scancodes::escape, action_id::goto_game)
+      .result();
 }
 
 [[nodiscard]] auto _load_game_menu(entt::registry& registry) -> entt::entity
 {
-  auto&& [menuEntity, menu] = _make_menu(registry, "", false);
-
-  _add_bind(registry, menu, cen::scancodes::escape, action_id::goto_main_menu);
-
-  return menuEntity;
+  return ui::menu_builder::build(registry)
+      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .result();
 }
 
 }  // namespace
@@ -280,7 +188,9 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
   }
 }
 
-void render_active_menu(const entt::registry& registry, graphics_ctx& graphics)
+void render_active_menu(const entt::registry& registry,
+                        graphics_ctx& graphics,
+                        const settings& settings)
 {
   const auto& menus = registry.ctx<comp::ui_menu_ctx>();
   const auto menuEntity = menus.active_menu;
@@ -298,22 +208,20 @@ void render_active_menu(const entt::registry& registry, graphics_ctx& graphics)
   }
 
   for (const auto buttonEntity : menu.buttons) {
-    render_button(registry, buttonEntity, graphics);
+    render_button(registry, buttonEntity, graphics, settings);
   }
 }
 
 void render_button(const entt::registry& registry,
                    const entt::entity buttonEntity,
-                   graphics_ctx& graphics)
+                   graphics_ctx& graphics,
+                   const settings& settings)
 {
   /* Render label first since we base the button frame on the label position */
   render_label(registry, buttonEntity, graphics);
 
-  const auto& cfg = registry.ctx<game_cfg>();
-
   const auto& button = registry.get<comp::ui_button>(buttonEntity);
   const auto& label = registry.get<comp::ui_label>(buttonEntity);
-  const auto& anchor = registry.get<comp::ui_anchor>(buttonEntity);
 
   WANDERER_ASSERT(label.texture.has_value());
   const auto& texture = label.texture.value();
@@ -327,7 +235,29 @@ void render_button(const entt::registry& registry,
   auto& renderer = graphics.renderer();
   renderer.set_color((button.state & comp::ui_button::hover_bit) ? cen::colors::lime_green
                                                                  : cen::colors::white);
-  renderer.draw_rect(as_rect(button.position.value(), button.size.value()));
+  const auto bounds = as_rect(button.position.value(), button.size.value());
+  renderer.draw_rect(bounds);
+
+  if (const auto* toggle = registry.try_get<comp::ui_setting_toggle>(buttonEntity)) {
+    const auto x = bounds.max_x() + 5;
+    const auto y = bounds.y();
+
+    const cen::frect box{x, y, bounds.height(), bounds.height()};
+    renderer.set_color(cen::color{0x33, 0x33, 0x33});
+    renderer.fill_rect(box);
+
+    if (settings.test_flag(toggle->flag)) {
+      renderer.set_color(cen::colors::lime);
+      const cen::frect innerBox{box.x() + 4,
+                                box.y() + 4,
+                                box.width() - 8,
+                                box.height() - 8};
+      renderer.fill_rect(innerBox);
+    }
+
+    renderer.set_color(cen::colors::white);
+    renderer.draw_rect(box);
+  }
 }
 
 void render_label(const entt::registry& registry,

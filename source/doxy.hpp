@@ -38,6 +38,11 @@
  */
 
 /**
+ * \namespace wanderer::sys::ui
+ * \ingroup ui-system
+ */
+
+/**
  * \mainpage Wanderer
  *
  * Welcome to the source documentation for the Wanderer project!

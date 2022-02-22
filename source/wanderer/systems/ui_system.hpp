@@ -79,12 +79,16 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics);
  *
  * \param registry the menu registry.
  * \param graphics the associated graphics context.
+ * \param settings the current settings.
  */
-void render_active_menu(const entt::registry& registry, graphics_ctx& graphics);
+void render_active_menu(const entt::registry& registry,
+                        graphics_ctx& graphics,
+                        const settings& settings);
 
 void render_button(const entt::registry& registry,
                    entt::entity buttonEntity,
-                   graphics_ctx& graphics);
+                   graphics_ctx& graphics,
+                   const settings& settings);
 
 void render_label(const entt::registry& registry,
                   entt::entity labelEntity,
