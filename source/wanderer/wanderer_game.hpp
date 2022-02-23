@@ -18,7 +18,7 @@ namespace wanderer {
 class wanderer_game final : game_loop
 {
  public:
-  wanderer_game();
+  explicit wanderer_game(const game_cfg& cfg);
 
   void run();
 

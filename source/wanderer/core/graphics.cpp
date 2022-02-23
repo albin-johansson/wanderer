@@ -36,13 +36,12 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
 {
-  const cen::iarea size{cfg.logical_size.x, cfg.logical_size.y};
-  mWindow.set_size(size);
+  mWindow.set_size(as_area(cfg.logical_size));
 
   win32::use_immersive_dark_mode(mWindow);
 
-  mRenderer.set_logical_size(size);
-  // mRenderer.set_logical_integer_scaling(true);
+  mRenderer.set_logical_size(as_area(cfg.logical_size));
+  mRenderer.set_logical_integer_scaling(true);
   mRenderer.set_blend_mode(cen::blend_mode::blend);
 
   const char* pixelatedPath = "resources/fonts/type_writer.ttf";

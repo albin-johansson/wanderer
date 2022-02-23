@@ -9,6 +9,7 @@
 #include "wanderer/io/level-parsing/parse_levels.hpp"
 #include "wanderer/meta/build.hpp"
 #include "wanderer/misc/exception.hpp"
+#include "wanderer/misc/logging.hpp"
 #include "wanderer/systems/animation_system.hpp"
 #include "wanderer/systems/cinematic_system.hpp"
 #include "wanderer/systems/input_system.hpp"
@@ -20,12 +21,14 @@
 
 namespace wanderer {
 
-wanderer_game::wanderer_game()
-    : mCfg{make_game_cfg()}
+wanderer_game::wanderer_game(const game_cfg& cfg)
+    : mCfg{cfg}
     , mSettings{load_settings()}
     , mGraphics{mCfg, mSettings}
     , mMainRegistry{sys::make_main_registry(mCfg)}
 {
+  debug("Logical size is {}", cfg.logical_size_f);
+
   using self = wanderer_game;
   mDispatcher.sink<action_event>().connect<&self::on_action>(this);
   mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);

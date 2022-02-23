@@ -36,6 +36,7 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       magic_enum::magic_enum
                       yaml-cpp
                       nlohmann_json::nlohmann_json
+                      argparse::argparse
                       ${Boost_LIBRARIES}
                       )
 

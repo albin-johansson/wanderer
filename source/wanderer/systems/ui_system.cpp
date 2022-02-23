@@ -86,8 +86,21 @@ namespace {
       .toggle("Fullscreen",
               action_id::toggle_fullscreen,
               settings::fullscreen_bit,
-              {0, 0.4f})
-      .toggle("VSync", action_id::toggle_vsync, settings::vsync_bit, {0, 0.5f})
+              {0.45f, 0.40f},
+              h_anchor::right,
+              v_anchor::top)
+      .toggle("VSync",
+              action_id::toggle_vsync,
+              settings::vsync_bit,
+              {0.45f, 0.50f},
+              h_anchor::right,
+              v_anchor::top)
+      .toggle("Integer Scaling",
+              action_id::toggle_integer_scaling,
+              settings::integer_scaling_bit,
+              {0.45f, 0.60f},
+              h_anchor::right,
+              v_anchor::top)
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -98,9 +111,9 @@ namespace {
       .title("Wanderer")
       .blocking()
       .button("Play", action_id::goto_game, {0, 0.25f})
-      .button("Options", action_id::goto_options_menu, {0, 0.4f})
-      .button("Saves", action_id::goto_saves_menu, {0, 0.5f})
-      .button("Credits", action_id::goto_credits_menu, {0, 0.6f})
+      .button("Options", action_id::goto_options_menu, {0, 0.40f})
+      .button("Saves", action_id::goto_saves_menu, {0, 0.50f})
+      .button("Credits", action_id::goto_credits_menu, {0, 0.60f})
       .button("Quit", action_id::quit, {0, 0.75f})
       .s_label("Albin Johansson ( C) 2019-2022",
                {0.01f, 0.01f},

@@ -117,8 +117,12 @@ class menu_builder final
    *
    * \return the builder.
    */
-  auto toggle(std::string label, action_id action, uint64 flag, const glm::vec2& offset)
-      -> menu_builder&;
+  auto toggle(std::string label,
+              action_id action,
+              uint64 flag,
+              const glm::vec2& offset,
+              h_anchor ha,
+              v_anchor va) -> menu_builder&;
 
   /**
    * \brief Adds a key bind to the menu.

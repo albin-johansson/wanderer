@@ -35,4 +35,14 @@ inline void cap_magnitude(glm::vec2& vec, const float32 magnitude)
   }
 }
 
+[[nodiscard]] constexpr auto as_i(const glm::vec2& vec) noexcept -> glm::ivec2
+{
+  return {static_cast<int32>(vec.x), static_cast<int32>(vec.y)};
+}
+
+[[nodiscard]] constexpr auto as_f(const glm::ivec2& vec) noexcept -> glm::vec2
+{
+  return {static_cast<float32>(vec.x), static_cast<float32>(vec.y)};
+}
+
 }  // namespace wanderer::glmx

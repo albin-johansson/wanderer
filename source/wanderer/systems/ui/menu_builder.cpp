@@ -32,20 +32,16 @@ auto _add_button(entt::registry& registry,
                  comp::ui_menu& menu,
                  std::string text,
                  const action_id action,
-                 const glm::vec2& offset) -> entt::entity
+                 const glm::vec2& offset,
+                 const h_anchor ha = h_anchor::center,
+                 const v_anchor va = v_anchor::top) -> entt::entity
 {
   const auto entity = menu.buttons.emplace_back(registry.create());
 
   auto& button = registry.emplace<comp::ui_button>(entity);
   button.action = action;
 
-  _add_label(registry,
-             entity,
-             std::move(text),
-             offset,
-             font_size::medium,
-             h_anchor::center,
-             v_anchor::top);
+  _add_label(registry, entity, std::move(text), offset, font_size::medium, ha, va);
 
   return entity;
 }
@@ -129,14 +125,18 @@ auto menu_builder::button(std::string label,
 auto menu_builder::toggle(std::string label,
                           const action_id action,
                           const uint64 flag,
-                          const glm::vec2& offset) -> menu_builder&
+                          const glm::vec2& offset,
+                          const h_anchor ha,
+                          const v_anchor va) -> menu_builder&
 {
   auto& registry = mRegistry.get();
   const auto entity = _add_button(registry,  //
                                   get_menu(),
                                   std::move(label),
                                   action,
-                                  offset);
+                                  offset,
+                                  ha,
+                                  va);
 
   auto& toggle = registry.emplace<comp::ui_setting_toggle>(entity);
   toggle.flag = flag;
