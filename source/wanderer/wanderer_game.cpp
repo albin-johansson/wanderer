@@ -8,6 +8,7 @@
 #include "wanderer/events/player_events.hpp"
 #include "wanderer/io/level-parsing/parse_levels.hpp"
 #include "wanderer/meta/build.hpp"
+#include "wanderer/meta/profile.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
 #include "wanderer/systems/animation_system.hpp"
@@ -91,7 +92,13 @@ void wanderer_game::update(const float32 dt)
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry);
 
-    sys::sort_drawables(registry, sys::sort_strategy::insertion);
+    /* Little optimization that avoids sorting too often, since the difference between
+       sorting every tick versus every fourth tick is not really noticeable by the player.
+       Example: 60Hz -> 0.0167s per tick -> 4 ticks/sort -> 0.067s in between sorts */
+    if (static uint64 ticker = 0; ticker % 4 == 0) {
+      sys::sort_drawables(registry, sys::sort_strategy::insertion);
+      ++ticker;
+    }
 
     sys::update_animations(registry);
     sys::update_physics(registry, dt);
