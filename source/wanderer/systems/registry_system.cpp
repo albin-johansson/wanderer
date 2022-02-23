@@ -28,7 +28,7 @@ auto make_level_registry(const game_cfg& cfg) -> entt::registry
 
   registry.set<game_cfg>(cfg);
   registry.set<comp::tilemap>();
-  registry.set<comp::tilesets>();
+  registry.set<comp::tileset>();
   registry.set<comp::render_bounds>();
 
   auto& viewport = registry.set<comp::viewport>();

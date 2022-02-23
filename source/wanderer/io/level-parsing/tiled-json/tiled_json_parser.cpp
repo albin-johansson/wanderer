@@ -37,13 +37,13 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
                                    const tile_id first,
                                    entt::registry& registry)
 {
-  const auto& tilesets = registry.ctx<comp::tilesets>();
+  const auto& tileset = registry.ctx<comp::tileset>();
 
   for (const auto& [_, tileJson] : tilesetJson.at("tiles").items()) {
     const auto localId = tileJson.at("id").get<tile_id>();
     const auto globalId = first + localId;
 
-    const auto tileEntity = tilesets.tiles.at(globalId);
+    const auto tileEntity = tileset.tiles.at(globalId);
 
     if (tileJson.contains("animation")) {
       auto& animation = registry.emplace<comp::animation>(tileEntity);
@@ -72,7 +72,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       entt::registry& registry,
                                       graphics_ctx& graphics)
 {
-  auto& tilesets = registry.ctx<comp::tilesets>();
+  auto& tileset = registry.ctx<comp::tileset>();
 
   const auto tileWidth = json.at("tilewidth").get<int32>();
   const auto tileHeight = json.at("tileheight").get<int32>();
@@ -84,12 +84,12 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
   const auto count = json.at("tilecount").get<tile_id>();
   const auto end = first + count;
 
-  tilesets.tiles.reserve(tilesets.tiles.bucket_count() + count);
+  tileset.tiles.reserve(tileset.tiles.bucket_count() + count);
 
   int32 index = 0;
   for (tile_id id = first; id < end; ++id, ++index) {
     const auto entity = registry.create();
-    tilesets.tiles[id] = entity;
+    tileset.tiles[id] = entity;
 
     auto& info = registry.emplace<comp::tile_info>(entity);
     info.texture = textureId;

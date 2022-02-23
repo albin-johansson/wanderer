@@ -45,9 +45,9 @@ struct tile_info final
 };
 
 /**
- * \brief Provides information about all of the tilesets associated with a map.
+ * \brief Provides information about all available tiles in a level.
  */
-struct tilesets final
+struct tileset final
 {
   hash_map<tile_id, entt::entity> tiles;
 };

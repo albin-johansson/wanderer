@@ -10,7 +10,7 @@ namespace wanderer::sys {
 namespace {
 
 void _render_tile(const entt::registry& registry,
-                  const comp::tilesets& tileset,
+                  const comp::tileset& tileset,
                   const entt::entity tileEntity,
                   const glm::vec4& dest,
                   graphics_ctx& graphics)
@@ -51,7 +51,7 @@ void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
   const auto& cfg = registry.ctx<game_cfg>();
   const auto& bounds = registry.ctx<comp::render_bounds>();
   const auto& viewport = registry.ctx<comp::viewport>();
-  const auto& tilesets = registry.ctx<comp::tilesets>();
+  const auto& tileset = registry.ctx<comp::tileset>();
 
   for (auto&& [entity, layer] : registry.view<comp::tile_layer>().each()) {
     for (usize row = bounds.begin_row; row < bounds.end_row; ++row) {
@@ -67,8 +67,8 @@ void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
         const auto dest =
             _determine_destination(row, col, cfg.tile_size, viewport.offset);
 
-        const auto tileEntity = tilesets.tiles.at(tileId);
-        _render_tile(registry, tilesets, tileEntity, dest, graphics);
+        const auto tileEntity = tileset.tiles.at(tileId);
+        _render_tile(registry, tileset, tileEntity, dest, graphics);
       }
     }
   }
