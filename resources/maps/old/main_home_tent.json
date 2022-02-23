@@ -180,7 +180,7 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"humanoidLayer",
+         "name":"humanoid-layer",
          "type":"int",
          "value":2
         }, 
