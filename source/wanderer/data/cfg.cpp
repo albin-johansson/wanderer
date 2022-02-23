@@ -22,7 +22,7 @@ auto make_game_cfg() -> game_cfg
 
   cfg.logical_size = glmx::as_i(cfg.logical_size_f);
 
-  cfg.tile_size = {64, 64};
+  cfg.tile_size = {48, 48};
   cfg.humanoid_draw_size = cfg.tile_size * 2.0f;
 
   return cfg;
