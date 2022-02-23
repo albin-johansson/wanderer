@@ -114,6 +114,8 @@ class menu_builder final
    * \param action the action emitted when the button is pressed.
    * \param flag the settings flag to observe.
    * \param offset the button offset.
+   * \param ha the horizontal anchor.
+   * \param va the vertical anchor.
    *
    * \return the builder.
    */
