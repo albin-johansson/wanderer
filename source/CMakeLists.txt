@@ -53,6 +53,15 @@ target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
                           <centurion.hpp>
                           <entt/entt.hpp>
                           <glm/glm.hpp>
+
+                          <memory>
+                          <utility>
+                          <vector>
+                          <string>
+                          <string_view>
+                          <map>
+                          <unordered_map>
+                          <functional>
                           )
 
 if (CMAKE_BUILD_TYPE STREQUAL RELEASE)
