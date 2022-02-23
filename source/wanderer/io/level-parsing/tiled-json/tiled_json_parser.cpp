@@ -1,7 +1,6 @@
 #include "tiled_json_parser.hpp"
 
-#include <string>       // string
-#include <string_view>  // string_view
+#include <string>  // string
 
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
@@ -23,8 +22,7 @@ namespace wanderer {
 namespace {
 
 template <typename T>
-[[nodiscard]] auto _get_property(const nlohmann::json& json,
-                                 const std::string_view property)
+[[nodiscard]] auto _get_property(const nlohmann::json& json, const char* property)
 {
   if (const auto props = json.find("properties"); props != json.end()) {
     for (const auto& [key, object] : props->items()) {
@@ -39,7 +37,7 @@ template <typename T>
 
 template <typename T>
 [[nodiscard]] auto _get_property(const nlohmann::json& json,
-                                 const std::string_view property,
+                                 const char* property,
                                  T fallback)
 {
   if (const auto props = json.find("properties"); props != json.end()) {
