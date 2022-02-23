@@ -81,6 +81,15 @@ auto graphics_ctx::toggle_vsync() -> bool
   return mVsync;
 }
 
+auto graphics_ctx::toggle_integer_scaling() -> bool
+{
+  const auto enabled = !mRenderer.using_integer_logical_scaling();
+  debug("Integer scaling is now {}", enabled ? "enabled" : "disabled");
+
+  mRenderer.set_logical_integer_scaling(enabled);
+  return mRenderer.using_integer_logical_scaling();
+}
+
 auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
 {
   /* This approach requires that textures are never removed, which is fine  */

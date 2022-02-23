@@ -11,6 +11,7 @@ struct settings final
 {
   inline static constexpr uint64 fullscreen_bit = 1u << 0u;
   inline static constexpr uint64 vsync_bit = 1u << 1u;
+  inline static constexpr uint64 integer_scaling_bit = 1u << 2u;
 
   /**
    * \brief Bit mask of all boolean settings.

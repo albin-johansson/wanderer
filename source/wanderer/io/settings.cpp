@@ -63,8 +63,14 @@ auto load_settings() -> settings
         result.set_flag(settings::vsync_bit, in.vsync());
       }
 
+      if (in.has_integer_scaling()) {
+        result.set_flag(settings::integer_scaling_bit, in.integer_scaling());
+      }
+
       info("[OPTION] fullscreen = '{}'", result.test_flag(settings::fullscreen_bit));
       info("[OPTION] vsync = '{}'", result.test_flag(settings::vsync_bit));
+      info("[OPTION] integer scaling = '{}'",
+           result.test_flag(settings::integer_scaling_bit));
 
       return result;
     }
@@ -84,6 +90,7 @@ void save_settings(const settings& s)
   proto::settings out;
   out.set_fullscreen(s.test_flag(settings::fullscreen_bit));
   out.set_vsync(s.test_flag(settings::vsync_bit));
+  out.set_integer_scaling(s.test_flag(settings::integer_scaling_bit));
 
   const auto& path = _settings_file_path();
   debug("Saving settings to {}", path);

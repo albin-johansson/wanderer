@@ -159,6 +159,11 @@ void wanderer_game::on_action(const action_event& event)
       mSettings.set_flag(settings::vsync_bit, enabled);
       break;
     }
+    case action_id::toggle_integer_scaling: {
+      const bool enabled = mGraphics.toggle_integer_scaling();
+      mSettings.set_flag(settings::integer_scaling_bit, enabled);
+      break;
+    }
     default:
       throw_traced(wanderer_error{"Invalid action!"});
   }

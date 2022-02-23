@@ -44,6 +44,13 @@ class graphics_ctx final
   auto toggle_vsync() -> bool;
 
   /**
+   * \brief Toggles the use of integer scaling by the renderer.
+   *
+   * \return `true` if integer scaling was enabled; `false` otherwise.
+   */
+  auto toggle_integer_scaling() -> bool;
+
+  /**
    * \brief Loads a texture.
    *
    * \param path the file path to the source texture.

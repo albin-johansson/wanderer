@@ -6,4 +6,5 @@ message settings
 {
   optional bool fullscreen = 1;
   optional bool vsync = 2;
+  optional bool integer_scaling = 3;
 }
