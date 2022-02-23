@@ -15,6 +15,16 @@ namespace wanderer {
   return {vec.x, vec.y};
 }
 
+[[nodiscard]] constexpr auto as_area(const glm::vec2& vec) noexcept -> cen::farea
+{
+  return {vec.x, vec.y};
+}
+
+[[nodiscard]] constexpr auto as_area(const glm::ivec2& vec) noexcept -> cen::iarea
+{
+  return {vec.x, vec.y};
+}
+
 [[nodiscard]] constexpr auto as_rect(const glm::vec4& vec) noexcept -> cen::frect
 {
   return {vec.x, vec.y, vec.z, vec.w};
