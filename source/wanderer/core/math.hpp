@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <box2d/box2d.h>
 
 #include "wanderer/common.hpp"
 
@@ -43,6 +44,16 @@ inline void cap_magnitude(glm::vec2& vec, const float32 magnitude)
 [[nodiscard]] constexpr auto as_f(const glm::ivec2& vec) noexcept -> glm::vec2
 {
   return {static_cast<float32>(vec.x), static_cast<float32>(vec.y)};
+}
+
+[[nodiscard]] inline auto from_b2(const b2Vec2& vec) noexcept -> glm::vec2
+{
+  return {vec.x, vec.y};
+}
+
+[[nodiscard]] inline auto as_b2(const glm::vec2& vec) noexcept -> b2Vec2
+{
+  return {vec.x, vec.y};
 }
 
 }  // namespace wanderer::glmx
