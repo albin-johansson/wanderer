@@ -41,7 +41,7 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
   win32::use_immersive_dark_mode(mWindow);
 
   mRenderer.set_logical_size(as_area(cfg.logical_size));
-  mRenderer.set_logical_integer_scaling(true);
+  mRenderer.set_logical_integer_scaling(s.test_flag(settings::integer_scaling_bit));
   mRenderer.set_blend_mode(cen::blend_mode::blend);
 
   const char* pixelatedPath = "resources/fonts/type_writer.ttf";
