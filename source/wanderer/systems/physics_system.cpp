@@ -21,7 +21,8 @@ void add_physics_body(entt::registry& registry,
                       const b2BodyType type,
                       const glm::vec2& logicalPos,
                       const glm::vec2& logicalSize,
-                      const float32 maxSpeed)
+                      const float32 maxSpeed,
+                      const glm::vec2& offset)
 {
   WANDERER_ASSERT(entity != entt::null);
   WANDERER_ASSERT(!registry.all_of<comp::physics_body>(entity));
@@ -29,13 +30,14 @@ void add_physics_body(entt::registry& registry,
   auto& world = registry.ctx<comp::physics_world>();
 
   b2BodyDef bodyDef;
-  bodyDef.position = sys::to_physics_world(registry, logicalPos);
+  bodyDef.position = sys::to_physics_world(registry, logicalPos + offset);
   bodyDef.type = type;
   bodyDef.fixedRotation = true;
   bodyDef.gravityScale = 0;
 
   auto& body = registry.emplace<comp::physics_body>(entity);
   body.data = world.simulation.CreateBody(&bodyDef);
+  body.offset = sys::to_physics_world(registry, offset);
   body.size = sys::to_physics_world(registry, logicalSize);
   body.max_speed = maxSpeed;
 
@@ -70,7 +72,7 @@ void update_physics(entt::registry& registry, const float32 dt)
 
   for (auto&& [entity, object, body] :
        registry.view<comp::game_object, comp::physics_body>().each()) {
-    auto pos = glmx::from_b2(body.data->GetPosition());
+    auto pos = glmx::from_b2(body.data->GetPosition() - body.offset);
     object.position = pos / world.scale;
   }
 }

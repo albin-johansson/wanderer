@@ -79,6 +79,29 @@ struct tile_animation final
   std::vector<tile_id> frames;  ///< Tiles to be rendered for each frame.
 };
 
+/**
+ * \brief Component by all drawable game objects.
+ *
+ * \details Drawable entities are first arranged according to their layers. Within each
+ * layer, the render order is determined using the depth index heuristic and he
+ * y-coordinates of center points. The lower the depth value, the earlier an entity is
+ * rendered.
+ *
+ * \details The y-coordinate of an entity's center point is used when two entities feature
+ * the same depth index. Similarly to the depth, an entity with a smaller center
+ * y-coordinate value will be rendered before an entity with a higher value, since they
+ * are "above" and therefore behind the other.
+ *
+ * \note Drawable entities are expected to feature `game_object` components.
+ */
+struct drawable final
+{
+  texture_id texture{};  ///< The associated texture.
+  cen::irect src;        ///< Region of associated texture that will be rendered.
+  int32 layer_index{};   ///< Layer index.
+  int32 depth_index{5};  ///< Render order heuristic.
+};
+
 /// \} End of group components
 
 }  // namespace wanderer::comp

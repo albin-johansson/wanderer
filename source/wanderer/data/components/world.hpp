@@ -25,6 +25,7 @@ struct game_object final
 struct physics_body final
 {
   b2Body* data{};       ///< The simulation body data.
+  b2Vec2 offset{};      ///< Body offset from the game object origin, in simulation scale.
   b2Vec2 size{};        ///< The size of the body, in simulation scale.
   float32 max_speed{};  ///< Maximum total speed, in simulation scale.
 };

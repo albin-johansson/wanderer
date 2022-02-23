@@ -3,6 +3,7 @@
 #include <string>       // string
 #include <string_view>  // string_view
 
+#include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/core/math.hpp"
 #include "wanderer/data/cfg.hpp"
@@ -16,6 +17,7 @@
 #include "wanderer/misc/logging.hpp"
 #include "wanderer/systems/physics_system.hpp"
 #include "wanderer/systems/registry_system.hpp"
+#include "wanderer/systems/rendering_system.hpp"
 
 namespace wanderer {
 namespace {
@@ -33,6 +35,22 @@ template <typename T>
   }
 
   throw_traced(wanderer_error{"Did not find property!"});
+}
+
+template <typename T>
+[[nodiscard]] auto _get_property(const nlohmann::json& json,
+                                 const std::string_view property,
+                                 T fallback)
+{
+  if (const auto props = json.find("properties"); props != json.end()) {
+    for (const auto& [key, object] : props->items()) {
+      if (property == object.at("name")) {
+        return object.at("value").get<T>();
+      }
+    }
+  }
+
+  return fallback;
 }
 
 void _verify_features(const nlohmann::json& json)
@@ -61,6 +79,9 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
     const auto globalId = first + localId;
 
     const auto tileEntity = tileset.tiles.at(globalId);
+
+    auto& info = registry.get<comp::tile_info>(tileEntity);
+    info.depth_index = _get_property<int32>(tileJson, "depth", info.depth_index);
 
     if (tileJson.contains("animation")) {
       auto& animation = registry.emplace<comp::animation>(tileEntity);
@@ -119,14 +140,16 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
 
   tileset.tiles.reserve(tileset.tiles.bucket_count() + count);
 
+  const auto humanoidLayerIndex = registry.ctx<comp::tilemap>().humanoid_layer_index;
   int32 index = 0;
+
   for (tile_id id = firstId; id < end; ++id, ++index) {
     const auto entity = registry.create();
     tileset.tiles[id] = entity;
 
     auto& info = registry.emplace<comp::tile_info>(entity);
     info.texture = textureId;
-    info.depth_index = 5;  // TODO
+    info.depth_index = humanoidLayerIndex;
 
     const auto row = index / columns;
     const auto col = index % columns;
@@ -161,7 +184,9 @@ void _parse_tileset(const nlohmann::json& json,
   }
 }
 
-void _parse_tile_objects(const nlohmann::json& json, entt::registry& registry)
+void _parse_tile_objects(const nlohmann::json& json,
+                         entt::registry& registry,
+                         const int32 z)
 {
   const auto& map = registry.ctx<comp::tilemap>();
   const auto& cfg = registry.ctx<game_cfg>();
@@ -185,19 +210,28 @@ void _parse_tile_objects(const nlohmann::json& json, entt::registry& registry)
     auto& tileObject = registry.emplace<comp::tile_object>(entity);
     tileObject.tile_entity = tileset.tiles.at(tile);
 
+    const auto& info = registry.get<comp::tile_info>(tileObject.tile_entity);
+
     auto& gameObject = registry.emplace<comp::game_object>(entity);
     gameObject.position = {static_cast<float32>(col) * cfg.tile_size.x,
                            static_cast<float32>(row) * cfg.tile_size.y};
     gameObject.size = cfg.tile_size;
+
+    auto& drawable = registry.emplace<comp::drawable>(entity);
+    drawable.texture = info.texture;
+    drawable.src = as_rect(info.source);
+    drawable.layer_index = z;
+    drawable.depth_index = info.depth_index;
 
     if (const auto* hitbox =
             registry.try_get<comp::tile_hitbox>(tileObject.tile_entity)) {
       sys::add_physics_body(registry,
                             entity,
                             b2_staticBody,
-                            gameObject.position + hitbox->offset,
+                            gameObject.position,
                             hitbox->size,
-                            0);
+                            0,
+                            hitbox->offset);
     }
 
     ++index;
@@ -231,7 +265,7 @@ void _parse_tile_layer(const nlohmann::json& json,
     }
   }
   else {
-    _parse_tile_objects(json, registry);
+    _parse_tile_objects(json, registry, z);
   }
 }
 
@@ -289,7 +323,10 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
   map.size.x = static_cast<float32>(map.col_count) * cfg.tile_size.x;
   map.size.y = static_cast<float32>(map.row_count) * cfg.tile_size.y;
 
-  map.humanoid_layer_index = 5;  // TODO read property
+  map.humanoid_layer_index = _get_property<int32>(json, "humanoid-layer");
+
+  auto& viewport = registry.ctx<comp::viewport>();
+  viewport.keep_in_bounds = _get_property<bool>(json, "is-outside");
 
   const auto dir = path.parent_path();
 
@@ -311,6 +348,8 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
       });
 
   _create_player(registry, cfg);
+
+  sys::sort_drawables(registry, sys::sort_strategy::std);
 
   WANDERER_PROFILE_END("Parsed Tiled JSON map")
   return registry;

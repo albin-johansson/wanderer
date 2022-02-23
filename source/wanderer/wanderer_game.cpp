@@ -15,6 +15,7 @@
 #include "wanderer/systems/input_system.hpp"
 #include "wanderer/systems/physics_system.hpp"
 #include "wanderer/systems/registry_system.hpp"
+#include "wanderer/systems/rendering_system.hpp"
 #include "wanderer/systems/tile_system.hpp"
 #include "wanderer/systems/ui_system.hpp"
 #include "wanderer/systems/viewport_system.hpp"
@@ -86,8 +87,11 @@ void wanderer_game::update(const float32 dt)
   if (!sys::is_cinematic_fade_active(mMainRegistry) &&
       !sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
+
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry);
+
+    sys::sort_drawables(registry, sys::sort_strategy::insertion);
 
     sys::update_animations(registry);
     sys::update_physics(registry, dt);
@@ -96,16 +100,15 @@ void wanderer_game::update(const float32 dt)
 
 void wanderer_game::render()
 {
-  const auto& registry = current_registry();
-
   auto& renderer = mGraphics.renderer();
   renderer.clear_with(cen::colors::black);
 
-  sys::init_text_labels(mMainRegistry, mGraphics);
-
+  const auto& registry = current_registry();
   sys::render_tiles(registry, mGraphics);
+  sys::render_drawables(registry, mGraphics);
   sys::debug_physics(registry, mGraphics);
 
+  sys::init_text_labels(mMainRegistry, mGraphics);
   sys::render_active_menu(mMainRegistry, mGraphics, mSettings);
   sys::render_cinematic_fade(mMainRegistry, mGraphics);
 

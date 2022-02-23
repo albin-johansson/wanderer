@@ -29,13 +29,15 @@ namespace wanderer::sys {
  * \param logicalPos the position of the game object, in logical space.
  * \param logicalSize the size of the game object, in logical space.
  * \param maxSpeed the maximum total speed of the object.
+ * \param offset the offset of the physics body to the game object, in logical space.
  */
 void add_physics_body(entt::registry& registry,
                       entt::entity entity,
                       b2BodyType type,
                       const glm::vec2& logicalPos,
                       const glm::vec2& logicalSize,
-                      float32 maxSpeed);
+                      float32 maxSpeed,
+                      const glm::vec2& offset = {});
 
 /**
  * \brief Destroys the simulation data associated with a physics object.
