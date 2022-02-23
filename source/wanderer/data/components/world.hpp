@@ -15,8 +15,8 @@ namespace wanderer::comp {
  */
 struct game_object final
 {
-  [[deprecated]] glm::vec2 position{};  ///< The position in screen coordinates.
-  glm::vec2 size{};                     ///< The size of the object.
+  glm::vec2 position{};  ///< The position in logical coordinates.
+  glm::vec2 size{};      ///< The size of the object.
 };
 
 /**
