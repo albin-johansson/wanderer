@@ -64,8 +64,6 @@ void update_input(entt::dispatcher& dispatcher, const input_state& input)
 
 void on_move_player(entt::registry& registry, const move_player_event& event)
 {
-  const auto& world = registry.ctx<comp::physics_world>();
-
   const auto entity = registry.view<comp::player>().front();
   auto& body = registry.get<comp::physics_body>(entity);
 
