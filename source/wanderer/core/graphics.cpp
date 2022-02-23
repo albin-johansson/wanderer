@@ -108,9 +108,16 @@ void graphics_ctx::render_texture(const texture_id id,
                                   const glm::ivec4& source,
                                   const glm::vec4& dest)
 {
+  render_texture(id, as_rect(source), as_rect(dest));
+}
+
+void graphics_ctx::render_texture(const texture_id id,
+                                  const cen::irect& source,
+                                  const cen::frect& dest)
+{
   WANDERER_ASSERT_MSG(id < mTextures.size(), "Invalid texture identifier!");
   const auto& texture = mTextures[id];
-  mRenderer.render(texture, as_rect(source), as_rect(dest));
+  mRenderer.render(texture, source, dest);
 }
 
 auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&

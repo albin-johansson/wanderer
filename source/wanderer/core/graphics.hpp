@@ -68,6 +68,9 @@ class graphics_ctx final
    */
   void render_texture(texture_id id, const glm::ivec4& source, const glm::vec4& dest);
 
+  /// \copydoc render_texture()
+  void render_texture(texture_id id, const cen::irect& source, const cen::frect& dest);
+
   [[nodiscard]] auto get_pixelated_font(font_size size) -> cen::font&;
 
   [[nodiscard]] auto get_handwriting_font(font_size size) -> cen::font&;
