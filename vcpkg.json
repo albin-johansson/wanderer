@@ -15,6 +15,7 @@
     "yaml-cpp",
     "nlohmann-json",
     "argparse",
+    "box2d",
     "doctest"
   ]
 }
