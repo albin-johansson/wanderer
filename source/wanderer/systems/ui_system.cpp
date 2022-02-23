@@ -235,6 +235,8 @@ void render_button(const entt::registry& registry,
                    graphics_ctx& graphics,
                    const settings& settings)
 {
+  constexpr cen::color button_bg{0x33, 0x33, 0x33};
+
   /* Render label first since we base the button frame on the label position */
   render_label(registry, buttonEntity, graphics);
 
@@ -251,9 +253,14 @@ void render_button(const entt::registry& registry,
                               label.position->y - (button.size->y - size.height) / 2.0f};
 
   auto& renderer = graphics.renderer();
+  const auto bounds = as_rect(button.position.value(), button.size.value());
+
+  /* We can't have the background be too strong, since the label is drawn before */
+  renderer.set_color(button_bg.with_alpha(20));
+  renderer.fill_rect(bounds);
+
   renderer.set_color((button.state & comp::ui_button::hover_bit) ? cen::colors::lime_green
                                                                  : cen::colors::white);
-  const auto bounds = as_rect(button.position.value(), button.size.value());
   renderer.draw_rect(bounds);
 
   if (const auto* toggle = registry.try_get<comp::ui_setting_toggle>(buttonEntity)) {
@@ -261,7 +268,7 @@ void render_button(const entt::registry& registry,
     const auto y = bounds.y();
 
     const cen::frect box{x, y, bounds.height(), bounds.height()};
-    renderer.set_color(cen::color{0x33, 0x33, 0x33});
+    renderer.set_color(button_bg);
     renderer.fill_rect(box);
 
     if (settings.test_flag(toggle->flag)) {
