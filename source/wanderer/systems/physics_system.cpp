@@ -32,6 +32,7 @@ void add_physics_body(entt::registry& registry,
   bodyDef.position = sys::to_physics_world(registry, logicalPos);
   bodyDef.type = type;
   bodyDef.fixedRotation = true;
+  bodyDef.gravityScale = 0;
 
   auto& body = registry.emplace<comp::physics_body>(entity);
   body.data = world.simulation.CreateBody(&bodyDef);
