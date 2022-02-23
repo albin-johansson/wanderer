@@ -8,6 +8,48 @@
 #include "wanderer/misc/assert.hpp"
 
 namespace wanderer::sys {
+namespace {
+
+/* These are the values recommended in the Box2D docs, so they should be fine! */
+constexpr int32 _n_velocity_iterations = 8;
+constexpr int32 _n_position_iterations = 3;
+
+}  // namespace
+
+void add_physics_body(entt::registry& registry,
+                      const entt::entity entity,
+                      const b2BodyType type,
+                      const glm::vec2& logicalPos,
+                      const glm::vec2& logicalSize,
+                      const float32 maxSpeed)
+{
+  WANDERER_ASSERT(entity != entt::null);
+  WANDERER_ASSERT(!registry.all_of<comp::physics_body>(entity));
+
+  auto& world = registry.ctx<comp::physics_world>();
+
+  b2BodyDef bodyDef;
+  bodyDef.position = sys::to_physics_world(registry, logicalPos);
+  bodyDef.type = type;
+  bodyDef.fixedRotation = true;
+
+  auto& body = registry.emplace<comp::physics_body>(entity);
+  body.data = world.simulation.CreateBody(&bodyDef);
+  body.size = sys::to_physics_world(registry, logicalSize);
+  body.max_speed = maxSpeed;
+
+  const b2Vec2 center{body.size.x / 2.0f, body.size.y / 2.0f};
+
+  b2PolygonShape shape;
+  shape.SetAsBox(body.size.x / 2.0f, body.size.y / 2.0f, center, 0);
+
+  b2FixtureDef fixtureDef;
+  fixtureDef.shape = &shape;
+  fixtureDef.density = (type == b2_dynamicBody) ? 1.0f : 0.0f;
+  fixtureDef.friction = 0;
+
+  body.data->CreateFixture(&fixtureDef);
+}
 
 void on_destroy_physics_object(entt::registry& registry, const entt::entity entity)
 {
@@ -23,7 +65,7 @@ void on_destroy_physics_object(entt::registry& registry, const entt::entity enti
 void update_physics(entt::registry& registry, const float32 dt)
 {
   auto& world = registry.ctx<comp::physics_world>();
-  world.simulation.Step(dt, 8, 3);
+  world.simulation.Step(dt, _n_velocity_iterations, _n_position_iterations);
 
   for (auto&& [entity, object, body] :
        registry.view<comp::game_object, comp::physics_body>().each()) {
@@ -38,7 +80,7 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
   const auto& viewport = registry.ctx<comp::viewport>();
 
   auto& renderer = graphics.renderer();
-  renderer.set_color(cen::colors::red);
+  renderer.set_color(cen::colors::magenta);
 
   for (auto&& [entity, body] : registry.view<comp::physics_body>().each()) {
     const auto position = to_logical_world(registry, body.data->GetPosition());
@@ -50,13 +92,6 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
                             size.y};
     renderer.draw_rect(hitbox);
   }
-
-  const auto& cfg = registry.ctx<game_cfg>();
-  renderer.set_color(cen::colors::white.with_alpha(200));
-  renderer.draw_line<int>({0, cfg.logical_size.y / 2},
-                          {cfg.logical_size.x, cfg.logical_size.y / 2});
-  renderer.draw_line<int>({cfg.logical_size.x / 2, 0},
-                          {cfg.logical_size.x / 2, cfg.logical_size.y});
 }
 
 auto to_physics_world(const entt::registry& registry, const glm::vec2& vec) -> b2Vec2

@@ -36,7 +36,7 @@ wanderer_game::wanderer_game(const game_cfg& cfg)
 
   parse_levels(mMainRegistry, mGraphics);
 
-  /* Make sure that we can render background */
+  /* Make sure that we can render the background */
   auto& registry = current_registry();
   sys::update_render_bounds(registry);
 }

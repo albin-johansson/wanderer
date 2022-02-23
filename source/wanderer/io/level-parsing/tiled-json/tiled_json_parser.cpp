@@ -1,6 +1,7 @@
 #include "tiled_json_parser.hpp"
 
-#include <string>  // string
+#include <string>       // string
+#include <string_view>  // string_view
 
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/core/math.hpp"
@@ -19,6 +20,21 @@
 namespace wanderer {
 namespace {
 
+template <typename T>
+[[nodiscard]] auto _get_property(const nlohmann::json& json,
+                                 const std::string_view property)
+{
+  if (const auto props = json.find("properties"); props != json.end()) {
+    for (const auto& [key, object] : props->items()) {
+      if (property == object.at("name")) {
+        return object.at("value").get<T>();
+      }
+    }
+  }
+
+  throw_traced(wanderer_error{"Did not find property!"});
+}
+
 void _verify_features(const nlohmann::json& json)
 {
   if (const auto iter = json.find("infinite");
@@ -34,8 +50,9 @@ void _verify_features(const nlohmann::json& json)
 }
 
 void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
+                                   entt::registry& registry,
                                    const tile_id first,
-                                   entt::registry& registry)
+                                   const glm::vec2& tileSizeRatio)
 {
   const auto& tileset = registry.ctx<comp::tileset>();
 
@@ -63,12 +80,28 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
         animation.delays.emplace_back(duration);
       }
     }
+
+    if (tileJson.contains("objectgroup")) {
+      const auto& objects = tileJson.at("objectgroup").at("objects");
+
+      if (objects.size() != 1) {
+        throw_traced(wanderer_error{"Tiles must only feature one object!"});
+      }
+
+      const auto& objectJson = objects.at(0);
+
+      auto& hitbox = registry.emplace<comp::tile_hitbox>(tileEntity);
+      hitbox.offset.x = objectJson.at("x").get<float32>() * tileSizeRatio.x;
+      hitbox.offset.y = objectJson.at("y").get<float32>() * tileSizeRatio.y;
+      hitbox.size.x = objectJson.at("width").get<float32>() * tileSizeRatio.x;
+      hitbox.size.y = objectJson.at("height").get<float32>() * tileSizeRatio.y;
+    }
   }
 }
 
 void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       const std::filesystem::path& dir,
-                                      const tile_id first,
+                                      const tile_id firstId,
                                       entt::registry& registry,
                                       graphics_ctx& graphics)
 {
@@ -82,12 +115,12 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
   const auto textureId = graphics.load_texture(imagePath);
 
   const auto count = json.at("tilecount").get<tile_id>();
-  const auto end = first + count;
+  const auto end = firstId + count;
 
   tileset.tiles.reserve(tileset.tiles.bucket_count() + count);
 
   int32 index = 0;
-  for (tile_id id = first; id < end; ++id, ++index) {
+  for (tile_id id = firstId; id < end; ++id, ++index) {
     const auto entity = registry.create();
     tileset.tiles[id] = entity;
 
@@ -105,7 +138,10 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
   }
 
   if (json.contains("tiles")) {
-    _parse_tileset_tiles_metadata(json, first, registry);
+    const auto& cfg = registry.ctx<game_cfg>();
+    const auto tileSizeRatio = cfg.tile_size / glm::vec2{tileWidth, tileHeight};
+
+    _parse_tileset_tiles_metadata(json, registry, firstId, tileSizeRatio);
   }
 }
 
@@ -125,29 +161,77 @@ void _parse_tileset(const nlohmann::json& json,
   }
 }
 
-void _parse_tile_layer(const nlohmann::json& json,
-                       entt::registry& registry,
-                       const int32 z)
+void _parse_tile_objects(const nlohmann::json& json, entt::registry& registry)
 {
-  using tile_matrix = comp::tile_layer::tile_matrix;
-  using tile_row = comp::tile_layer::tile_row;
-
   const auto& map = registry.ctx<comp::tilemap>();
+  const auto& cfg = registry.ctx<game_cfg>();
 
-  const auto entity = registry.create();
-  auto& layer = registry.emplace<comp::tile_layer>(entity);
-  layer.tiles = tile_matrix(map.row_count, tile_row(map.col_count, empty_tile));
-  layer.z = z;
+  auto& tileset = registry.ctx<comp::tileset>();
 
   usize index = 0;
   for (const auto& [_, value] : json.at("data").items()) {
     const auto tile = value.get<tile_id>();
 
+    if (tile == empty_tile) {
+      ++index;
+      continue;
+    }
+
     const auto row = index / map.col_count;
     const auto col = index % map.col_count;
-    layer.tiles[row][col] = tile;
+
+    const auto entity = registry.create();
+
+    auto& tileObject = registry.emplace<comp::tile_object>(entity);
+    tileObject.tile_entity = tileset.tiles.at(tile);
+
+    auto& gameObject = registry.emplace<comp::game_object>(entity);
+    gameObject.position = {static_cast<float32>(col) * cfg.tile_size.x,
+                           static_cast<float32>(row) * cfg.tile_size.y};
+    gameObject.size = cfg.tile_size;
+
+    if (const auto* hitbox =
+            registry.try_get<comp::tile_hitbox>(tileObject.tile_entity)) {
+      sys::add_physics_body(registry,
+                            entity,
+                            b2_staticBody,
+                            gameObject.position + hitbox->offset,
+                            hitbox->size,
+                            0);
+    }
 
     ++index;
+  }
+}
+
+void _parse_tile_layer(const nlohmann::json& json,
+                       entt::registry& registry,
+                       const int32 z)
+{
+  const auto& map = registry.ctx<comp::tilemap>();
+
+  if (_get_property<bool>(json, "is-ground")) {
+    using tile_matrix = comp::tile_layer::tile_matrix;
+    using tile_row = comp::tile_layer::tile_row;
+
+    const auto entity = registry.create();
+    auto& layer = registry.emplace<comp::tile_layer>(entity);
+    layer.tiles = tile_matrix(map.row_count, tile_row(map.col_count, empty_tile));
+    layer.z = z;
+
+    usize index = 0;
+    for (const auto& [_, value] : json.at("data").items()) {
+      const auto tile = value.get<tile_id>();
+
+      const auto row = index / map.col_count;
+      const auto col = index % map.col_count;
+      layer.tiles[row][col] = tile;
+
+      ++index;
+    }
+  }
+  else {
+    _parse_tile_objects(json, registry);
   }
 }
 
@@ -177,28 +261,12 @@ void _create_player(entt::registry& registry, const game_cfg& cfg)
 
   registry.emplace<comp::viewport_target>(playerEntity);
 
-  auto& world = registry.ctx<comp::physics_world>();
-
-  b2BodyDef def;
-  def.type = b2_dynamicBody;
-  def.fixedRotation = true;
-  def.position = sys::to_physics_world(registry, object.position);
-
-  auto& body = registry.emplace<comp::physics_body>(playerEntity);
-  body.data = world.simulation.CreateBody(&def);
-  body.size = sys::to_physics_world(registry, object.size);
-  body.max_speed = 5;
-
-  b2PolygonShape shape;
-  shape.SetAsBox(body.size.x / 2.0f, body.size.y / 2.0f);
-
-  b2FixtureDef fixture;
-  fixture.shape = &shape;
-  fixture.density = 1.0f;
-  fixture.friction = 0;
-  fixture.restitution = 0;
-
-  body.data->CreateFixture(&fixture);
+  sys::add_physics_body(registry,
+                        playerEntity,
+                        b2_dynamicBody,
+                        object.position,
+                        object.size,
+                        5);
 }
 
 }  // namespace

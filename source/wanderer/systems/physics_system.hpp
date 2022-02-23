@@ -19,6 +19,25 @@ namespace wanderer::sys {
 /// \{
 
 /**
+ * \brief Makes an entity a part of the physics simulation.
+ *
+ * \details The entity will have a `comp::physics_body` component added to it.
+ *
+ * \param registry the level registry.
+ * \param entity the target entity.
+ * \param type the body type.
+ * \param logicalPos the position of the game object, in logical space.
+ * \param logicalSize the size of the game object, in logical space.
+ * \param maxSpeed the maximum total speed of the object.
+ */
+void add_physics_body(entt::registry& registry,
+                      entt::entity entity,
+                      b2BodyType type,
+                      const glm::vec2& logicalPos,
+                      const glm::vec2& logicalSize,
+                      float32 maxSpeed);
+
+/**
  * \brief Destroys the simulation data associated with a physics object.
  *
  * \details This function is meant to be called for each time an entity featuring a
@@ -41,6 +60,12 @@ void on_destroy_physics_object(entt::registry& registry, entt::entity entity);
  */
 void update_physics(entt::registry& registry, float32 dt);
 
+/**
+ * \brief Debug the physics simulation by rendering collision shapes.
+ *
+ * \param registry the level registry.
+ * \param graphics the current graphics context.
+ */
 void debug_physics(const entt::registry& registry, graphics_ctx& graphics);
 
 /**

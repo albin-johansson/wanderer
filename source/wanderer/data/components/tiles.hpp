@@ -24,6 +24,14 @@ struct tile_layer final
 };
 
 /**
+ * \brief Component featured by tile objects, i.e. non-empty tiles in non-ground layers.
+ */
+struct tile_object final
+{
+  entt::entity tile_entity{entt::null};  ///< The associated tile info entity.
+};
+
+/**
  * \brief Provides information about a single tilemap, which consists of several layers.
  */
 struct tilemap final
@@ -32,6 +40,15 @@ struct tilemap final
   usize row_count{};             ///< Total amount of tile rows.
   usize col_count{};             ///< Total amount of tile columns.
   glm::vec2 size{};              ///< Map size in pixels.
+};
+
+/**
+ * \brief Component describing the hitbox of a tile.
+ */
+struct tile_hitbox final
+{
+  glm::vec2 offset{};  ///< Offset from origin in the parent tile.
+  glm::vec2 size{};    ///< The size of the hitbox.
 };
 
 /**
