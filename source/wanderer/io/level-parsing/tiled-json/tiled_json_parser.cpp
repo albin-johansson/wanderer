@@ -3,6 +3,7 @@
 #include <string>  // string
 
 #include "wanderer/core/graphics.hpp"
+#include "wanderer/core/math.hpp"
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/data/components/rendering.hpp"
 #include "wanderer/data/components/tags.hpp"
@@ -12,6 +13,7 @@
 #include "wanderer/meta/profile.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
+#include "wanderer/systems/physics_system.hpp"
 #include "wanderer/systems/registry_system.hpp"
 
 namespace wanderer {
@@ -164,6 +166,41 @@ void _parse_layer(const nlohmann::json& json, entt::registry& registry, const in
   }
 }
 
+void _create_player(entt::registry& registry, const game_cfg& cfg)
+{
+  const auto playerEntity = registry.create();
+  registry.emplace<comp::player>(playerEntity);
+
+  auto& object = registry.emplace<comp::game_object>(playerEntity);
+  object.position = {2'800, 3'500};
+  object.size = cfg.humanoid_draw_size;
+
+  registry.emplace<comp::viewport_target>(playerEntity);
+
+  auto& world = registry.ctx<comp::physics_world>();
+
+  b2BodyDef def;
+  def.type = b2_dynamicBody;
+  def.fixedRotation = true;
+  def.position = sys::to_physics_world(registry, object.position);
+
+  auto& body = registry.emplace<comp::physics_body>(playerEntity);
+  body.data = world.simulation.CreateBody(&def);
+  body.size = sys::to_physics_world(registry, object.size);
+  body.max_speed = 5;
+
+  b2PolygonShape shape;
+  shape.SetAsBox(body.size.x / 2.0f, body.size.y / 2.0f);
+
+  b2FixtureDef fixture;
+  fixture.shape = &shape;
+  fixture.density = 1.0f;
+  fixture.friction = 0;
+  fixture.restitution = 0;
+
+  body.data->CreateFixture(&fixture);
+}
+
 }  // namespace
 
 auto parse_tiled_json_map(const std::filesystem::path& path,
@@ -205,20 +242,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
         return left.z < right.z;
       });
 
-  {
-    // TODO
-    const auto playerEntity = registry.create();
-    registry.emplace<comp::player>(playerEntity);
-
-    auto& object = registry.emplace<comp::game_object>(playerEntity);
-    object.position = {2'800, 3'500};
-    object.size = cfg.humanoid_draw_size;
-
-    auto& movable = registry.emplace<comp::movable>(playerEntity);
-    movable.max_speed = 500;
-
-    registry.emplace<comp::viewport_target>(playerEntity);
-  }
+  _create_player(registry, cfg);
 
   WANDERER_PROFILE_END("Parsed Tiled JSON map")
   return registry;

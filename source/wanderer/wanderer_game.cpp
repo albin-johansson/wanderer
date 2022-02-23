@@ -90,7 +90,7 @@ void wanderer_game::update(const float32 dt)
     sys::update_render_bounds(registry);
 
     sys::update_animations(registry);
-    sys::update_movable_game_objects(registry, dt);
+    sys::update_physics(registry, dt);
   }
 }
 
@@ -104,6 +104,7 @@ void wanderer_game::render()
   sys::init_text_labels(mMainRegistry, mGraphics);
 
   sys::render_tiles(registry, mGraphics);
+  sys::debug_physics(registry, mGraphics);
 
   sys::render_active_menu(mMainRegistry, mGraphics, mSettings);
   sys::render_cinematic_fade(mMainRegistry, mGraphics);

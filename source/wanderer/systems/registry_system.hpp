@@ -39,6 +39,7 @@ namespace wanderer::sys {
  * - `comp::tilesets`
  * - `comp::render_bounds`
  * - `comp::viewport`
+ * - `comp::physics_world`
  *
  * \param cfg the immutable game configuration added as a context component.
  *

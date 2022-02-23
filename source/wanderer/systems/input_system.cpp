@@ -1,5 +1,6 @@
 #include "input_system.hpp"
 
+#include "physics_system.hpp"
 #include "wanderer/core/input_state.hpp"
 #include "wanderer/core/math.hpp"
 #include "wanderer/data/components/tags.hpp"
@@ -63,40 +64,52 @@ void update_input(entt::dispatcher& dispatcher, const input_state& input)
 
 void on_move_player(entt::registry& registry, const move_player_event& event)
 {
+  const auto& world = registry.ctx<comp::physics_world>();
+
   const auto entity = registry.view<comp::player>().front();
-  auto& movable = registry.get<comp::movable>(entity);
+  auto& body = registry.get<comp::physics_body>(entity);
+
+  auto velocity = body.data->GetLinearVelocity();
 
   if (event.direction_mask & direction_up_bit) {
-    movable.velocity.y = -movable.max_speed;
+    velocity.y = -body.max_speed;
   }
   else if (event.direction_mask & direction_down_bit) {
-    movable.velocity.y = movable.max_speed;
+    velocity.y = body.max_speed;
   }
 
   if (event.direction_mask & direction_right_bit) {
-    movable.velocity.x = movable.max_speed;
+    velocity.x = body.max_speed;
   }
   else if (event.direction_mask & direction_left_bit) {
-    movable.velocity.x = -movable.max_speed;
+    velocity.x = -body.max_speed;
   }
 
-  glmx::cap_magnitude(movable.velocity, movable.max_speed);
+  auto limited = glmx::from_b2(velocity);
+  glmx::cap_magnitude(limited, body.max_speed);
+
+  body.data->SetLinearVelocity(glmx::as_b2(limited));
 }
 
 void on_stop_player(entt::registry& registry, const stop_player_event& event)
 {
   const auto entity = registry.view<comp::player>().front();
-  auto& movable = registry.get<comp::movable>(entity);
+  auto& body = registry.get<comp::physics_body>(entity);
+
+  auto velocity = body.data->GetLinearVelocity();
 
   if (event.direction_mask | direction_left_and_right) {
-    movable.velocity.x = 0;
+    velocity.x = 0;
   }
 
   if (event.direction_mask | direction_up_and_down) {
-    movable.velocity.y = 0;
+    velocity.y = 0;
   }
 
-  glmx::cap_magnitude(movable.velocity, movable.max_speed);
+  auto limited = glmx::from_b2(velocity);
+  glmx::cap_magnitude(limited, body.max_speed);
+
+  body.data->SetLinearVelocity(glmx::as_b2(limited));
 }
 
 }  // namespace wanderer::sys
