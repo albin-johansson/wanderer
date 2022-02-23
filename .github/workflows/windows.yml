@@ -81,7 +81,7 @@ jobs:
         working-directory: ./build
         run: ninja
 
-      - name: Run tests
-        working-directory: ./build/test
-        shell: cmd
-        run: ctest
+      # - name: Run tests
+      #   working-directory: ./build/test
+      #   shell: cmd
+      #   run: ctest
