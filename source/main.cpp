@@ -33,6 +33,11 @@ struct protobuf_context final
       .scan<'i', int>()
       .nargs(2);
 
+  parser.add_argument("--tile-size", "-ts")
+      .help("override the tile size")
+      .scan<'i', int>()
+      .nargs(2);
+
   return parser;
 }
 
@@ -64,6 +69,11 @@ int main(int argc, char** argv)
       cfg.logical_size.x = ls->at(0);
       cfg.logical_size.y = ls->at(1);
       cfg.logical_size_f = wanderer::glmx::as_f(cfg.logical_size);
+    }
+
+    if (const auto ts = parser.present<std::vector<int>>("-ts")) {
+      cfg.tile_size.x = static_cast<float>(ts->at(0));
+      cfg.tile_size.y = static_cast<float>(ts->at(1));
     }
 
     wanderer::wanderer_game game{cfg};
