@@ -10,7 +10,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":true
                 }],
@@ -28,7 +28,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":true
                 }],
@@ -46,7 +46,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":false
                 }],
@@ -64,7 +64,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":false
                 }],
@@ -82,7 +82,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":false
                 }],
@@ -100,7 +100,7 @@
          "opacity":1,
          "properties":[
                 {
-                 "name":"ground",
+                 "name":"is-ground",
                  "type":"bool",
                  "value":false
                 }],
@@ -181,7 +181,7 @@
          "value":false
         }],
  "renderorder":"right-down",
- "tiledversion":"1.7.0",
+ "tiledversion":"1.7.2",
  "tileheight":32,
  "tilesets":[
         {
