@@ -15,7 +15,7 @@ namespace {
 
   loop_state state;
 
-  state.rate = std::min(240.0, static_cast<float64>(display.refresh_rate().value()));
+  state.rate = std::min(120.0, static_cast<float64>(display.refresh_rate().value()));
   state.fixed_dt = 1.0 / state.rate;
 
   state.frequency = static_cast<float64>(cen::frequency());
