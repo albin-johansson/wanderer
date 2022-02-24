@@ -6,7 +6,7 @@
 
 #include "wanderer/fwd.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 
 /**
  * \brief Parses a map file using the Tiled JSON format.
@@ -21,4 +21,4 @@ namespace wanderer {
                                         graphics_ctx& graphics,
                                         const game_cfg& cfg) -> entt::registry;
 
-}  // namespace wanderer
+}  // namespace wanderer::io

@@ -72,7 +72,7 @@ void parse_levels(entt::registry& shared, graphics_ctx& graphics)
 
     const auto ext = info.source.extension();
     if (ext == ".json") {
-      levels.levels[info.id] = parse_tiled_json_map(info.source, graphics, cfg);
+      levels.levels[info.id] = io::parse_tiled_json_map(info.source, graphics, cfg);
     }
     // TODO
     // else if (ext == ".yaml") {
