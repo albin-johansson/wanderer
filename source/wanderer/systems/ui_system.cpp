@@ -115,7 +115,7 @@ namespace {
       .button("Saves", action_id::goto_saves_menu, {0, 0.50f})
       .button("Credits", action_id::goto_credits_menu, {0, 0.60f})
       .button("Quit", action_id::quit, {0, 0.75f})
-      .s_label("Albin Johansson ( C) 2019-2022",
+      .s_label("Albin Johansson ( C) 2018-2022",
                {0.01f, 0.01f},
                h_anchor::left,
                v_anchor::bottom)
