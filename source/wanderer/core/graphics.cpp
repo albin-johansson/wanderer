@@ -35,6 +35,9 @@ constexpr int _handwriting_size_h = 32;
 graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
+    , mLightCanvas{mRenderer.create_texture(as_area(cfg.logical_size),
+                                            mWindow.format(),
+                                            cen::texture_access::target)}
 {
   mWindow.set_size(as_area(cfg.logical_size));
 
@@ -43,6 +46,7 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
   mRenderer.set_logical_size(as_area(cfg.logical_size));
   mRenderer.set_logical_integer_scaling(s.test_flag(settings::integer_scaling_bit));
   mRenderer.set_blend_mode(cen::blend_mode::blend);
+  mLightCanvas.set_blend_mode(cen::blend_mode::mul);
 
   const char* pixelatedPath = "resources/fonts/type_writer.ttf";
   mPixelatedFontId = mFontBundle.load_font(pixelatedPath, _pixelated_size_s);
@@ -60,6 +64,8 @@ graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
 
   mVsync = s.test_flag(settings::vsync_bit);
   mRenderer.set_vsync(mVsync);
+
+  mLightTextureId = load_texture("resources/images/ardentryst/glow.png");
 }
 
 auto graphics_ctx::toggle_fullscreen() -> bool
@@ -118,6 +124,17 @@ void graphics_ctx::render_texture(const texture_id id,
   WANDERER_ASSERT_MSG(id < mTextures.size(), "Invalid texture identifier!");
   const auto& texture = mTextures[id];
   mRenderer.render(texture, source, dest);
+}
+
+void graphics_ctx::render_light(const cen::frect& dest)
+{
+  constexpr cen::irect source{0, 0, 80, 80};
+  render_texture(mLightTextureId, source, dest);
+}
+
+auto graphics_ctx::get_light_canvas() -> cen::texture&
+{
+  return mLightCanvas;
 }
 
 auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&

@@ -71,6 +71,17 @@ class graphics_ctx final
   /// \copydoc render_texture()
   void render_texture(texture_id id, const cen::irect& source, const cen::frect& dest);
 
+  /**
+   * \brief Renders a light.
+   *
+   * \note Make sure the light canvas is the render target before calling this function.
+   *
+   * \param dest the destination position and size.
+   */
+  void render_light(const cen::frect& dest);
+
+  [[nodiscard]] auto get_light_canvas() -> cen::texture&;
+
   [[nodiscard]] auto get_pixelated_font(font_size size) -> cen::font&;
 
   [[nodiscard]] auto get_handwriting_font(font_size size) -> cen::font&;
@@ -85,6 +96,10 @@ class graphics_ctx final
 
   /* Texture identifiers are just indices into this vector */
   std::vector<cen::texture> mTextures;
+  texture_id mLightTextureId{};
+
+  /* This is used to emulate point lights illuminating areas during the night */
+  cen::texture mLightCanvas;
 
   cen::font_bundle mFontBundle;
   cen::font_bundle::id_type mPixelatedFontId;
