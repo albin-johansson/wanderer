@@ -81,7 +81,7 @@ void update_physics(entt::registry& registry, const float32 dt)
 void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& viewport = registry.ctx<comp::viewport>();
-  const auto viewportRect = as_rect(viewport.size, viewport.size);
+  const auto viewportRect = as_rect(viewport.offset, viewport.size);
 
   auto& renderer = graphics.renderer();
   renderer.set_color(cen::colors::magenta);
