@@ -1,8 +1,6 @@
 # Wanderer
 
-[![version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://semver.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Language](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization)
 [![CI: Windows](https://github.com/albin-johansson/wanderer/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/wanderer/actions/workflows/windows.yml)
 [![CI: macOS](https://github.com/albin-johansson/wanderer/actions/workflows/macos.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/wanderer/actions/workflows/macos.yml)
 
