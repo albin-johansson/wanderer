@@ -8,7 +8,6 @@
 #include "wanderer/events/player_events.hpp"
 #include "wanderer/io/level-parsing/parse_levels.hpp"
 #include "wanderer/meta/build.hpp"
-#include "wanderer/meta/profile.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
 #include "wanderer/systems/animation_system.hpp"
@@ -100,6 +99,7 @@ void wanderer_game::update(const float32 dt)
       ++ticker;
     }
 
+    sys::update_lights(registry);
     sys::update_animations(registry);
     sys::update_physics(registry, dt);
   }
@@ -113,7 +113,11 @@ void wanderer_game::render()
   const auto& registry = current_registry();
   sys::render_tiles(registry, mGraphics);
   sys::render_drawables(registry, mGraphics);
-  sys::debug_physics(registry, mGraphics);
+  sys::render_lights(registry, mGraphics);
+
+  if constexpr (is_debug_build) {
+    sys::debug_physics(registry, mGraphics);
+  }
 
   sys::init_text_labels(mMainRegistry, mGraphics);
   sys::render_active_menu(mMainRegistry, mGraphics, mSettings);
