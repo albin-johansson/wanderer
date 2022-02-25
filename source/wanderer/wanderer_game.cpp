@@ -66,7 +66,8 @@ void wanderer_game::process_events()
     }
   }
 
-  if (!sys::is_current_menu_blocking(mMainRegistry)) {
+  if (!sys::is_current_menu_blocking(mMainRegistry) &&
+      !sys::is_cinematic_fade_active(mMainRegistry)) {
     sys::update_input(mDispatcher, mInput);
   }
 
