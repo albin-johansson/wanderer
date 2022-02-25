@@ -37,6 +37,13 @@ enum class sort_strategy
 void sort_drawables(entt::registry& registry, sort_strategy strategy);
 
 /**
+ * \brief Updates the state of all lights.
+ *
+ * \param registry the level registry.
+ */
+void update_lights(entt::registry& registry);
+
+/**
  * \brief Renders all visible drawable entities.
  *
  * \details Remember to call `sort_drawables()` before this function.
@@ -45,6 +52,17 @@ void sort_drawables(entt::registry& registry, sort_strategy strategy);
  * \param graphics the current graphics context.
  */
 void render_drawables(const entt::registry& registry, graphics_ctx& graphics);
+
+/**
+ * \brief Renders all point lights.
+ *
+ * \param registry the level registry.
+ * \param graphics the current graphics context.
+ *
+ * \todo Consider excluding drawable entities here, and drawing lights on drawables in the
+ * correct order in render_drawables.
+ */
+void render_lights(const entt::registry& registry, graphics_ctx& graphics);
 
 /// \} End of group rendering-system
 

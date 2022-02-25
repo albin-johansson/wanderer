@@ -8,6 +8,7 @@
 #include "wanderer/data/components/rendering.hpp"
 #include "wanderer/data/components/tiles.hpp"
 #include "wanderer/data/components/world.hpp"
+#include "wanderer/misc/logging.hpp"
 #include "wanderer/systems/physics_system.hpp"
 
 namespace wanderer::io::tiled {
@@ -98,16 +99,55 @@ void _parse_tile_layer(const nlohmann::json& json,
   }
 }
 
+void _parse_light(const nlohmann::json& json,
+                  entt::registry& registry,
+                  const entt::entity entity,
+                  const glm::vec2& tileSizeRatio)
+{
+  auto& light = registry.emplace<comp::point_light>(entity);
+
+  light.size = json.at("width").get<float32>() * tileSizeRatio.x;
+  light.offset.x = light.size / 2.0f;
+  light.offset.y = light.size / 2.0f;
+
+  light.fluctuation = 0;
+  light.step_size = 1;
+  light.limit = 5;
+
+  light.limit = get_property<float32>(json, "limit", light.limit);
+  light.step_size = get_property<float32>(json, "step", light.step_size);
+}
+
 void _parse_object_layer(const nlohmann::json& json,
                          entt::registry& registry,
-                         const int32 z)
+                         const int32 z,
+                         const glm::vec2& tileSizeRatio)
 {
-  // TODO
+  for (const auto& [_, objectJson] : json.at("objects").items()) {
+    const auto entity = registry.create();
+
+    auto& object = registry.emplace<comp::game_object>(entity);
+    object.position.x = objectJson.at("x").get<float32>() * tileSizeRatio.x;
+    object.position.y = objectJson.at("y").get<float32>() * tileSizeRatio.y;
+
+    object.size.x = objectJson.at("width").get<float32>() * tileSizeRatio.x;
+    object.size.y = objectJson.at("height").get<float32>() * tileSizeRatio.y;
+
+    const auto tag = objectJson.at("type").get<std::string>();
+    if (tag == "Light") {
+      _parse_light(objectJson, registry, entity, tileSizeRatio);
+    }
+
+    // TODO
+  }
 }
 
 }  // namespace
 
-void parse_layer(const nlohmann::json& json, entt::registry& registry, const int32 z)
+void parse_layer(const nlohmann::json& json,
+                 entt::registry& registry,
+                 const int32 z,
+                 const glm::vec2& tileSizeRatio)
 {
   const auto type = json.at("type").get<std::string>();
 
@@ -115,7 +155,7 @@ void parse_layer(const nlohmann::json& json, entt::registry& registry, const int
     _parse_tile_layer(json, registry, z);
   }
   else if (type == "objectgroup") {
-    _parse_object_layer(json, registry, z);
+    _parse_object_layer(json, registry, z, tileSizeRatio);
   }
   else if (type == "group") {
     // TODO

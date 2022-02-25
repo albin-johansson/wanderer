@@ -102,6 +102,20 @@ struct drawable final
   int32 depth_index{5};  ///< Render order heuristic.
 };
 
+/**
+ * \brief Represents a light at a specific point in the world.
+ *
+ * \note Point light entities are expected to feature `game_object` components.
+ */
+struct point_light final
+{
+  glm::vec2 offset{};     ///< Offset of the light relative to the game object position.
+  float32 size{};         ///< Base size of the light.
+  float32 fluctuation{};  ///< Fluctuation size in [-limit, limit].
+  float32 step_size{};    ///< Size of each fluctuation increment.
+  float32 limit{};        ///< Fluctuation size limit.
+};
+
 /// \} End of group components
 
 }  // namespace wanderer::comp

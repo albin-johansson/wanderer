@@ -1,10 +1,13 @@
 #include "rendering_system.hpp"
 
-#include <tuple>  // tie
+#include <algorithm>  // clamp
+#include <tuple>      // tie
 
 #include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
+#include "wanderer/core/random.hpp"
 #include "wanderer/data/components/rendering.hpp"
+#include "wanderer/data/components/time.hpp"
 #include "wanderer/data/components/world.hpp"
 #include "wanderer/misc/exception.hpp"
 
@@ -40,6 +43,18 @@ void sort_drawables(entt::registry& registry, const sort_strategy strategy)
   }
 }
 
+void update_lights(entt::registry& registry)
+{
+  for (auto&& [entity, light] : registry.view<comp::point_light>().each()) {
+    light.fluctuation += next_bool() ? light.step_size : -light.step_size;
+
+    const auto min = light.size - light.limit;
+    const auto max = light.size + light.limit;
+
+    light.fluctuation = std::clamp(light.fluctuation, min, max);
+  }
+}
+
 void render_drawables(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& viewport = registry.ctx<comp::viewport>();
@@ -55,6 +70,37 @@ void render_drawables(const entt::registry& registry, graphics_ctx& graphics)
       graphics.render_texture(drawable.texture, drawable.src, dest);
     }
   }
+}
+
+void render_lights(const entt::registry& registry, graphics_ctx& graphics)
+{
+  const auto& viewport = registry.ctx<comp::viewport>();
+  const auto viewportRect = as_rect(viewport.offset, viewport.size);
+
+  auto& renderer = graphics.renderer();
+  auto& canvas = graphics.get_light_canvas();
+
+  const auto& date = registry.ctx<comp::date_info>();
+  renderer.set_target(canvas);
+  renderer.clear_with(date.tint);
+
+  for (auto&& [entity, object, light] :
+       registry.view<comp::game_object, comp::point_light>().each()) {
+    const auto pos = object.position + light.offset;
+    const auto size = light.size + light.fluctuation;
+
+    const auto halfSize = size / 2.0f;
+    cen::frect dest{pos.x - halfSize, pos.y - halfSize, size, size};
+
+    if (cen::intersects(viewportRect, dest)) {
+      dest.offset_x(-viewport.offset.x);
+      dest.offset_y(-viewport.offset.y);
+      graphics.render_light(dest);
+    }
+  }
+
+  renderer.reset_target();
+  renderer.render(canvas, cen::ipoint{0, 0});
 }
 
 }  // namespace wanderer::sys

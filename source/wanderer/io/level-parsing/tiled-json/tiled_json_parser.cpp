@@ -47,6 +47,13 @@ void _create_player(entt::registry& registry, const game_cfg& cfg)
 
   registry.emplace<comp::viewport_target>(playerEntity);
 
+  auto& light = registry.emplace<comp::point_light>(playerEntity);
+  light.offset = cfg.humanoid_draw_size / 2.0f;
+  light.fluctuation = 0;
+  light.step_size = 0;
+  light.limit = 0;
+  light.size = cfg.humanoid_draw_size.x;
+
   sys::add_physics_body(registry,
                         playerEntity,
                         b2_dynamicBody,
@@ -86,8 +93,12 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
     tiled::parse_tileset(tilesetJson, dir, registry, graphics);
   }
 
+  const auto mapTileWidth = json.at("tilewidth").get<float32>();
+  const auto mapTileHeight = json.at("tileheight").get<float32>();
+  const auto tileSizeRatio = cfg.tile_size / glm::vec2{mapTileWidth, mapTileHeight};
+
   for (int32 z = 0; const auto& [_, layerJson] : json.at("layers").items()) {
-    tiled::parse_layer(layerJson, registry, z);
+    tiled::parse_layer(layerJson, registry, z, tileSizeRatio);
     ++z;
   }
 
