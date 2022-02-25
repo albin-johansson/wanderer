@@ -69,10 +69,31 @@ namespace {
 
 [[nodiscard]] auto _load_saves_menu(entt::registry& registry) -> entt::entity
 {
+  using ha = h_anchor;
+  using va = v_anchor;
   return ui::menu_builder::build(registry)
       .title("Saves")
       .blocking()
       .button("Return", action_id::goto_main_menu, {0, 0.25f})
+
+      .button("      <      ", action_id::noop, {0.14f, 0.10f}, ha::left, va::bottom)
+      .button("      >      ", action_id::noop, {0.24f, 0.10f}, ha::left, va::bottom)
+      // .line({0.22f, 0.35f}, {0.22f, 0.92f}, ha::left, va::top)
+
+      .button("Load", action_id::noop, {0.38f, 0.10f}, ha::left, va::bottom)
+      .button("Delete", action_id::noop, {0.46f, 0.10f}, ha::left, va::bottom)
+
+      /* Vertical lines */
+      .line({0.09f, 0.35f}, {0.09f, 0.92f}, ha::left, va::top)
+      .line({0.35f, 0.35f}, {0.35f, 0.92f}, ha::left, va::top)
+      .line({0.35f, 0.35f}, {0.35f, 0.92f}, ha::left, va::top)
+      .line({0.09f, 0.35f}, {0.09f, 0.92f}, ha::right, va::top)
+
+      /* Horizontal lines */
+      .line({0.36f, 0.15f}, {0.90f, 0.15f}, ha::left, va::bottom)
+      .line({0.10f, 0.15f}, {0.34f, 0.15f}, ha::left, va::bottom)
+      // .line({0.10f, 0.34f}, {0.34f, 0.34f}, ha::left, va::top)
+
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -228,6 +249,10 @@ void render_active_menu(const entt::registry& registry,
   for (const auto buttonEntity : menu.buttons) {
     render_button(registry, buttonEntity, graphics, settings);
   }
+
+  for (const auto lineEntity : menu.lines) {
+    render_line(registry, lineEntity, graphics);
+  }
 }
 
 void render_button(const entt::registry& registry,
@@ -304,6 +329,25 @@ void render_label(const entt::registry& registry,
 
   auto& renderer = graphics.renderer();
   renderer.render(label.texture.value(), as_point(label.position.value()));
+}
+
+void render_line(const entt::registry& registry,
+                 entt::entity lineEntity,
+                 graphics_ctx& graphics)
+{
+  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& line = registry.get<comp::ui_line>(lineEntity);
+  const auto& anchor = registry.get<comp::ui_anchor>(lineEntity);
+
+  const auto start =
+      _calculate_position(line.start, {0, 0}, cfg, anchor.horizontal, anchor.vertical);
+
+  const auto end =
+      _calculate_position(line.end, {0, 0}, cfg, anchor.horizontal, anchor.vertical);
+
+  auto& renderer = graphics.renderer();
+  renderer.set_color(line.color);
+  renderer.draw_line(as_point(start), as_point(end));
 }
 
 }  // namespace wanderer::sys

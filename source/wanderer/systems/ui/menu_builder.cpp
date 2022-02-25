@@ -12,8 +12,8 @@ void _add_label(entt::registry& registry,
                 std::string text,
                 const glm::vec2& offset,
                 const font_size size,
-                const h_anchor halign,
-                const v_anchor valign)
+                const h_anchor ha,
+                const v_anchor va)
 {
   WANDERER_ASSERT_MSG(!text.empty(), "Invalid empty label text!");
 
@@ -24,8 +24,8 @@ void _add_label(entt::registry& registry,
   label.color = cen::colors::white;
 
   auto& anchor = registry.emplace<comp::ui_anchor>(entity);
-  anchor.horizontal = halign;
-  anchor.vertical = valign;
+  anchor.horizontal = ha;
+  anchor.vertical = va;
 }
 
 auto _add_button(entt::registry& registry,
@@ -33,8 +33,8 @@ auto _add_button(entt::registry& registry,
                  std::string text,
                  const action_id action,
                  const glm::vec2& offset,
-                 const h_anchor ha = h_anchor::center,
-                 const v_anchor va = v_anchor::top) -> entt::entity
+                 const h_anchor ha,
+                 const v_anchor va) -> entt::entity
 {
   const auto entity = menu.buttons.emplace_back(registry.create());
 
@@ -78,6 +78,30 @@ auto menu_builder::title(std::string title) -> menu_builder&
   return *this;
 }
 
+auto menu_builder::line(const glm::vec2& start,
+                        const glm::vec2& end,
+                        const h_anchor ha,
+                        const v_anchor va,
+                        const cen::color& color) -> menu_builder&
+{
+  auto& registry = mRegistry.get();
+  auto& menu = get_menu();
+
+  const auto lineEntity = registry.create();
+  menu.lines.push_back(lineEntity);
+
+  auto& line = registry.emplace<comp::ui_line>(lineEntity);
+  line.start = start;
+  line.end = end;
+  line.color = color;
+
+  auto& anchor = registry.emplace<comp::ui_anchor>(lineEntity);
+  anchor.horizontal = ha;
+  anchor.vertical = va;
+
+  return *this;
+}
+
 auto menu_builder::s_label(std::string text,
                            const glm::vec2& offset,
                            const h_anchor ha,
@@ -116,9 +140,11 @@ auto menu_builder::h_label(std::string text,
 
 auto menu_builder::button(std::string label,
                           const action_id action,
-                          const glm::vec2& offset) -> menu_builder&
+                          const glm::vec2& offset,
+                          const h_anchor ha,
+                          const v_anchor va) -> menu_builder&
 {
-  _add_button(mRegistry, get_menu(), std::move(label), action, offset);
+  _add_button(mRegistry, get_menu(), std::move(label), action, offset, ha, va);
   return *this;
 }
 

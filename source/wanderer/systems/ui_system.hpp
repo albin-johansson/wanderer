@@ -94,6 +94,10 @@ void render_label(const entt::registry& registry,
                   entt::entity labelEntity,
                   graphics_ctx& graphics);
 
+void render_line(const entt::registry& registry,
+                 entt::entity lineEntity,
+                 graphics_ctx& graphics);
+
 /// \} End of UI rendering
 
 /// \} End of group ui-system

@@ -58,6 +58,16 @@ struct ui_anchor final
 };
 
 /**
+ * \brief Represents a line between two points for decorative use.
+ */
+struct ui_line final
+{
+  glm::vec2 start{};                     ///< The start point.
+  glm::vec2 end{};                       ///< The end point.
+  cen::color color{cen::colors::white};  ///< The color of the line.
+};
+
+/**
  * \brief Represents a simple text label.
  */
 struct ui_label final
@@ -149,6 +159,11 @@ struct ui_menu final
    * \brief All key bind entities associated with the menu.
    */
   std::vector<entt::entity> binds;
+
+  /**
+   * \brief All line entities associated with the menu.
+   */
+  std::vector<entt::entity> lines;
 
   /**
    * \brief Determines whether the menu should block game updates whilst active.

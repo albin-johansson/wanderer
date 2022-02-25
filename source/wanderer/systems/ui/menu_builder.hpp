@@ -44,6 +44,23 @@ class menu_builder final
   auto title(std::string title) -> menu_builder&;
 
   /**
+   * \brief Adds a line to the menu.
+   *
+   * \param start the start point.
+   * \param end the end point.
+   * \param ha the horizontal anchor.
+   * \param va the vertical anchor.
+   * \param color the color of the line.
+   *
+   * \return the builder.
+   */
+  auto line(const glm::vec2& start,
+            const glm::vec2& end,
+            h_anchor ha = h_anchor::left,
+            v_anchor va = v_anchor::top,
+            const cen::color& color = cen::colors::white) -> menu_builder&;
+
+  /**
    * \brief Adds a small label to the menu.
    *
    * \param text the label text.
@@ -101,11 +118,16 @@ class menu_builder final
    * \param label the label text.
    * \param action the associated action when triggered.
    * \param offset the anchor offset.
+   * \param ha the horizontal anchor.
+   * \param va the vertical anchor.
    *
    * \return the builder.
    */
-  auto button(std::string label, action_id action, const glm::vec2& offset)
-      -> menu_builder&;
+  auto button(std::string label,
+              action_id action,
+              const glm::vec2& offset,
+              h_anchor ha = h_anchor::center,
+              v_anchor va = v_anchor::top) -> menu_builder&;
 
   /**
    * \brief Adds a button with an indicator of a boolean setting value.
