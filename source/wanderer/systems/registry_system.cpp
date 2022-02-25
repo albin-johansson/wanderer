@@ -31,6 +31,14 @@ auto make_level_registry(const game_cfg& cfg) -> entt::registry
   registry.set<comp::tileset>();
   registry.set<comp::render_bounds>();
 
+  // TODO remember to sync this when switching active levels
+  auto& date = registry.set<comp::date_and_time>();
+  date.day = day_of_week::monday;
+  date.hour = 0;
+  date.minute = 0;
+  date.seconds = 14.0f * 3'600.0f;
+  date.tint = cen::colors::transparent;
+
   auto& viewport = registry.set<comp::viewport>();
   viewport.size = cfg.logical_size_f;
 

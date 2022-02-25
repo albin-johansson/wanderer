@@ -7,7 +7,6 @@
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/core/random.hpp"
 #include "wanderer/data/components/rendering.hpp"
-#include "wanderer/data/components/time.hpp"
 #include "wanderer/data/components/world.hpp"
 #include "wanderer/misc/exception.hpp"
 
@@ -80,7 +79,7 @@ void render_lights(const entt::registry& registry, graphics_ctx& graphics)
   auto& renderer = graphics.renderer();
   auto& canvas = graphics.get_light_canvas();
 
-  const auto& date = registry.ctx<comp::date_info>();
+  const auto& date = registry.ctx<comp::date_and_time>();
   renderer.set_target(canvas);
   renderer.clear_with(date.tint);
 

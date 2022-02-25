@@ -17,6 +17,7 @@
 #include "wanderer/systems/registry_system.hpp"
 #include "wanderer/systems/rendering_system.hpp"
 #include "wanderer/systems/tile_system.hpp"
+#include "wanderer/systems/time_system.hpp"
 #include "wanderer/systems/ui_system.hpp"
 #include "wanderer/systems/viewport_system.hpp"
 
@@ -88,6 +89,8 @@ void wanderer_game::update(const float32 dt)
   if (!sys::is_cinematic_fade_active(mMainRegistry) &&
       !sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
+
+    sys::update_time(registry, mDispatcher, dt);
 
     sys::update_viewport(registry, dt);
     sys::update_render_bounds(registry);

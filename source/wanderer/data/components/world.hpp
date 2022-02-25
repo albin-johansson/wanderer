@@ -1,9 +1,11 @@
 #pragma once
 
 #include <box2d/box2d.h>
+#include <centurion.hpp>
 #include <glm/glm.hpp>
 
 #include "wanderer/common.hpp"
+#include "wanderer/data/day.hpp"
 
 namespace wanderer::comp {
 
@@ -44,6 +46,19 @@ struct physics_world final
    * \brief Scaling required to go from logical coordinates to simulation coordinates.
    */
   glm::vec2 scale{};
+};
+
+/**
+ * \brief Context component that provides information about the in-game date and time.
+ */
+struct date_and_time final
+{
+  float32 hour{};                        ///< [0, 24)
+  float32 minute{};                      ///< [0, 60)
+  float32 seconds{};                     ///< Reset once per in-game day.
+  int32 week{};                          ///< The week index.
+  day_of_week day{day_of_week::monday};  ///< The current day.
+  cen::color tint;                       ///< Light tint.
 };
 
 /// \} End of group components
