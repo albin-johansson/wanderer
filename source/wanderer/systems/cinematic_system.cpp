@@ -43,8 +43,14 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
 {
   auto& cinematic = registry.set<comp::cinematic_fade>();
   cinematic.start = cen::ticks64();
-  cinematic.transition = 750_ms;
-  cinematic.pause = 1'500_ms;
+  if constexpr (is_release_build) {
+    cinematic.transition = 750_ms;
+    cinematic.pause = 1'500_ms;
+  }
+  else {
+    cinematic.transition = 200_ms;
+    cinematic.pause = 400_ms;
+  }
   cinematic.bg = cen::colors::black;
 
   {
