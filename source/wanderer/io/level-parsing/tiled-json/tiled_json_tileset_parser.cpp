@@ -118,14 +118,14 @@ void parse_tileset(const nlohmann::json& json,
                    entt::registry& registry,
                    graphics_ctx& graphics)
 {
-  const auto firstTile = json.at("firstgid");
+  const auto firstTileId = json.at("firstgid");
   if (json.contains("source")) {
     const auto path = dir / json.at("source");
     const auto external = read_json(path);
-    _parse_common_tileset_attributes(external, dir, firstTile, registry, graphics);
+    _parse_common_tileset_attributes(external, dir, firstTileId, registry, graphics);
   }
   else {
-    _parse_common_tileset_attributes(json, dir, firstTile, registry, graphics);
+    _parse_common_tileset_attributes(json, dir, firstTileId, registry, graphics);
   }
 }
 
