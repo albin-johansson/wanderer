@@ -136,6 +136,10 @@ void _parse_object_layer(const nlohmann::json& json,
     if (tag == "Light") {
       _parse_light(objectJson, registry, entity, tileSizeRatio);
     }
+    else if (tag == "Spawnpoint") {
+      auto& spawn = registry.emplace<comp::spawn_point>(entity);
+      spawn.mob = mob_type::player;  // TODO parse mob type
+    }
 
     // TODO
   }

@@ -36,13 +36,15 @@ void _verify_features(const nlohmann::json& json)
   // TODO version
 }
 
-void _create_player(entt::registry& registry, const game_cfg& cfg)
+void _create_player(entt::registry& registry,
+                    const glm::vec2& position,
+                    const game_cfg& cfg)
 {
   const auto playerEntity = registry.create();
   registry.emplace<comp::player>(playerEntity);
 
   auto& object = registry.emplace<comp::game_object>(playerEntity);
-  object.position = {2'800, 3'500};
+  object.position = position;
   object.size = cfg.humanoid_draw_size;
 
   registry.emplace<comp::viewport_target>(playerEntity);
@@ -110,7 +112,12 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
         return left.z < right.z;
       });
 
-  _create_player(registry, cfg);
+  for (auto&& [entity, object, spawn] :
+       registry.view<comp::game_object, comp::spawn_point>().each()) {
+    if (spawn.mob == mob_type::player) {
+      _create_player(registry, object.position, cfg);
+    }
+  }
 
   sys::sort_drawables(registry, sys::sort_strategy::std);
 

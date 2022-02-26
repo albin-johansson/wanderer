@@ -6,6 +6,7 @@
 
 #include "wanderer/common.hpp"
 #include "wanderer/data/day.hpp"
+#include "wanderer/data/mob.hpp"
 
 namespace wanderer::comp {
 
@@ -59,6 +60,14 @@ struct date_and_time final
   int32 week{};                          ///< The week index.
   day_of_week day{day_of_week::monday};  ///< The current day.
   cen::color tint;                       ///< Light tint.
+};
+
+/**
+ * \brief Represents a possible spawn point for a mob type in the world.
+ */
+struct spawn_point final
+{
+  mob_type mob{};  ///< The mob type that should be spawned.
 };
 
 /// \} End of group components
