@@ -120,7 +120,6 @@ void _parse_light(const nlohmann::json& json,
 
 void _parse_object_layer(const nlohmann::json& json,
                          entt::registry& registry,
-                         const int32 z,
                          const glm::vec2& tileSizeRatio)
 {
   for (const auto& [_, objectJson] : json.at("objects").items()) {
@@ -155,7 +154,7 @@ void parse_layer(const nlohmann::json& json,
     _parse_tile_layer(json, registry, z);
   }
   else if (type == "objectgroup") {
-    _parse_object_layer(json, registry, z, tileSizeRatio);
+    _parse_object_layer(json, registry, tileSizeRatio);
   }
   else if (type == "group") {
     // TODO

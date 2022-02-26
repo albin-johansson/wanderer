@@ -1,5 +1,6 @@
 #include "tile_system.hpp"
 
+#include "wanderer/core/centurion_utils.hpp"
 #include "wanderer/core/graphics.hpp"
 #include "wanderer/data/cfg.hpp"
 #include "wanderer/data/components/rendering.hpp"
@@ -9,25 +10,40 @@
 namespace wanderer::sys {
 namespace {
 
+[[nodiscard]] auto _tile_to_render(const entt::registry& registry,
+                                   const comp::tileset& tileset,
+                                   const entt::entity tileEntity) -> entt::entity
+{
+  if (const auto* animation = registry.try_get<comp::animation>(tileEntity)) {
+    if (const auto iter = tileset.effective_appearance.find(tileEntity);
+        iter == tileset.effective_appearance.end()) {
+      const auto& tileAnimation = registry.get<comp::tile_animation>(tileEntity);
+
+      const auto tileToRenderId = tileAnimation.frames.at(animation->frame);
+      const auto tileToRenderEntity = tileset.tiles.at(tileToRenderId);
+      tileset.effective_appearance[tileEntity] = tileToRenderEntity;
+
+      return tileToRenderEntity;
+    }
+    else {
+      /* In this case, we have already computed the tile to render for this tile */
+      return iter->second;
+    }
+  }
+  else {
+    return tileEntity;
+  }
+}
+
 void _render_tile(const entt::registry& registry,
                   const comp::tileset& tileset,
                   const entt::entity tileEntity,
                   const glm::vec4& dest,
                   graphics_ctx& graphics)
 {
-  if (const auto* animation = registry.try_get<comp::animation>(tileEntity)) {
-    const auto& tileAnimation = registry.get<comp::tile_animation>(tileEntity);
-    const auto tileToRenderId = tileAnimation.frames.at(animation->frame);
-
-    const auto tileToRenderEntity = tileset.tiles.at(tileToRenderId);
-    const auto tileToRender = registry.get<comp::tile_info>(tileToRenderEntity);
-
-    graphics.render_texture(tileToRender.texture, tileToRender.source, dest);
-  }
-  else {
-    const auto& tile = registry.get<comp::tile_info>(tileEntity);
-    graphics.render_texture(tile.texture, tile.source, dest);
-  }
+  const auto tileToRenderEntity = _tile_to_render(registry, tileset, tileEntity);
+  const auto tileToRender = registry.get<comp::tile_info>(tileToRenderEntity);
+  graphics.render_texture(tileToRender.texture, tileToRender.source, dest);
 }
 
 [[nodiscard]] auto _determine_destination(const usize row,
@@ -45,6 +61,26 @@ void _render_tile(const entt::registry& registry,
 }
 
 }  // namespace
+
+void clear_effective_appearance_tile_cache(entt::registry& registry)
+{
+  auto& tileset = registry.ctx<comp::tileset>();
+  tileset.effective_appearance.clear();
+}
+
+void update_tile_objects(entt::registry& registry)
+{
+  const auto& tileset = registry.ctx<comp::tileset>();
+  for (auto&& [entity, object] : registry.view<comp::tile_object>().each()) {
+    const auto renderedTileEntity =
+        _tile_to_render(registry, tileset, object.tile_entity);
+    if (renderedTileEntity != object.tile_entity) {
+      const auto& tile = registry.get<comp::tile_info>(renderedTileEntity);
+      auto& drawable = registry.get<comp::drawable>(entity);
+      drawable.src = as_rect(tile.source);
+    }
+  }
+}
 
 void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
 {

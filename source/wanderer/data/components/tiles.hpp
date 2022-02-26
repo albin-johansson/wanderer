@@ -67,6 +67,11 @@ struct tile_info final
 struct tileset final
 {
   hash_map<tile_id, entt::entity> tiles;
+
+  /**
+   * \brief A frame-by-frame cache that maps tile entities to rendered tile entities.
+   */
+  mutable hash_map<entt::entity, entt::entity> effective_appearance;
 };
 
 /// \} End of group components

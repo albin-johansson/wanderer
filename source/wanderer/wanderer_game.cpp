@@ -89,6 +89,7 @@ void wanderer_game::update(const float32 dt)
   if (!sys::is_cinematic_fade_active(mMainRegistry) &&
       !sys::is_current_menu_blocking(mMainRegistry)) {
     auto& registry = current_registry();
+    sys::clear_effective_appearance_tile_cache(registry);
 
     sys::update_time(registry, mDispatcher, dt);
 
@@ -103,8 +104,10 @@ void wanderer_game::update(const float32 dt)
       ++ticker;
     }
 
+    sys::update_tile_objects(registry);
     sys::update_lights(registry);
     sys::update_animations(registry);
+
     sys::update_physics(registry, dt);
   }
 }
