@@ -78,7 +78,7 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics);
  *
  * \return a corresponding vector in simulation coordinates.
  */
-[[nodiscard]] auto to_physics_world(const entt::registry& registry, const glm::vec2& vec)
+[[nodiscard]] auto to_physics_scale(const entt::registry& registry, const glm::vec2& vec)
     -> b2Vec2;
 
 /**
@@ -89,7 +89,7 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics);
  *
  * \return a corresponding vector in logical coordinates.
  */
-[[nodiscard]] auto to_logical_world(const entt::registry& registry, const b2Vec2& vec)
+[[nodiscard]] auto to_logical_scale(const entt::registry& registry, const b2Vec2& vec)
     -> glm::vec2;
 
 /// \} End of group physics-system

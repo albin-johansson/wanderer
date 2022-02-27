@@ -31,15 +31,15 @@ void add_physics_body(entt::registry& registry,
   auto& world = registry.ctx<comp::physics_world>();
 
   b2BodyDef bodyDef;
-  bodyDef.position = sys::to_physics_world(registry, logicalPos + offset);
+  bodyDef.position = sys::to_physics_scale(registry, logicalPos + offset);
   bodyDef.type = type;
   bodyDef.fixedRotation = true;
   bodyDef.gravityScale = 0;
 
   auto& body = registry.emplace<comp::physics_body>(entity);
   body.data = world.simulation.CreateBody(&bodyDef);
-  body.offset = sys::to_physics_world(registry, offset);
-  body.size = sys::to_physics_world(registry, logicalSize);
+  body.offset = sys::to_physics_scale(registry, offset);
+  body.size = sys::to_physics_scale(registry, logicalSize);
   body.max_speed = maxSpeed;
 
   const b2Vec2 center{body.size.x / 2.0f, body.size.y / 2.0f};
@@ -87,8 +87,8 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
   renderer.set_color(cen::colors::magenta);
 
   for (auto&& [entity, body] : registry.view<comp::physics_body>().each()) {
-    const auto position = to_logical_world(registry, body.data->GetPosition());
-    const auto size = to_logical_world(registry, body.size);
+    const auto position = to_logical_scale(registry, body.data->GetPosition());
+    const auto size = to_logical_scale(registry, body.size);
 
     cen::frect hitbox{position.x, position.y, size.x, size.y};
     if (cen::intersects(viewportRect, hitbox)) {
@@ -100,13 +100,13 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
   }
 }
 
-auto to_physics_world(const entt::registry& registry, const glm::vec2& vec) -> b2Vec2
+auto to_physics_scale(const entt::registry& registry, const glm::vec2& vec) -> b2Vec2
 {
   const auto& physics = registry.ctx<comp::physics_world>();
   return {vec.x * physics.scale.x, vec.y * physics.scale.y};
 }
 
-auto to_logical_world(const entt::registry& registry, const b2Vec2& vec) -> glm::vec2
+auto to_logical_scale(const entt::registry& registry, const b2Vec2& vec) -> glm::vec2
 {
   const auto& physics = registry.ctx<comp::physics_world>();
   return {vec.x / physics.scale.x, vec.y / physics.scale.y};
