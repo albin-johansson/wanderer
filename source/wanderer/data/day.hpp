@@ -31,7 +31,7 @@ enum class day_of_week
 [[nodiscard]] auto full_name(day_of_week day) -> std::string_view;
 
 /**
- * \brief Returns the an abbreviated name of a day enumerator, e.g. "MON".
+ * \brief Returns the abbreviated name of a day enumerator, e.g. "MON".
  *
  * \param day the day to get the name of.
  *
