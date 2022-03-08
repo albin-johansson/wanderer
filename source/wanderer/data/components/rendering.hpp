@@ -72,6 +72,14 @@ struct animation final
 };
 
 /**
+ * \brief Component associated with the `animation` component for sequenced animations.
+ */
+struct seq_animation final
+{
+  glm::ivec2 frame_size{};
+};
+
+/**
  * \brief Component intended to accompany the `animation` component for tile animations.
  */
 struct tile_animation final
