@@ -16,7 +16,7 @@ namespace wanderer::comp {
 /**
  * \brief Component featured by all physical objects in the game world.
  */
-struct game_object final
+struct GameObject final
 {
   glm::vec2 position{};  ///< The position in logical coordinates.
   glm::vec2 size{};      ///< The size of the object.
@@ -25,7 +25,7 @@ struct game_object final
 /**
  * \brief Component featured by all entities that are a part of the physics simulation.
  */
-struct physics_body final
+struct PhysicsBody final
 {
   b2Body* data{};       ///< The simulation body data.
   b2Vec2 offset{};      ///< Body offset from the game object origin, in simulation scale.
@@ -36,7 +36,7 @@ struct physics_body final
 /**
  * \brief Context component representing the physics simulation.
  */
-struct physics_world final
+struct PhysicsWorld final
 {
   /**
    * \brief The physics simulation world.
@@ -52,7 +52,7 @@ struct physics_world final
 /**
  * \brief Context component that provides information about the in-game date and time.
  */
-struct date_and_time final
+struct DateAndTime final
 {
   float32 hour{};                        ///< [0, 24)
   float32 minute{};                      ///< [0, 60)
@@ -65,7 +65,7 @@ struct date_and_time final
 /**
  * \brief Represents a possible spawn point for a mob type in the world.
  */
-struct spawn_point final
+struct SpawnPoint final
 {
   mob_type mob{};  ///< The mob type that should be spawned.
 };

@@ -13,14 +13,14 @@
 
 namespace wanderer {
 
-enum class h_anchor
+enum class HAnchor
 {
   left,
   center,
   right
 };
 
-enum class v_anchor
+enum class VAnchor
 {
   top,
   center,
@@ -35,7 +35,7 @@ namespace comp {
 /**
  * \brief Represents key binds in menus.
  */
-struct ui_bind final
+struct UiBind final
 {
   /**
    * \brief The scan code that triggers the action event.
@@ -51,16 +51,16 @@ struct ui_bind final
 /**
  * \brief Provides information about how to position UI components.
  */
-struct ui_anchor final
+struct UiAnchor final
 {
-  h_anchor horizontal{h_anchor::left};
-  v_anchor vertical{v_anchor::top};
+  HAnchor horizontal{HAnchor::left};
+  VAnchor vertical{VAnchor::top};
 };
 
 /**
  * \brief Represents a line between two points for decorative use.
  */
-struct ui_line final
+struct UiLine final
 {
   glm::vec2 start{};                     ///< The start point.
   glm::vec2 end{};                       ///< The end point.
@@ -70,7 +70,7 @@ struct ui_line final
 /**
  * \brief Represents a simple text label.
  */
-struct ui_label final
+struct UiLabel final
 {
   /**
    * \brief The normalized offset from the anchor position.
@@ -103,7 +103,7 @@ struct ui_label final
   mutable maybe<cen::texture> texture;
 };
 
-struct ui_button final
+struct UiButton final
 {
   inline constexpr static uint32 hover_bit = 1u << 1u;
 
@@ -133,12 +133,12 @@ struct ui_button final
 /**
  * \brief Component used by toggle buttons for settings.
  */
-struct ui_setting_toggle final
+struct UiSettingsToggle final
 {
   uint64 flag{};  ///< Boolean setting flag.
 };
 
-struct ui_menu final
+struct UiMenu final
 {
   /**
    * \brief Menu title shown in a large font (can be empty).
@@ -174,7 +174,7 @@ struct ui_menu final
 /**
  * \brief Context component used to keep track of all available menus.
  */
-struct ui_menu_ctx final
+struct UiMenus final
 {
   /**
    * \brief The currently active menu entity (shouldn't ever be null).

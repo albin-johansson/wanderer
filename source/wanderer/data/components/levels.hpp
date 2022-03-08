@@ -12,12 +12,12 @@ namespace wanderer::comp {
 /**
  * \brief A context component used to keep track of all levels in the shared registry.
  */
-struct level_ctx final
+struct Levels final
 {
-  WANDERER_DELETE_COPY(level_ctx)
-  WANDERER_DEFAULT_MOVE(level_ctx)
+  WANDERER_DELETE_COPY(Levels)
+  WANDERER_DEFAULT_MOVE(Levels)
 
-  level_ctx() = default;
+  Levels() = default;
 
   hash_map<level_id, entt::registry> levels;
   level_id current{};

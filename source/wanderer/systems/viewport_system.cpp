@@ -16,13 +16,13 @@ constexpr float32 _camera_speed = 10;
 void update_render_bounds(entt::registry& registry)
 {
   const auto& cfg = registry.ctx<game_cfg>();
-  const auto& map = registry.ctx<comp::tilemap>();
-  const auto& viewport = registry.ctx<comp::viewport>();
+  const auto& map = registry.ctx<comp::Tilemap>();
+  const auto& viewport = registry.ctx<comp::Viewport>();
 
   const auto viewportMax = viewport.offset + viewport.size;
 
   /* Overwrite previous render bounds context */
-  auto& bounds = registry.set<comp::render_bounds>();
+  auto& bounds = registry.set<comp::RenderBounds>();
 
   const auto min = viewport.offset / cfg.tile_size;
   bounds.begin_row = (min.y > 0) ? static_cast<usize>(min.y) : 0u;
@@ -36,11 +36,11 @@ void update_render_bounds(entt::registry& registry)
 
 void update_viewport(entt::registry& registry, const float32 dt)
 {
-  const auto& map = registry.ctx<const comp::tilemap>();
-  auto& viewport = registry.ctx<comp::viewport>();
+  const auto& map = registry.ctx<const comp::Tilemap>();
+  auto& viewport = registry.ctx<comp::Viewport>();
 
   /* Don't move the viewport if there is no viewport target */
-  const auto view = registry.view<comp::viewport_target>();
+  const auto view = registry.view<comp::ViewportTarget>();
   if (view.empty()) {
     return;
   }
@@ -48,8 +48,8 @@ void update_viewport(entt::registry& registry, const float32 dt)
   WANDERER_ASSERT_MSG(view.size() == 1, "There cannot be more than 1 viewport target!");
   const auto targetEntity = view.front();
 
-  WANDERER_ASSERT(registry.all_of<comp::game_object>(targetEntity));
-  const auto& object = registry.get<comp::game_object>(targetEntity);
+  WANDERER_ASSERT(registry.all_of<comp::GameObject>(targetEntity));
+  const auto& object = registry.get<comp::GameObject>(targetEntity);
 
   const auto target = (object.position + (object.size / 2.0f)) - (viewport.size / 2.0f);
   auto next = viewport.offset + (target - viewport.offset) * (_camera_speed * dt);

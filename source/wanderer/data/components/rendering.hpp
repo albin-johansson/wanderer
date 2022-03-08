@@ -17,7 +17,7 @@ namespace wanderer::comp {
 /**
  * \brief Represents the region of a tilemap that needs to be rendered.
  */
-struct render_bounds final
+struct RenderBounds final
 {
   usize begin_row{};  ///< The first row index (inclusive).
   usize begin_col{};  ///< The first column index (inclusive).
@@ -28,7 +28,7 @@ struct render_bounds final
 /**
  * \brief Represents the region of the game shown to the player.
  */
-struct viewport final
+struct Viewport final
 {
   glm::vec2 offset{};     ///< The viewport offset.
   glm::vec2 size{};       ///< The viewport size.
@@ -44,13 +44,13 @@ struct viewport final
  *
  * \note An entity featuring this component must also feature a `game_object` component.
  */
-struct viewport_target final
+struct ViewportTarget final
 {};
 
 /**
  * \brief Describes a blocking animation displaying some text over an opaque background.
  */
-struct cinematic_fade final
+struct CinematicFade final
 {
   cen::u64ms start{};       ///< Time of start.
   cen::u64ms transition{};  ///< Duration of the transitions.
@@ -63,7 +63,7 @@ struct cinematic_fade final
 /**
  * \brief Represents a general frame-based animation.
  */
-struct animation final
+struct Animation final
 {
   usize frame{0};                  ///< Current frame index.
   usize frame_count{1};            ///< Amount of frames in the animation.
@@ -74,7 +74,7 @@ struct animation final
 /**
  * \brief Component associated with the `animation` component for sequenced animations.
  */
-struct seq_animation final
+struct SeqAnimation final
 {
   glm::ivec2 frame_size{};
 };
@@ -82,7 +82,7 @@ struct seq_animation final
 /**
  * \brief Component intended to accompany the `animation` component for tile animations.
  */
-struct tile_animation final
+struct TileAnimation final
 {
   std::vector<tile_id> frames;  ///< Tiles to be rendered for each frame.
 };
@@ -102,7 +102,7 @@ struct tile_animation final
  *
  * \note Drawable entities are expected to feature `game_object` components.
  */
-struct drawable final
+struct Drawable final
 {
   texture_id texture{};  ///< The associated texture.
   cen::irect src;        ///< Region of associated texture that will be rendered.
@@ -115,7 +115,7 @@ struct drawable final
  *
  * \note Point light entities are expected to feature `game_object` components.
  */
-struct point_light final
+struct PointLight final
 {
   glm::vec2 offset{};     ///< Offset of the light relative to the game object position.
   float32 size{};         ///< Base size of the light.

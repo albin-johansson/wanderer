@@ -18,10 +18,10 @@ void _parse_tile_objects(const nlohmann::json& json,
                          entt::registry& registry,
                          const int32 z)
 {
-  const auto& map = registry.ctx<comp::tilemap>();
+  const auto& map = registry.ctx<comp::Tilemap>();
   const auto& cfg = registry.ctx<game_cfg>();
 
-  auto& tileset = registry.ctx<comp::tileset>();
+  auto& tileset = registry.ctx<comp::Tileset>();
 
   usize index = 0;
   for (const auto& [_, value] : json.at("data").items()) {
@@ -37,24 +37,23 @@ void _parse_tile_objects(const nlohmann::json& json,
 
     const auto entity = registry.create();
 
-    auto& tileObject = registry.emplace<comp::tile_object>(entity);
+    auto& tileObject = registry.emplace<comp::TileObject>(entity);
     tileObject.tile_entity = tileset.tiles.at(tile);
 
-    const auto& info = registry.get<comp::tile_info>(tileObject.tile_entity);
+    const auto& info = registry.get<comp::TileInfo>(tileObject.tile_entity);
 
-    auto& gameObject = registry.emplace<comp::game_object>(entity);
+    auto& gameObject = registry.emplace<comp::GameObject>(entity);
     gameObject.position = {static_cast<float32>(col) * cfg.tile_size.x,
                            static_cast<float32>(row) * cfg.tile_size.y};
     gameObject.size = cfg.tile_size;
 
-    auto& drawable = registry.emplace<comp::drawable>(entity);
+    auto& drawable = registry.emplace<comp::Drawable>(entity);
     drawable.texture = info.texture;
     drawable.src = as_rect(info.source);
     drawable.layer_index = z;
     drawable.depth_index = info.depth_index;
 
-    if (const auto* hitbox =
-            registry.try_get<comp::tile_hitbox>(tileObject.tile_entity)) {
+    if (const auto* hitbox = registry.try_get<comp::TileHitbox>(tileObject.tile_entity)) {
       sys::add_physics_body(registry,
                             entity,
                             b2_staticBody,
@@ -72,14 +71,14 @@ void _parse_tile_layer(const nlohmann::json& json,
                        entt::registry& registry,
                        const int32 z)
 {
-  const auto& map = registry.ctx<comp::tilemap>();
+  const auto& map = registry.ctx<comp::Tilemap>();
 
   if (tiled::get_property<bool>(json, "is-ground")) {
-    using tile_matrix = comp::tile_layer::tile_matrix;
-    using tile_row = comp::tile_layer::tile_row;
+    using tile_matrix = comp::TileLayer::tile_matrix;
+    using tile_row = comp::TileLayer::tile_row;
 
     const auto entity = registry.create();
-    auto& layer = registry.emplace<comp::tile_layer>(entity);
+    auto& layer = registry.emplace<comp::TileLayer>(entity);
     layer.tiles = tile_matrix(map.row_count, tile_row(map.col_count, empty_tile));
     layer.z = z;
 
@@ -104,7 +103,7 @@ void _parse_light(const nlohmann::json& json,
                   const entt::entity entity,
                   const glm::vec2& tileSizeRatio)
 {
-  auto& light = registry.emplace<comp::point_light>(entity);
+  auto& light = registry.emplace<comp::PointLight>(entity);
 
   light.size = json.at("width").get<float32>() * tileSizeRatio.x;
   light.offset.x = light.size / 2.0f;
@@ -125,7 +124,7 @@ void _parse_object_layer(const nlohmann::json& json,
   for (const auto& [_, objectJson] : json.at("objects").items()) {
     const auto entity = registry.create();
 
-    auto& object = registry.emplace<comp::game_object>(entity);
+    auto& object = registry.emplace<comp::GameObject>(entity);
     object.position.x = objectJson.at("x").get<float32>() * tileSizeRatio.x;
     object.position.y = objectJson.at("y").get<float32>() * tileSizeRatio.y;
 
@@ -137,7 +136,7 @@ void _parse_object_layer(const nlohmann::json& json,
       _parse_light(objectJson, registry, entity, tileSizeRatio);
     }
     else if (tag == "Spawnpoint") {
-      auto& spawn = registry.emplace<comp::spawn_point>(entity);
+      auto& spawn = registry.emplace<comp::SpawnPoint>(entity);
       spawn.mob = mob_type::player;  // TODO parse mob type
     }
 

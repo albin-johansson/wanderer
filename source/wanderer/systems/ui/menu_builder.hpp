@@ -56,8 +56,8 @@ class menu_builder final
    */
   auto line(const glm::vec2& start,
             const glm::vec2& end,
-            h_anchor ha = h_anchor::left,
-            v_anchor va = v_anchor::top,
+            HAnchor ha = HAnchor::left,
+            VAnchor va = VAnchor::top,
             const cen::color& color = cen::colors::white) -> menu_builder&;
 
   /**
@@ -70,7 +70,7 @@ class menu_builder final
    *
    * \return the builder
    */
-  auto s_label(std::string text, const glm::vec2& offset, h_anchor ha, v_anchor va)
+  auto s_label(std::string text, const glm::vec2& offset, HAnchor ha, VAnchor va)
       -> menu_builder&;
 
   /**
@@ -83,7 +83,7 @@ class menu_builder final
    *
    * \return the builder
    */
-  auto m_label(std::string text, const glm::vec2& offset, h_anchor ha, v_anchor va)
+  auto m_label(std::string text, const glm::vec2& offset, HAnchor ha, VAnchor va)
       -> menu_builder&;
 
   /**
@@ -96,7 +96,7 @@ class menu_builder final
    *
    * \return the builder
    */
-  auto l_label(std::string text, const glm::vec2& offset, h_anchor ha, v_anchor va)
+  auto l_label(std::string text, const glm::vec2& offset, HAnchor ha, VAnchor va)
       -> menu_builder&;
 
   /**
@@ -109,7 +109,7 @@ class menu_builder final
    *
    * \return the builder
    */
-  auto h_label(std::string text, const glm::vec2& offset, h_anchor ha, v_anchor va)
+  auto h_label(std::string text, const glm::vec2& offset, HAnchor ha, VAnchor va)
       -> menu_builder&;
 
   /**
@@ -126,8 +126,8 @@ class menu_builder final
   auto button(std::string label,
               action_id action,
               const glm::vec2& offset,
-              h_anchor ha = h_anchor::center,
-              v_anchor va = v_anchor::top) -> menu_builder&;
+              HAnchor ha = HAnchor::center,
+              VAnchor va = VAnchor::top) -> menu_builder&;
 
   /**
    * \brief Adds a button with an indicator of a boolean setting value.
@@ -145,8 +145,8 @@ class menu_builder final
               action_id action,
               uint64 flag,
               const glm::vec2& offset,
-              h_anchor ha,
-              v_anchor va) -> menu_builder&;
+              HAnchor ha,
+              VAnchor va) -> menu_builder&;
 
   /**
    * \brief Adds a key bind to the menu.
@@ -171,20 +171,20 @@ class menu_builder final
 
   explicit menu_builder(entt::registry& registry);
 
-  [[nodiscard]] auto get_menu() -> comp::ui_menu&;
+  [[nodiscard]] auto get_menu() -> comp::UiMenu&;
 
   void add_label(entt::entity entity,
                  std::string text,
                  font_size size,
                  const glm::vec2& offset,
-                 h_anchor ha,
-                 v_anchor va);
+                 HAnchor ha,
+                 VAnchor va);
 
   void add_label(std::string text,
                  font_size size,
                  const glm::vec2& offset,
-                 h_anchor ha,
-                 v_anchor va);
+                 HAnchor ha,
+                 VAnchor va);
 };
 
 }  // namespace wanderer::sys::ui

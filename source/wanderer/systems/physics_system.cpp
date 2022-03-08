@@ -26,9 +26,9 @@ void add_physics_body(entt::registry& registry,
                       const glm::vec2& offset)
 {
   WANDERER_ASSERT(entity != entt::null);
-  WANDERER_ASSERT(!registry.all_of<comp::physics_body>(entity));
+  WANDERER_ASSERT(!registry.all_of<comp::PhysicsBody>(entity));
 
-  auto& world = registry.ctx<comp::physics_world>();
+  auto& world = registry.ctx<comp::PhysicsWorld>();
 
   b2BodyDef bodyDef;
   bodyDef.position = sys::to_physics_scale(registry, logicalPos + offset);
@@ -36,7 +36,7 @@ void add_physics_body(entt::registry& registry,
   bodyDef.fixedRotation = true;
   bodyDef.gravityScale = 0;
 
-  auto& body = registry.emplace<comp::physics_body>(entity);
+  auto& body = registry.emplace<comp::PhysicsBody>(entity);
   body.data = world.simulation.CreateBody(&bodyDef);
   body.offset = sys::to_physics_scale(registry, offset);
   body.size = sys::to_physics_scale(registry, logicalSize);
@@ -58,21 +58,21 @@ void add_physics_body(entt::registry& registry,
 void on_destroy_physics_object(entt::registry& registry, const entt::entity entity)
 {
   WANDERER_ASSERT(entity != entt::null);
-  WANDERER_ASSERT(registry.all_of<comp::physics_body>(entity));
+  WANDERER_ASSERT(registry.all_of<comp::PhysicsBody>(entity));
 
-  auto& world = registry.ctx<comp::physics_world>();
-  auto& body = registry.get<comp::physics_body>(entity);
+  auto& world = registry.ctx<comp::PhysicsWorld>();
+  auto& body = registry.get<comp::PhysicsBody>(entity);
 
   world.simulation.DestroyBody(body.data);
 }
 
 void update_physics(entt::registry& registry, const float32 dt)
 {
-  auto& world = registry.ctx<comp::physics_world>();
+  auto& world = registry.ctx<comp::PhysicsWorld>();
   world.simulation.Step(dt, _n_velocity_iterations, _n_position_iterations);
 
   for (auto&& [entity, object, body] :
-       registry.view<comp::game_object, comp::physics_body>().each()) {
+       registry.view<comp::GameObject, comp::PhysicsBody>().each()) {
     auto pos = glmx::from_b2(body.data->GetPosition() - body.offset);
     object.position = pos / world.scale;
   }
@@ -80,13 +80,13 @@ void update_physics(entt::registry& registry, const float32 dt)
 
 void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
 {
-  const auto& viewport = registry.ctx<comp::viewport>();
+  const auto& viewport = registry.ctx<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);
 
   auto& renderer = graphics.renderer();
   renderer.set_color(cen::colors::magenta);
 
-  for (auto&& [entity, body] : registry.view<comp::physics_body>().each()) {
+  for (auto&& [entity, body] : registry.view<comp::PhysicsBody>().each()) {
     const auto position = to_logical_scale(registry, body.data->GetPosition());
     const auto size = to_logical_scale(registry, body.size);
 
@@ -102,13 +102,13 @@ void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
 
 auto to_physics_scale(const entt::registry& registry, const glm::vec2& vec) -> b2Vec2
 {
-  const auto& physics = registry.ctx<comp::physics_world>();
+  const auto& physics = registry.ctx<comp::PhysicsWorld>();
   return {vec.x * physics.scale.x, vec.y * physics.scale.y};
 }
 
 auto to_logical_scale(const entt::registry& registry, const b2Vec2& vec) -> glm::vec2
 {
-  const auto& physics = registry.ctx<comp::physics_world>();
+  const auto& physics = registry.ctx<comp::PhysicsWorld>();
   return {vec.x / physics.scale.x, vec.y / physics.scale.y};
 }
 

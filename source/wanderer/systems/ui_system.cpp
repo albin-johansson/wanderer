@@ -19,36 +19,36 @@ namespace {
 [[nodiscard]] auto _calculate_position(const glm::vec2& offset,
                                        const glm::vec2& size,
                                        const game_cfg& cfg,
-                                       const h_anchor halign,
-                                       const v_anchor valign) -> glm::vec2
+                                       const HAnchor halign,
+                                       const VAnchor valign) -> glm::vec2
 {
   glm::vec2 position{};
   const auto absoluteOffset = offset * cfg.logical_size_f;
 
   switch (halign) {
-    case h_anchor::left:
+    case HAnchor::left:
       position.x = absoluteOffset.x;
       break;
 
-    case h_anchor::center:
+    case HAnchor::center:
       position.x = ((cfg.logical_size_f.x - size.x) / 2.0f) + absoluteOffset.x;
       break;
 
-    case h_anchor::right:
+    case HAnchor::right:
       position.x = cfg.logical_size_f.x - size.x - absoluteOffset.x;
       break;
   }
 
   switch (valign) {
-    case v_anchor::top:
+    case VAnchor::top:
       position.y = absoluteOffset.y;
       break;
 
-    case v_anchor::center:
+    case VAnchor::center:
       position.y = ((cfg.logical_size_f.y - size.y) / 2.0f) + absoluteOffset.y;
       break;
 
-    case v_anchor::bottom:
+    case VAnchor::bottom:
       position.y = cfg.logical_size_f.y - size.y - absoluteOffset.y;
       break;
   }
@@ -62,15 +62,15 @@ namespace {
       .title("Credits")
       .blocking()
       .button("Return", action_id::goto_main_menu, {0, 0.25f})
-      .m_label("Textures by ...", {0, 0.4f}, h_anchor::center, v_anchor::top)
+      .m_label("Textures by ...", {0, 0.4f}, HAnchor::center, VAnchor::top)
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
 
 [[nodiscard]] auto _load_saves_menu(entt::registry& registry) -> entt::entity
 {
-  using ha = h_anchor;
-  using va = v_anchor;
+  using ha = HAnchor;
+  using va = VAnchor;
   return ui::menu_builder::build(registry)
       .title("Saves")
       .blocking()
@@ -108,20 +108,20 @@ namespace {
               action_id::toggle_fullscreen,
               settings::fullscreen_bit,
               {0.45f, 0.40f},
-              h_anchor::right,
-              v_anchor::top)
+              HAnchor::right,
+              VAnchor::top)
       .toggle("VSync",
               action_id::toggle_vsync,
               settings::vsync_bit,
               {0.45f, 0.50f},
-              h_anchor::right,
-              v_anchor::top)
+              HAnchor::right,
+              VAnchor::top)
       .toggle("Integer Scaling",
               action_id::toggle_integer_scaling,
               settings::integer_scaling_bit,
               {0.45f, 0.60f},
-              h_anchor::right,
-              v_anchor::top)
+              HAnchor::right,
+              VAnchor::top)
       .bind(cen::scancodes::escape, action_id::goto_main_menu)
       .result();
 }
@@ -138,8 +138,8 @@ namespace {
       .button("Quit", action_id::quit, {0, 0.75f})
       .s_label("Albin Johansson ( C) 2018-2022",
                {0.01f, 0.01f},
-               h_anchor::left,
-               v_anchor::bottom)
+               HAnchor::left,
+               VAnchor::bottom)
       .bind(cen::scancodes::escape, action_id::goto_game)
       .result();
 }
@@ -155,7 +155,7 @@ namespace {
 
 void load_menus(entt::registry& registry)
 {
-  auto& ctx = registry.set<comp::ui_menu_ctx>();
+  auto& ctx = registry.set<comp::UiMenus>();
 
   ctx.menus[menu_id::game] = _load_game_menu(registry);
   ctx.menus[menu_id::home] = _load_main_menu(registry);
@@ -170,20 +170,20 @@ void update_menus(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const input_state& input)
 {
-  const auto& ctx = registry.ctx<comp::ui_menu_ctx>();
+  const auto& ctx = registry.ctx<comp::UiMenus>();
   const auto menuEntity = ctx.active_menu;
   WANDERER_ASSERT(menuEntity != entt::null);
 
-  auto& menu = registry.get<comp::ui_menu>(menuEntity);
+  auto& menu = registry.get<comp::UiMenu>(menuEntity);
 
   for (const auto buttonEntity : menu.buttons) {
-    auto& button = registry.get<comp::ui_button>(buttonEntity);
-    button.state &= ~comp::ui_button::hover_bit;
+    auto& button = registry.get<comp::UiButton>(buttonEntity);
+    button.state &= ~comp::UiButton::hover_bit;
 
     if (button.position && button.size) {
       const auto bounds = as_rect(*button.position, *button.size);
       if (bounds.contains(input.mouse_logical_x(), input.mouse_logical_y())) {
-        button.state |= comp::ui_button::hover_bit;
+        button.state |= comp::UiButton::hover_bit;
 
         if (input.was_lmb_released()) {
           dispatcher.enqueue<action_event>(button.action);
@@ -193,7 +193,7 @@ void update_menus(entt::registry& registry,
   }
 
   for (const auto bindEntity : menu.binds) {
-    const auto& bind = registry.get<comp::ui_bind>(bindEntity);
+    const auto& bind = registry.get<comp::UiBind>(bindEntity);
     if (input.was_released(bind.key)) {
       dispatcher.enqueue<action_event>(bind.action);
     }
@@ -202,21 +202,21 @@ void update_menus(entt::registry& registry,
 
 void switch_menu(entt::registry& registry, const menu_id menu)
 {
-  auto& ctx = registry.ctx<comp::ui_menu_ctx>();
+  auto& ctx = registry.ctx<comp::UiMenus>();
   ctx.active_menu = ctx.menus.at(menu);
 }
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto& ctx = registry.ctx<comp::ui_menu_ctx>();
-  const auto& menu = registry.get<comp::ui_menu>(ctx.active_menu);
+  const auto& ctx = registry.ctx<comp::UiMenus>();
+  const auto& menu = registry.get<comp::UiMenu>(ctx.active_menu);
   return menu.blocking;
 }
 
 void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& renderer = graphics.renderer();
-  for (auto&& [entity, label] : registry.view<comp::ui_label>().each()) {
+  for (auto&& [entity, label] : registry.view<comp::UiLabel>().each()) {
     WANDERER_ASSERT(!label.text.empty());
 
     if (!label.texture) {
@@ -231,11 +231,11 @@ void render_active_menu(const entt::registry& registry,
                         graphics_ctx& graphics,
                         const settings& settings)
 {
-  const auto& menus = registry.ctx<comp::ui_menu_ctx>();
+  const auto& menus = registry.ctx<comp::UiMenus>();
   const auto menuEntity = menus.active_menu;
   WANDERER_ASSERT(menuEntity != entt::null);
 
-  const auto& menu = registry.get<comp::ui_menu>(menuEntity);
+  const auto& menu = registry.get<comp::UiMenu>(menuEntity);
 
   if (menu.blocking) {
     constexpr auto bg = cen::colors::black.with_alpha(100);
@@ -265,8 +265,8 @@ void render_button(const entt::registry& registry,
   /* Render label first since we base the button frame on the label position */
   render_label(registry, buttonEntity, graphics);
 
-  const auto& button = registry.get<comp::ui_button>(buttonEntity);
-  const auto& label = registry.get<comp::ui_label>(buttonEntity);
+  const auto& button = registry.get<comp::UiButton>(buttonEntity);
+  const auto& label = registry.get<comp::UiLabel>(buttonEntity);
 
   WANDERER_ASSERT(label.texture.has_value());
   const auto& texture = label.texture.value();
@@ -284,11 +284,11 @@ void render_button(const entt::registry& registry,
   renderer.set_color(button_bg.with_alpha(20));
   renderer.fill_rect(bounds);
 
-  renderer.set_color((button.state & comp::ui_button::hover_bit) ? cen::colors::lime_green
-                                                                 : cen::colors::white);
+  renderer.set_color((button.state & comp::UiButton::hover_bit) ? cen::colors::lime_green
+                                                                : cen::colors::white);
   renderer.draw_rect(bounds);
 
-  if (const auto* toggle = registry.try_get<comp::ui_setting_toggle>(buttonEntity)) {
+  if (const auto* toggle = registry.try_get<comp::UiSettingsToggle>(buttonEntity)) {
     const auto x = bounds.max_x() + 5;
     const auto y = bounds.y();
 
@@ -315,8 +315,8 @@ void render_label(const entt::registry& registry,
                   graphics_ctx& graphics)
 {
   const auto& cfg = registry.ctx<game_cfg>();
-  const auto& label = registry.get<comp::ui_label>(labelEntity);
-  const auto& anchor = registry.get<comp::ui_anchor>(labelEntity);
+  const auto& label = registry.get<comp::UiLabel>(labelEntity);
+  const auto& anchor = registry.get<comp::UiAnchor>(labelEntity);
 
   WANDERER_ASSERT(label.texture.has_value());
   const auto size = label.texture->size().as_f();
@@ -336,8 +336,8 @@ void render_line(const entt::registry& registry,
                  graphics_ctx& graphics)
 {
   const auto& cfg = registry.ctx<game_cfg>();
-  const auto& line = registry.get<comp::ui_line>(lineEntity);
-  const auto& anchor = registry.get<comp::ui_anchor>(lineEntity);
+  const auto& line = registry.get<comp::UiLine>(lineEntity);
+  const auto& anchor = registry.get<comp::UiAnchor>(lineEntity);
 
   const auto start =
       _calculate_position(line.start, {0, 0}, cfg, anchor.horizontal, anchor.vertical);

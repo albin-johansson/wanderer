@@ -44,16 +44,16 @@ void _create_player(entt::registry& registry,
                     const game_cfg& cfg)
 {
   const auto playerEntity = registry.create();
-  registry.emplace<comp::player>(playerEntity);
-  registry.emplace<comp::humanoid>(playerEntity);
+  registry.emplace<comp::Player>(playerEntity);
+  registry.emplace<comp::Humanoid>(playerEntity);
 
-  auto& object = registry.emplace<comp::game_object>(playerEntity);
+  auto& object = registry.emplace<comp::GameObject>(playerEntity);
   object.position = position;
   object.size = cfg.humanoid_draw_size;
 
-  registry.emplace<comp::viewport_target>(playerEntity);
+  registry.emplace<comp::ViewportTarget>(playerEntity);
 
-  auto& light = registry.emplace<comp::point_light>(playerEntity);
+  auto& light = registry.emplace<comp::PointLight>(playerEntity);
   light.offset = cfg.humanoid_draw_size / 2.0f;
   light.fluctuation = 0;
   light.step_size = 0;
@@ -68,17 +68,17 @@ void _create_player(entt::registry& registry,
                         5,
                         {object.size.x / 4.0f, object.size.y / 4.0f});
 
-  const auto& map = registry.ctx<comp::tilemap>();
+  const auto& map = registry.ctx<comp::Tilemap>();
 
-  auto& drawable = registry.emplace<comp::drawable>(playerEntity);
+  auto& drawable = registry.emplace<comp::Drawable>(playerEntity);
   drawable.texture = graphics.load_texture("resources/images/player.png");
   drawable.layer_index = map.humanoid_layer_index;
   drawable.depth_index = 4;  // TODO
   drawable.src.set_size(64, 64);
 
-  registry.emplace<comp::animation>(playerEntity);
+  registry.emplace<comp::Animation>(playerEntity);
 
-  auto& seq = registry.emplace<comp::seq_animation>(playerEntity);
+  auto& seq = registry.emplace<comp::SeqAnimation>(playerEntity);
   seq.frame_size = {64, 64};
 
   sys::enter_humanoid_idle_animation(registry, playerEntity, direction_down_bit);
@@ -97,7 +97,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
 
   auto registry = sys::make_level_registry(cfg);
 
-  auto& map = registry.ctx<comp::tilemap>();
+  auto& map = registry.ctx<comp::Tilemap>();
   json.at("height").get_to(map.row_count);
   json.at("width").get_to(map.col_count);
 
@@ -106,7 +106,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
 
   map.humanoid_layer_index = tiled::get_property<int32>(json, "humanoid-layer");
 
-  auto& viewport = registry.ctx<comp::viewport>();
+  auto& viewport = registry.ctx<comp::Viewport>();
   viewport.keep_in_bounds = tiled::get_property<bool>(json, "is-outside");
 
   const auto dir = path.parent_path();
@@ -125,15 +125,15 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
   }
 
   /* Make sure that tile layers are stored in the intended order for rendering */
-  registry.storage<comp::tile_layer>().sort(
+  registry.storage<comp::TileLayer>().sort(
       [&](const entt::entity a, const entt::entity b) {
-        const auto& left = registry.get<comp::tile_layer>(a);
-        const auto& right = registry.get<comp::tile_layer>(b);
+        const auto& left = registry.get<comp::TileLayer>(a);
+        const auto& right = registry.get<comp::TileLayer>(b);
         return left.z < right.z;
       });
 
   for (auto&& [entity, object, spawn] :
-       registry.view<comp::game_object, comp::spawn_point>().each()) {
+       registry.view<comp::GameObject, comp::SpawnPoint>().each()) {
     if (spawn.mob == mob_type::player) {
       _create_player(registry, graphics, object.position, cfg);
     }

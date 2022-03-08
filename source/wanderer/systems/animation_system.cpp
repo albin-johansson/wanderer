@@ -32,7 +32,7 @@ namespace {
 
 void update_animations(entt::registry& registry)
 {
-  for (auto&& [entity, animation] : registry.view<comp::animation>().each()) {
+  for (auto&& [entity, animation] : registry.view<comp::Animation>().each()) {
     const auto now = cen::ticks64();
     const auto elapsed = now - animation.then;
 
@@ -47,7 +47,7 @@ void update_animations(entt::registry& registry)
   }
 
   for (auto&& [entity, animation, seq, drawable] :
-       registry.view<comp::animation, comp::seq_animation, comp::drawable>().each()) {
+       registry.view<comp::Animation, comp::SeqAnimation, comp::Drawable>().each()) {
     drawable.src.set_x(static_cast<int32>(animation.frame) * seq.frame_size.x);
   }
 }
@@ -57,9 +57,9 @@ void enter_humanoid_idle_animation(entt::registry& registry,
                                    const uint32 directionMask)
 {
   WANDERER_ASSERT(humanoidEntity != entt::null);
-  WANDERER_ASSERT(registry.all_of<comp::humanoid>(humanoidEntity));
+  WANDERER_ASSERT(registry.all_of<comp::Humanoid>(humanoidEntity));
 
-  auto& animation = registry.get<comp::animation>(humanoidEntity);
+  auto& animation = registry.get<comp::Animation>(humanoidEntity);
   animation.then = cen::ticks64();
   animation.frame = 0;
   animation.frame_count = 1;
@@ -68,7 +68,7 @@ void enter_humanoid_idle_animation(entt::registry& registry,
   animation.delays.clear();
   animation.delays.push_back(100_ms);
 
-  auto& drawable = registry.get<comp::drawable>(humanoidEntity);
+  auto& drawable = registry.get<comp::Drawable>(humanoidEntity);
   drawable.src.set_x(0);
   drawable.src.set_y(64);  // TODO direction
 }
@@ -78,9 +78,9 @@ void enter_humanoid_walk_animation(entt::registry& registry,
                                    const uint32 directionMask)
 {
   WANDERER_ASSERT(humanoidEntity != entt::null);
-  WANDERER_ASSERT(registry.all_of<comp::humanoid>(humanoidEntity));
+  WANDERER_ASSERT(registry.all_of<comp::Humanoid>(humanoidEntity));
 
-  auto& animation = registry.get<comp::animation>(humanoidEntity);
+  auto& animation = registry.get<comp::Animation>(humanoidEntity);
   animation.then = cen::ticks64();
   animation.frame = 0;
   animation.frame_count = 9;
@@ -89,8 +89,8 @@ void enter_humanoid_walk_animation(entt::registry& registry,
   animation.delays.clear();
   animation.delays.push_back(80_ms);
 
-  const auto& seq = registry.get<comp::seq_animation>(humanoidEntity);
-  auto& drawable = registry.get<comp::drawable>(humanoidEntity);
+  const auto& seq = registry.get<comp::SeqAnimation>(humanoidEntity);
+  auto& drawable = registry.get<comp::Drawable>(humanoidEntity);
   drawable.src.set_x(0);
 
   const auto direction = _dominant_direction(directionMask);

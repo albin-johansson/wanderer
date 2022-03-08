@@ -56,7 +56,7 @@ struct level_info final
 void parse_levels(entt::registry& shared, graphics_ctx& graphics)
 {
   const auto& cfg = shared.ctx<game_cfg>();
-  auto& levels = shared.ctx<comp::level_ctx>();
+  auto& levels = shared.ctx<comp::Levels>();
   maybe<level_id> first;
 
   for (const auto& info : parse_level_paths()) {

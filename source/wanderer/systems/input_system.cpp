@@ -71,8 +71,8 @@ void update_input(entt::dispatcher& dispatcher, const input_state& input)
 
 void on_move_player(entt::registry& registry, const move_player_event& event)
 {
-  const auto entity = registry.view<comp::player>().front();
-  auto& body = registry.get<comp::physics_body>(entity);
+  const auto entity = registry.view<comp::Player>().front();
+  auto& body = registry.get<comp::PhysicsBody>(entity);
 
   auto velocity = body.data->GetLinearVelocity();
   const auto prevVelocity = glmx::from_b2(velocity);
@@ -120,8 +120,8 @@ void on_move_player(entt::registry& registry, const move_player_event& event)
 
 void on_stop_player(entt::registry& registry, const stop_player_event& event)
 {
-  const auto entity = registry.view<comp::player>().front();
-  auto& body = registry.get<comp::physics_body>(entity);
+  const auto entity = registry.view<comp::Player>().front();
+  auto& body = registry.get<comp::PhysicsBody>(entity);
 
   auto velocity = body.data->GetLinearVelocity();
   const auto prevVelocity = glmx::from_b2(velocity);

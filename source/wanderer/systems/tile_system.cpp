@@ -11,13 +11,13 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto _tile_to_render(const entt::registry& registry,
-                                   const comp::tileset& tileset,
+                                   const comp::Tileset& tileset,
                                    const entt::entity tileEntity) -> entt::entity
 {
-  if (const auto* animation = registry.try_get<comp::animation>(tileEntity)) {
+  if (const auto* animation = registry.try_get<comp::Animation>(tileEntity)) {
     if (const auto iter = tileset.effective_appearance.find(tileEntity);
         iter == tileset.effective_appearance.end()) {
-      const auto& tileAnimation = registry.get<comp::tile_animation>(tileEntity);
+      const auto& tileAnimation = registry.get<comp::TileAnimation>(tileEntity);
 
       const auto tileToRenderId = tileAnimation.frames.at(animation->frame);
       const auto tileToRenderEntity = tileset.tiles.at(tileToRenderId);
@@ -36,13 +36,13 @@ namespace {
 }
 
 void _render_tile(const entt::registry& registry,
-                  const comp::tileset& tileset,
+                  const comp::Tileset& tileset,
                   const entt::entity tileEntity,
                   const glm::vec4& dest,
                   graphics_ctx& graphics)
 {
   const auto tileToRenderEntity = _tile_to_render(registry, tileset, tileEntity);
-  const auto tileToRender = registry.get<comp::tile_info>(tileToRenderEntity);
+  const auto tileToRender = registry.get<comp::TileInfo>(tileToRenderEntity);
   graphics.render_texture(tileToRender.texture, tileToRender.source, dest);
 }
 
@@ -64,19 +64,19 @@ void _render_tile(const entt::registry& registry,
 
 void clear_effective_appearance_tile_cache(entt::registry& registry)
 {
-  auto& tileset = registry.ctx<comp::tileset>();
+  auto& tileset = registry.ctx<comp::Tileset>();
   tileset.effective_appearance.clear();
 }
 
 void update_tile_objects(entt::registry& registry)
 {
-  const auto& tileset = registry.ctx<comp::tileset>();
-  for (auto&& [entity, object] : registry.view<comp::tile_object>().each()) {
+  const auto& tileset = registry.ctx<comp::Tileset>();
+  for (auto&& [entity, object] : registry.view<comp::TileObject>().each()) {
     const auto renderedTileEntity =
         _tile_to_render(registry, tileset, object.tile_entity);
     if (renderedTileEntity != object.tile_entity) {
-      const auto& tile = registry.get<comp::tile_info>(renderedTileEntity);
-      auto& drawable = registry.get<comp::drawable>(entity);
+      const auto& tile = registry.get<comp::TileInfo>(renderedTileEntity);
+      auto& drawable = registry.get<comp::Drawable>(entity);
       drawable.src = as_rect(tile.source);
     }
   }
@@ -85,11 +85,11 @@ void update_tile_objects(entt::registry& registry)
 void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
 {
   const auto& cfg = registry.ctx<game_cfg>();
-  const auto& bounds = registry.ctx<comp::render_bounds>();
-  const auto& viewport = registry.ctx<comp::viewport>();
-  const auto& tileset = registry.ctx<comp::tileset>();
+  const auto& bounds = registry.ctx<comp::RenderBounds>();
+  const auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& tileset = registry.ctx<comp::Tileset>();
 
-  for (auto&& [entity, layer] : registry.view<comp::tile_layer>().each()) {
+  for (auto&& [entity, layer] : registry.view<comp::TileLayer>().each()) {
     for (usize row = bounds.begin_row; row < bounds.end_row; ++row) {
       for (usize col = bounds.begin_col; col < bounds.end_col; ++col) {
         WANDERER_ASSERT(row < layer.tiles.size());

@@ -15,7 +15,7 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
                                    const tile_id first,
                                    const glm::vec2& tileSizeRatio)
 {
-  const auto& tileset = registry.ctx<comp::tileset>();
+  const auto& tileset = registry.ctx<comp::Tileset>();
 
   for (const auto& [_, tileJson] : tilesetJson.at("tiles").items()) {
     const auto localId = tileJson.at("id").get<tile_id>();
@@ -23,12 +23,12 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
 
     const auto tileEntity = tileset.tiles.at(globalId);
 
-    auto& info = registry.get<comp::tile_info>(tileEntity);
+    auto& info = registry.get<comp::TileInfo>(tileEntity);
     info.depth_index = get_property<int32>(tileJson, "depth", info.depth_index);
 
     if (tileJson.contains("animation")) {
-      auto& animation = registry.emplace<comp::animation>(tileEntity);
-      auto& tileAnimation = registry.emplace<comp::tile_animation>(tileEntity);
+      auto& animation = registry.emplace<comp::Animation>(tileEntity);
+      auto& tileAnimation = registry.emplace<comp::TileAnimation>(tileEntity);
 
       const auto arr = tileJson.at("animation");
       animation.frame_count = arr.size();
@@ -54,7 +54,7 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
 
       const auto& objectJson = objects.at(0);
 
-      auto& hitbox = registry.emplace<comp::tile_hitbox>(tileEntity);
+      auto& hitbox = registry.emplace<comp::TileHitbox>(tileEntity);
       hitbox.offset.x = objectJson.at("x").get<float32>() * tileSizeRatio.x;
       hitbox.offset.y = objectJson.at("y").get<float32>() * tileSizeRatio.y;
       hitbox.size.x = objectJson.at("width").get<float32>() * tileSizeRatio.x;
@@ -69,7 +69,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       entt::registry& registry,
                                       graphics_ctx& graphics)
 {
-  auto& tileset = registry.ctx<comp::tileset>();
+  auto& tileset = registry.ctx<comp::Tileset>();
 
   const auto tileWidth = json.at("tilewidth").get<int32>();
   const auto tileHeight = json.at("tileheight").get<int32>();
@@ -83,14 +83,14 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
 
   tileset.tiles.reserve(tileset.tiles.bucket_count() + count);
 
-  const auto humanoidLayerIndex = registry.ctx<comp::tilemap>().humanoid_layer_index;
+  const auto humanoidLayerIndex = registry.ctx<comp::Tilemap>().humanoid_layer_index;
   int32 index = 0;
 
   for (tile_id id = firstId; id < end; ++id, ++index) {
     const auto entity = registry.create();
     tileset.tiles[id] = entity;
 
-    auto& info = registry.emplace<comp::tile_info>(entity);
+    auto& info = registry.emplace<comp::TileInfo>(entity);
     info.texture = textureId;
     info.depth_index = humanoidLayerIndex;
 

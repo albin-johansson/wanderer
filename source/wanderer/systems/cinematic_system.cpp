@@ -15,7 +15,7 @@ using namespace cen::literals::time_literals;
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto _determine_cinematic_text_alpha(const comp::cinematic_fade& cinematic)
+[[nodiscard]] auto _determine_cinematic_text_alpha(const comp::CinematicFade& cinematic)
     -> uint8
 {
   auto asFloat = [](auto duration) { return static_cast<float64>(duration.count()); };
@@ -41,7 +41,7 @@ namespace {
 
 void schedule_startup_cinematic_fade(entt::registry& registry)
 {
-  auto& cinematic = registry.set<comp::cinematic_fade>();
+  auto& cinematic = registry.set<comp::CinematicFade>();
   cinematic.start = cen::ticks64();
   if constexpr (is_release_build) {
     cinematic.transition = 750_ms;
@@ -55,47 +55,47 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
 
   {
     const auto titleEntity = cinematic.labels.emplace_back(registry.create());
-    auto& title = registry.emplace<comp::ui_label>(titleEntity);
+    auto& title = registry.emplace<comp::UiLabel>(titleEntity);
     title.offset = {0, -0.1f};
     title.text = "Wanderer";
     title.color = cen::colors::white;
     title.size = font_size::huge;
 
-    auto& anchor = registry.emplace<comp::ui_anchor>(titleEntity);
-    anchor.horizontal = h_anchor::center;
-    anchor.vertical = v_anchor::center;
+    auto& anchor = registry.emplace<comp::UiAnchor>(titleEntity);
+    anchor.horizontal = HAnchor::center;
+    anchor.vertical = VAnchor::center;
   }
 
   {
     const auto labelEntity = cinematic.labels.emplace_back(registry.create());
-    auto& text = registry.emplace<comp::ui_label>(labelEntity);
+    auto& text = registry.emplace<comp::UiLabel>(labelEntity);
     text.offset = {0, 0};
     text.text = "A game by Albin Johansson";
     text.color = cen::colors::white;
     text.size = font_size::medium;
 
-    auto& anchor = registry.emplace<comp::ui_anchor>(labelEntity);
-    anchor.horizontal = h_anchor::center;
-    anchor.vertical = v_anchor::center;
+    auto& anchor = registry.emplace<comp::UiAnchor>(labelEntity);
+    anchor.horizontal = HAnchor::center;
+    anchor.vertical = VAnchor::center;
   }
 
   {
     const auto labelEntity = cinematic.labels.emplace_back(registry.create());
-    auto& text = registry.emplace<comp::ui_label>(labelEntity);
+    auto& text = registry.emplace<comp::UiLabel>(labelEntity);
     text.offset = {0.01f, 0.01f};
     text.text = wanderer_version;
     text.color = cen::color{0x50, 0x50, 0x50};
     text.size = font_size::medium;
 
-    auto& anchor = registry.emplace<comp::ui_anchor>(labelEntity);
-    anchor.horizontal = h_anchor::left;
-    anchor.vertical = v_anchor::bottom;
+    auto& anchor = registry.emplace<comp::UiAnchor>(labelEntity);
+    anchor.horizontal = HAnchor::left;
+    anchor.vertical = VAnchor::bottom;
   }
 }
 
 void update_cinematic_fade(entt::registry& registry)
 {
-  if (auto* cinematic = registry.try_ctx<comp::cinematic_fade>()) {
+  if (auto* cinematic = registry.try_ctx<comp::CinematicFade>()) {
     const auto diff = cen::ticks64() - cinematic->start;
     const auto total = (cinematic->transition * 2u) + cinematic->pause;
     if (diff >= total) {
@@ -103,20 +103,20 @@ void update_cinematic_fade(entt::registry& registry)
         registry.destroy(labelEntity);
       }
 
-      registry.unset<comp::cinematic_fade>();
+      registry.unset<comp::CinematicFade>();
     }
   }
 }
 
 void render_cinematic_fade(const entt::registry& registry, graphics_ctx& graphics)
 {
-  if (const auto* cinematic = registry.try_ctx<comp::cinematic_fade>()) {
+  if (const auto* cinematic = registry.try_ctx<comp::CinematicFade>()) {
     graphics.renderer().fill_with(cinematic->bg);
 
     const auto alpha = _determine_cinematic_text_alpha(*cinematic);
 
     for (const auto labelEntity : cinematic->labels) {
-      const auto& label = registry.get<comp::ui_label>(labelEntity);
+      const auto& label = registry.get<comp::UiLabel>(labelEntity);
       label.texture.value().set_alpha_mod(alpha);
       render_label(registry, labelEntity, graphics);
     }
@@ -125,7 +125,7 @@ void render_cinematic_fade(const entt::registry& registry, graphics_ctx& graphic
 
 auto is_cinematic_fade_active(const entt::registry& registry) -> bool
 {
-  return registry.try_ctx<comp::cinematic_fade>() != nullptr;
+  return registry.try_ctx<comp::CinematicFade>() != nullptr;
 }
 
 }  // namespace wanderer::sys
