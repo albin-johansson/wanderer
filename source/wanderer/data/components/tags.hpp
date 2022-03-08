@@ -11,6 +11,12 @@ namespace wanderer::comp {
 struct player final
 {};
 
+/**
+ * \brief Tag component used to identify humanoid entities.
+ */
+struct humanoid final
+{};
+
 /// \} End of group components
 
 }  // namespace wanderer::comp
