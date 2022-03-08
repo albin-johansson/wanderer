@@ -28,11 +28,11 @@ void _verify_features(const nlohmann::json& json)
 {
   if (const auto iter = json.find("infinite");
       iter != json.end() && iter.value() != false) {
-    throw_traced(wanderer_error{"Invalid infinite map!"});
+    throw_traced(WandererError{"Invalid infinite map!"});
   }
 
   if (json.at("orientation") != "orthogonal") {
-    throw_traced(wanderer_error{"Only orthogonal maps are supported!"});
+    throw_traced(WandererError{"Only orthogonal maps are supported!"});
   }
 
   // TODO version

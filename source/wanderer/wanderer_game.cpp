@@ -190,7 +190,7 @@ void WandererGame::on_action(const ActionEvent& event)
       break;
     }
     default:
-      throw_traced(wanderer_error{"Invalid action!"});
+      throw_traced(WandererError{"Invalid action!"});
   }
 }
 

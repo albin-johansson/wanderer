@@ -49,7 +49,7 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
       const auto& objects = tileJson.at("objectgroup").at("objects");
 
       if (objects.size() != 1) {
-        throw_traced(wanderer_error{"Tiles must only feature one object!"});
+        throw_traced(WandererError{"Tiles must only feature one object!"});
       }
 
       const auto& objectJson = objects.at(0);

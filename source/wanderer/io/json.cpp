@@ -18,7 +18,7 @@ auto read_json(const std::filesystem::path& path) -> nlohmann::json
     return json;
   }
   catch (const std::exception& e) {
-    throw_traced(wanderer_error{e.what()});
+    throw_traced(WandererError{e.what()});
   }
 }
 

@@ -153,7 +153,7 @@ auto Graphics::get_pixelated_font(const FontSize size) -> cen::font&
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_h).get_font();
 
     default:
-      throw_traced(wanderer_error{"Invalid font size!"});
+      throw_traced(WandererError{"Invalid font size!"});
   }
 }
 
@@ -173,7 +173,7 @@ auto Graphics::get_handwriting_font(const FontSize size) -> cen::font&
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_h).get_font();
 
     default:
-      throw_traced(wanderer_error{"Invalid font size!"});
+      throw_traced(WandererError{"Invalid font size!"});
   }
 }
 

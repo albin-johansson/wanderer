@@ -17,7 +17,7 @@ template <typename T>
     }
   }
 
-  throw_traced(wanderer_error{"Could not find property with the specified name!"});
+  throw_traced(WandererError{"Could not find property with the specified name!"});
 }
 
 template <typename T>

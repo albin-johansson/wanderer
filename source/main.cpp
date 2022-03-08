@@ -86,7 +86,7 @@ int main(int argc, char** argv)
                     "Unhandled exception message: '{}'\n",
                     e.what());
 
-    if (const auto* stacktrace = boost::get_error_info<wanderer::trace_info>(e)) {
+    if (const auto* stacktrace = boost::get_error_info<wanderer::TraceInfo>(e)) {
       wanderer::print(fmt::color::hot_pink, "{}\n", *stacktrace);
     }
 

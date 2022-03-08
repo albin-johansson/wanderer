@@ -45,7 +45,7 @@ struct level_info final
   }
 
   if (levels.empty()) {
-    throw_traced(wanderer_error{"Found no levels to load!"});
+    throw_traced(WandererError{"Found no levels to load!"});
   }
 
   return levels;
@@ -63,7 +63,7 @@ void parse_levels(entt::registry& shared, Graphics& graphics)
     debug("Loading level '{}' from {}", info.id, info.source);
 
     if (levels.levels.contains(info.id)) {
-      throw_traced(wanderer_error{"Detected duplicate level identifiers!"});
+      throw_traced(WandererError{"Detected duplicate level identifiers!"});
     }
 
     if (!first) {
@@ -79,7 +79,7 @@ void parse_levels(entt::registry& shared, Graphics& graphics)
     //
     // }
     else {
-      throw_traced(wanderer_error{"Unsupported map file extension!"});
+      throw_traced(WandererError{"Unsupported map file extension!"});
     }
   }
 

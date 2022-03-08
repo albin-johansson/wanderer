@@ -36,7 +36,7 @@ auto short_name(const DayOfWeek day) -> std::string_view
       return "SUN";
 
     default:
-      throw_traced(wanderer_error{"Invalid day!"});
+      throw_traced(WandererError{"Invalid day!"});
   }
 }
 

@@ -38,7 +38,7 @@ void sort_drawables(entt::registry& registry, const sort_strategy strategy)
       break;
 
     default:
-      throw_traced(wanderer_error{"Invalid sort strategy!"});
+      throw_traced(WandererError{"Invalid sort strategy!"});
   }
 }
 
