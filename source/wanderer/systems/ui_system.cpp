@@ -18,7 +18,7 @@ namespace {
 
 [[nodiscard]] auto _calculate_position(const glm::vec2& offset,
                                        const glm::vec2& size,
-                                       const game_cfg& cfg,
+                                       const GameConfig& cfg,
                                        const HAnchor halign,
                                        const VAnchor valign) -> glm::vec2
 {
@@ -61,9 +61,9 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Credits")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 0.25f})
+      .button("Return", Action::goto_main_menu, {0, 0.25f})
       .m_label("Textures by ...", {0, 0.4f}, HAnchor::center, VAnchor::top)
-      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .bind(cen::scancodes::escape, Action::goto_main_menu)
       .result();
 }
 
@@ -74,14 +74,14 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Saves")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 0.25f})
+      .button("Return", Action::goto_main_menu, {0, 0.25f})
 
-      .button("      <      ", action_id::noop, {0.14f, 0.10f}, ha::left, va::bottom)
-      .button("      >      ", action_id::noop, {0.24f, 0.10f}, ha::left, va::bottom)
+      .button("      <      ", Action::noop, {0.14f, 0.10f}, ha::left, va::bottom)
+      .button("      >      ", Action::noop, {0.24f, 0.10f}, ha::left, va::bottom)
       // .line({0.22f, 0.35f}, {0.22f, 0.92f}, ha::left, va::top)
 
-      .button("Load", action_id::noop, {0.38f, 0.10f}, ha::left, va::bottom)
-      .button("Delete", action_id::noop, {0.46f, 0.10f}, ha::left, va::bottom)
+      .button("Load", Action::noop, {0.38f, 0.10f}, ha::left, va::bottom)
+      .button("Delete", Action::noop, {0.46f, 0.10f}, ha::left, va::bottom)
 
       /* Vertical lines */
       .line({0.09f, 0.35f}, {0.09f, 0.92f}, ha::left, va::top)
@@ -94,7 +94,7 @@ namespace {
       .line({0.10f, 0.15f}, {0.34f, 0.15f}, ha::left, va::bottom)
       // .line({0.10f, 0.34f}, {0.34f, 0.34f}, ha::left, va::top)
 
-      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .bind(cen::scancodes::escape, Action::goto_main_menu)
       .result();
 }
 
@@ -103,26 +103,26 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Options")
       .blocking()
-      .button("Return", action_id::goto_main_menu, {0, 0.25f})
+      .button("Return", Action::goto_main_menu, {0, 0.25f})
       .toggle("Fullscreen",
-              action_id::toggle_fullscreen,
+              Action::toggle_fullscreen,
               settings::fullscreen_bit,
               {0.45f, 0.40f},
               HAnchor::right,
               VAnchor::top)
       .toggle("VSync",
-              action_id::toggle_vsync,
+              Action::toggle_vsync,
               settings::vsync_bit,
               {0.45f, 0.50f},
               HAnchor::right,
               VAnchor::top)
       .toggle("Integer Scaling",
-              action_id::toggle_integer_scaling,
+              Action::toggle_integer_scaling,
               settings::integer_scaling_bit,
               {0.45f, 0.60f},
               HAnchor::right,
               VAnchor::top)
-      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .bind(cen::scancodes::escape, Action::goto_main_menu)
       .result();
 }
 
@@ -131,23 +131,23 @@ namespace {
   return ui::menu_builder::build(registry)
       .title("Wanderer")
       .blocking()
-      .button("Play", action_id::goto_game, {0, 0.25f})
-      .button("Options", action_id::goto_options_menu, {0, 0.40f})
-      .button("Saves", action_id::goto_saves_menu, {0, 0.50f})
-      .button("Credits", action_id::goto_credits_menu, {0, 0.60f})
-      .button("Quit", action_id::quit, {0, 0.75f})
+      .button("Play", Action::goto_game, {0, 0.25f})
+      .button("Options", Action::goto_options_menu, {0, 0.40f})
+      .button("Saves", Action::goto_saves_menu, {0, 0.50f})
+      .button("Credits", Action::goto_credits_menu, {0, 0.60f})
+      .button("Quit", Action::quit, {0, 0.75f})
       .s_label("Albin Johansson ( C) 2018-2022",
                {0.01f, 0.01f},
                HAnchor::left,
                VAnchor::bottom)
-      .bind(cen::scancodes::escape, action_id::goto_game)
+      .bind(cen::scancodes::escape, Action::goto_game)
       .result();
 }
 
 [[nodiscard]] auto _load_game_menu(entt::registry& registry) -> entt::entity
 {
   return ui::menu_builder::build(registry)
-      .bind(cen::scancodes::escape, action_id::goto_main_menu)
+      .bind(cen::scancodes::escape, Action::goto_main_menu)
       .result();
 }
 
@@ -157,18 +157,18 @@ void load_menus(entt::registry& registry)
 {
   auto& ctx = registry.set<comp::UiMenus>();
 
-  ctx.menus[menu_id::game] = _load_game_menu(registry);
-  ctx.menus[menu_id::home] = _load_main_menu(registry);
-  ctx.menus[menu_id::options] = _load_options_menu(registry);
-  ctx.menus[menu_id::saves] = _load_saves_menu(registry);
-  ctx.menus[menu_id::credits] = _load_credits_menu(registry);
+  ctx.menus[MenuId::game] = _load_game_menu(registry);
+  ctx.menus[MenuId::home] = _load_main_menu(registry);
+  ctx.menus[MenuId::options] = _load_options_menu(registry);
+  ctx.menus[MenuId::saves] = _load_saves_menu(registry);
+  ctx.menus[MenuId::credits] = _load_credits_menu(registry);
 
-  ctx.active_menu = ctx.menus.at(menu_id::home);
+  ctx.active_menu = ctx.menus.at(MenuId::home);
 }
 
 void update_menus(entt::registry& registry,
                   entt::dispatcher& dispatcher,
-                  const input_state& input)
+                  const InputState& input)
 {
   const auto& ctx = registry.ctx<comp::UiMenus>();
   const auto menuEntity = ctx.active_menu;
@@ -200,7 +200,7 @@ void update_menus(entt::registry& registry,
   }
 }
 
-void switch_menu(entt::registry& registry, const menu_id menu)
+void switch_menu(entt::registry& registry, const MenuId menu)
 {
   auto& ctx = registry.ctx<comp::UiMenus>();
   ctx.active_menu = ctx.menus.at(menu);
@@ -314,7 +314,7 @@ void render_label(const entt::registry& registry,
                   const entt::entity labelEntity,
                   graphics_ctx& graphics)
 {
-  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& cfg = registry.ctx<GameConfig>();
   const auto& label = registry.get<comp::UiLabel>(labelEntity);
   const auto& anchor = registry.get<comp::UiAnchor>(labelEntity);
 
@@ -335,7 +335,7 @@ void render_line(const entt::registry& registry,
                  entt::entity lineEntity,
                  graphics_ctx& graphics)
 {
-  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& cfg = registry.ctx<GameConfig>();
   const auto& line = registry.get<comp::UiLine>(lineEntity);
   const auto& anchor = registry.get<comp::UiAnchor>(lineEntity);
 

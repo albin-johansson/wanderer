@@ -19,6 +19,6 @@ namespace wanderer::io {
  */
 [[nodiscard]] auto parse_tiled_json_map(const std::filesystem::path& path,
                                         graphics_ctx& graphics,
-                                        const game_cfg& cfg) -> entt::registry;
+                                        const GameConfig& cfg) -> entt::registry;
 
 }  // namespace wanderer::io

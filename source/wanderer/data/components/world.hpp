@@ -54,12 +54,12 @@ struct PhysicsWorld final
  */
 struct DateAndTime final
 {
-  float32 hour{};                        ///< [0, 24)
-  float32 minute{};                      ///< [0, 60)
-  float32 seconds{};                     ///< Reset once per in-game day.
-  int32 week{};                          ///< The week index.
-  day_of_week day{day_of_week::monday};  ///< The current day.
-  cen::color tint;                       ///< Light tint.
+  float32 hour{};                    ///< [0, 24)
+  float32 minute{};                  ///< [0, 60)
+  float32 seconds{};                 ///< Reset once per in-game day.
+  int32 week{};                      ///< The week index.
+  DayOfWeek day{DayOfWeek::monday};  ///< The current day.
+  cen::color tint;                   ///< Light tint.
 };
 
 /**
@@ -67,7 +67,7 @@ struct DateAndTime final
  */
 struct SpawnPoint final
 {
-  mob_type mob{};  ///< The mob type that should be spawned.
+  MobType mob{};  ///< The mob type that should be spawned.
 };
 
 /// \} End of group components

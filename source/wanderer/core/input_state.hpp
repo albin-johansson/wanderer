@@ -6,7 +6,7 @@
 
 namespace wanderer {
 
-class input_state final
+class InputState final
 {
  public:
   void refresh(const cen::renderer& renderer);

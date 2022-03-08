@@ -31,7 +31,7 @@ void _add_label(entt::registry& registry,
 auto _add_button(entt::registry& registry,
                  comp::UiMenu& menu,
                  std::string text,
-                 const action_id action,
+                 const Action action,
                  const glm::vec2& offset,
                  const HAnchor ha,
                  const VAnchor va) -> entt::entity
@@ -139,7 +139,7 @@ auto menu_builder::h_label(std::string text,
 }
 
 auto menu_builder::button(std::string label,
-                          const action_id action,
+                          const Action action,
                           const glm::vec2& offset,
                           const HAnchor ha,
                           const VAnchor va) -> menu_builder&
@@ -149,7 +149,7 @@ auto menu_builder::button(std::string label,
 }
 
 auto menu_builder::toggle(std::string label,
-                          const action_id action,
+                          const Action action,
                           const uint64 flag,
                           const glm::vec2& offset,
                           const HAnchor ha,
@@ -170,8 +170,7 @@ auto menu_builder::toggle(std::string label,
   return *this;
 }
 
-auto menu_builder::bind(const cen::scan_code& key, const action_id action)
-    -> menu_builder&
+auto menu_builder::bind(const cen::scan_code& key, const Action action) -> menu_builder&
 {
   auto& registry = mRegistry.get();
   auto& menu = get_menu();

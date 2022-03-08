@@ -9,7 +9,7 @@ namespace wanderer {
 /**
  * \brief Provides runtime "constants" used by the game.
  */
-struct game_cfg final
+struct GameConfig final
 {
   glm::ivec2 logical_size{};
   glm::vec2 logical_size_f{};
@@ -22,6 +22,6 @@ struct game_cfg final
  *
  * \return a game configuration.
  */
-[[nodiscard]] auto make_game_cfg() -> game_cfg;
+[[nodiscard]] auto make_game_cfg() -> GameConfig;
 
 }  // namespace wanderer

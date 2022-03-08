@@ -104,7 +104,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
   }
 
   if (json.contains("tiles")) {
-    const auto& cfg = registry.ctx<game_cfg>();
+    const auto& cfg = registry.ctx<GameConfig>();
     const auto tileSizeRatio = cfg.tile_size / glm::vec2{tileWidth, tileHeight};
 
     _parse_tileset_tiles_metadata(json, registry, firstId, tileSizeRatio);

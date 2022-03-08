@@ -124,7 +124,7 @@ class menu_builder final
    * \return the builder.
    */
   auto button(std::string label,
-              action_id action,
+              Action action,
               const glm::vec2& offset,
               HAnchor ha = HAnchor::center,
               VAnchor va = VAnchor::top) -> menu_builder&;
@@ -142,7 +142,7 @@ class menu_builder final
    * \return the builder.
    */
   auto toggle(std::string label,
-              action_id action,
+              Action action,
               uint64 flag,
               const glm::vec2& offset,
               HAnchor ha,
@@ -156,7 +156,7 @@ class menu_builder final
    *
    * \return the builder.
    */
-  auto bind(const cen::scan_code& key, action_id action) -> menu_builder&;
+  auto bind(const cen::scan_code& key, Action action) -> menu_builder&;
 
   /**
    * \brief Returns the created menu entity.

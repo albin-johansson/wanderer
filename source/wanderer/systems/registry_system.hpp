@@ -28,7 +28,7 @@ namespace wanderer::sys {
  *
  * \return a registry.
  */
-[[nodiscard]] auto make_main_registry(const game_cfg& cfg) -> entt::registry;
+[[nodiscard]] auto make_main_registry(const GameConfig& cfg) -> entt::registry;
 
 /**
  * \brief Creates a registry for use by individual levels.
@@ -45,7 +45,7 @@ namespace wanderer::sys {
  *
  * \return a registry.
  */
-[[nodiscard]] auto make_level_registry(const game_cfg& cfg) -> entt::registry;
+[[nodiscard]] auto make_level_registry(const GameConfig& cfg) -> entt::registry;
 
 /// \} End of group registry-system
 

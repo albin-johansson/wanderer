@@ -2,7 +2,7 @@
 
 namespace wanderer {
 
-enum class action_id
+enum class Action
 {
   noop,  ///< Do nothing.
   quit,  ///< Quit the game.

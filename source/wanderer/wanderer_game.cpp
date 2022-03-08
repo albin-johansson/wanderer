@@ -23,7 +23,7 @@
 
 namespace wanderer {
 
-wanderer_game::wanderer_game(const game_cfg& cfg)
+WandererGame::WandererGame(const GameConfig& cfg)
     : mCfg{cfg}
     , mSettings{load_settings()}
     , mGraphics{mCfg, mSettings}
@@ -31,7 +31,7 @@ wanderer_game::wanderer_game(const game_cfg& cfg)
 {
   debug("Logical size is {}", cfg.logical_size_f);
 
-  using self = wanderer_game;
+  using self = WandererGame;
   mDispatcher.sink<action_event>().connect<&self::on_action>(this);
   mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);
   mDispatcher.sink<stop_player_event>().connect<&self::on_stop_player>(this);
@@ -43,7 +43,7 @@ wanderer_game::wanderer_game(const game_cfg& cfg)
   sys::update_render_bounds(registry);
 }
 
-void wanderer_game::run()
+void WandererGame::run()
 {
   auto& window = mGraphics.window();
   window.center();
@@ -55,7 +55,7 @@ void wanderer_game::run()
   window.hide();
 }
 
-void wanderer_game::process_events()
+void WandererGame::process_events()
 {
   mInput.refresh(mGraphics.renderer());
 
@@ -75,7 +75,7 @@ void wanderer_game::process_events()
   sys::update_menus(mMainRegistry, mDispatcher, mInput);
 }
 
-void wanderer_game::update(const float32 dt)
+void WandererGame::update(const float32 dt)
 {
   mDispatcher.update();
 
@@ -112,7 +112,7 @@ void wanderer_game::update(const float32 dt)
   }
 }
 
-void wanderer_game::render()
+void WandererGame::render()
 {
   auto& renderer = mGraphics.renderer();
   renderer.clear_with(cen::colors::black);
@@ -133,41 +133,41 @@ void wanderer_game::render()
   renderer.present();
 }
 
-void wanderer_game::on_action(const action_event& event)
+void WandererGame::on_action(const action_event& event)
 {
   switch (event.action) {
-    case action_id::noop:
+    case Action::noop:
       break;
 
-    case action_id::quit:
+    case Action::quit:
       stop();
       break;
 
-    case action_id::goto_game:
-      sys::switch_menu(mMainRegistry, menu_id::game);
+    case Action::goto_game:
+      sys::switch_menu(mMainRegistry, MenuId::game);
       break;
 
-    case action_id::goto_main_menu:
-      sys::switch_menu(mMainRegistry, menu_id::home);
+    case Action::goto_main_menu:
+      sys::switch_menu(mMainRegistry, MenuId::home);
       break;
 
-    case action_id::goto_options_menu:
-      sys::switch_menu(mMainRegistry, menu_id::options);
+    case Action::goto_options_menu:
+      sys::switch_menu(mMainRegistry, MenuId::options);
       break;
 
-    case action_id::goto_saves_menu:
-      sys::switch_menu(mMainRegistry, menu_id::saves);
+    case Action::goto_saves_menu:
+      sys::switch_menu(mMainRegistry, MenuId::saves);
       break;
 
-    case action_id::goto_credits_menu:
-      sys::switch_menu(mMainRegistry, menu_id::credits);
+    case Action::goto_credits_menu:
+      sys::switch_menu(mMainRegistry, MenuId::credits);
       break;
 
-    case action_id::quick_save:
+    case Action::quick_save:
       // TODO
       break;
 
-    case action_id::toggle_fullscreen: {
+    case Action::toggle_fullscreen: {
       const bool enabled = mGraphics.toggle_fullscreen();
 
       if constexpr (on_osx) {
@@ -179,12 +179,12 @@ void wanderer_game::on_action(const action_event& event)
       mSettings.set_flag(settings::fullscreen_bit, enabled);
       break;
     }
-    case action_id::toggle_vsync: {
+    case Action::toggle_vsync: {
       const bool enabled = mGraphics.toggle_vsync();
       mSettings.set_flag(settings::vsync_bit, enabled);
       break;
     }
-    case action_id::toggle_integer_scaling: {
+    case Action::toggle_integer_scaling: {
       const bool enabled = mGraphics.toggle_integer_scaling();
       mSettings.set_flag(settings::integer_scaling_bit, enabled);
       break;
@@ -194,19 +194,19 @@ void wanderer_game::on_action(const action_event& event)
   }
 }
 
-void wanderer_game::on_move_player(const move_player_event& event)
+void WandererGame::on_move_player(const move_player_event& event)
 {
   auto& registry = current_registry();
   sys::on_move_player(registry, event);
 }
 
-void wanderer_game::on_stop_player(const stop_player_event& event)
+void WandererGame::on_stop_player(const stop_player_event& event)
 {
   auto& registry = current_registry();
   sys::on_stop_player(registry, event);
 }
 
-auto wanderer_game::current_registry() -> entt::registry&
+auto WandererGame::current_registry() -> entt::registry&
 {
   auto& levels = mMainRegistry.ctx<comp::Levels>();
   return levels.levels.at(levels.current);

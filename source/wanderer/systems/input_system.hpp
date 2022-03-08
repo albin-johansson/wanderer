@@ -24,7 +24,7 @@ namespace wanderer::sys {
  * \param dispatcher the event dispatcher that will be used.
  * \param input the current input state.
  */
-void update_input(entt::dispatcher& dispatcher, const input_state& input);
+void update_input(entt::dispatcher& dispatcher, const InputState& input);
 
 void on_move_player(entt::registry& registry, const move_player_event& event);
 

@@ -89,9 +89,9 @@ const day_phase _night_phase{_night_hour, _sunrise_hour, {_night_color}};
   }
 }
 
-[[nodiscard]] constexpr auto _day_after(const day_of_week day) noexcept -> day_of_week
+[[nodiscard]] constexpr auto _day_after(const DayOfWeek day) noexcept -> DayOfWeek
 {
-  return day_of_week{(cen::to_underlying(day) + 1) % 7};
+  return DayOfWeek{(cen::to_underlying(day) + 1) % 7};
 }
 
 }  // namespace

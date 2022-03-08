@@ -84,7 +84,7 @@ void update_tile_objects(entt::registry& registry)
 
 void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
 {
-  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& cfg = registry.ctx<GameConfig>();
   const auto& bounds = registry.ctx<comp::RenderBounds>();
   const auto& viewport = registry.ctx<comp::Viewport>();
   const auto& tileset = registry.ctx<comp::Tileset>();

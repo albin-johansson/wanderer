@@ -2,7 +2,7 @@
 
 namespace wanderer {
 
-enum class mob_type
+enum class MobType
 {
   player
 };

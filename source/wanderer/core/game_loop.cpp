@@ -9,11 +9,11 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto make_loop_state() -> loop_state
+[[nodiscard]] auto make_loop_state() -> LoopState
 {
   const auto display = cen::display_mode::desktop();
 
-  loop_state state;
+  LoopState state;
 
   state.rate = std::min(120.0, static_cast<float64>(display.refresh_rate().value()));
   state.fixed_dt = 1.0 / state.rate;
@@ -28,14 +28,14 @@ namespace {
 
 }  // namespace
 
-game_loop::game_loop() : _state{make_loop_state()}
+GameLoop::GameLoop() : _state{make_loop_state()}
 {
   debug("Game loop refresh rate is '{}'", _state.rate);
   debug("Game loop fixed delta is '{}'", _state.fixed_dt);
   debug("Maximum amount of ticks per frame is '{}'", _state.max_ticks_per_frame);
 }
 
-void game_loop::start()
+void GameLoop::start()
 {
   const auto now = [this]() noexcept {
     return static_cast<float64>(cen::now()) / _state.frequency;
@@ -73,7 +73,7 @@ void game_loop::start()
   }
 }
 
-void game_loop::stop()
+void GameLoop::stop()
 {
   _running = false;
 }

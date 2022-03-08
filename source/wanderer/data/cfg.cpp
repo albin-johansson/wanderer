@@ -7,7 +7,7 @@
 
 namespace wanderer {
 
-auto make_game_cfg() -> game_cfg
+auto make_game_cfg() -> GameConfig
 {
   // TODO persistent UI scale factor?
 
@@ -16,7 +16,7 @@ auto make_game_cfg() -> game_cfg
 
   debug("Screen size is {}", glm::vec2{screen.width, screen.height});
 
-  game_cfg cfg;
+  GameConfig cfg;
   cfg.logical_size_f.x = 960;
   cfg.logical_size_f.y = cfg.logical_size_f.x * (screen.height / screen.width);
 

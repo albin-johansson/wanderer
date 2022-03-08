@@ -32,7 +32,7 @@ constexpr int _handwriting_size_h = 32;
 
 }  // namespace
 
-graphics_ctx::graphics_ctx(const game_cfg& cfg, const settings& s)
+graphics_ctx::graphics_ctx(const GameConfig& cfg, const settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
     , mLightCanvas{mRenderer.create_texture(as_area(cfg.logical_size),

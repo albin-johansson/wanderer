@@ -6,33 +6,33 @@
 
 namespace wanderer {
 
-auto full_name(const day_of_week day) -> std::string_view
+auto full_name(const DayOfWeek day) -> std::string_view
 {
   return magic_enum::enum_name(day);
 }
 
-auto short_name(const day_of_week day) -> std::string_view
+auto short_name(const DayOfWeek day) -> std::string_view
 {
   switch (day) {
-    case day_of_week::monday:
+    case DayOfWeek::monday:
       return "MON";
 
-    case day_of_week::tuesday:
+    case DayOfWeek::tuesday:
       return "TUE";
 
-    case day_of_week::wednesday:
+    case DayOfWeek::wednesday:
       return "WED";
 
-    case day_of_week::thursday:
+    case DayOfWeek::thursday:
       return "THU";
 
-    case day_of_week::friday:
+    case DayOfWeek::friday:
       return "FRI";
 
-    case day_of_week::saturday:
+    case DayOfWeek::saturday:
       return "SAT";
 
-    case day_of_week::sunday:
+    case DayOfWeek::sunday:
       return "SUN";
 
     default:

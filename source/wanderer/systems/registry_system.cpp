@@ -10,11 +10,11 @@
 
 namespace wanderer::sys {
 
-auto make_main_registry(const game_cfg& cfg) -> entt::registry
+auto make_main_registry(const GameConfig& cfg) -> entt::registry
 {
   entt::registry registry;
 
-  registry.set<game_cfg>(cfg);
+  registry.set<GameConfig>(cfg);
   registry.set<comp::Levels>();
 
   load_menus(registry);
@@ -22,18 +22,18 @@ auto make_main_registry(const game_cfg& cfg) -> entt::registry
   return registry;
 }
 
-auto make_level_registry(const game_cfg& cfg) -> entt::registry
+auto make_level_registry(const GameConfig& cfg) -> entt::registry
 {
   entt::registry registry;
 
-  registry.set<game_cfg>(cfg);
+  registry.set<GameConfig>(cfg);
   registry.set<comp::Tilemap>();
   registry.set<comp::Tileset>();
   registry.set<comp::RenderBounds>();
 
   // TODO remember to sync this when switching active levels
   auto& date = registry.set<comp::DateAndTime>();
-  date.day = day_of_week::monday;
+  date.day = DayOfWeek::monday;
   date.hour = 0;
   date.minute = 0;
   date.seconds = 14.0f * 3'600.0f;

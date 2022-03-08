@@ -5,7 +5,7 @@ namespace wanderer {
 /**
  * \brief Represents the available game menus.
  */
-enum class menu_id
+enum class MenuId
 {
   game,     ///< In-game menu.
   home,     ///< Main menu.

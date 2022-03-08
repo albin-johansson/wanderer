@@ -19,7 +19,7 @@ constexpr cen::scan_code move_left_key = cen::scancodes::a;
 
 }  // namespace
 
-void update_input(entt::dispatcher& dispatcher, const input_state& input)
+void update_input(entt::dispatcher& dispatcher, const InputState& input)
 {
   const auto moveUp = input.is_pressed(move_up_key);
   const auto moveDown = input.is_pressed(move_down_key);

@@ -4,7 +4,7 @@
 
 namespace wanderer {
 
-struct loop_state final
+struct LoopState final
 {
   float64 rate{};               ///< Refresh rate (in Hz).
   float64 fixed_dt{};           ///< Fixed delta time.
@@ -13,12 +13,12 @@ struct loop_state final
   int32 max_ticks_per_frame{};  ///< Maximum amount of ticks per frame.
 };
 
-class game_loop
+class GameLoop
 {
  public:
-  game_loop();
+  GameLoop();
 
-  virtual ~game_loop() noexcept = default;
+  virtual ~GameLoop() noexcept = default;
 
   void start();
 
@@ -32,7 +32,7 @@ class game_loop
   virtual void render() {}
 
  private:
-  loop_state _state;
+  LoopState _state;
   bool _running{};
 };
 

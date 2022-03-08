@@ -76,7 +76,7 @@ int main(int argc, char** argv)
       cfg.tile_size.y = static_cast<float>(ts->at(1));
     }
 
-    wanderer::wanderer_game game{cfg};
+    wanderer::WandererGame game{cfg};
     game.run();
 
     return 0;

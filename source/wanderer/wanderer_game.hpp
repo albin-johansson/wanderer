@@ -15,10 +15,10 @@ namespace wanderer {
 /**
  * \brief The heart of the game.
  */
-class wanderer_game final : game_loop
+class WandererGame final : GameLoop
 {
  public:
-  explicit wanderer_game(const game_cfg& cfg);
+  explicit WandererGame(const GameConfig& cfg);
 
   void run();
 
@@ -30,11 +30,11 @@ class wanderer_game final : game_loop
   void render() override;
 
  private:
-  game_cfg mCfg;
+  GameConfig mCfg;
   settings mSettings;
 
   graphics_ctx mGraphics;
-  input_state mInput;
+  InputState mInput;
 
   entt::dispatcher mDispatcher;
   entt::registry mMainRegistry;

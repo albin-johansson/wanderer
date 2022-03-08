@@ -41,7 +41,7 @@ void _verify_features(const nlohmann::json& json)
 void _create_player(entt::registry& registry,
                     graphics_ctx& graphics,
                     const glm::vec2& position,
-                    const game_cfg& cfg)
+                    const GameConfig& cfg)
 {
   const auto playerEntity = registry.create();
   registry.emplace<comp::Player>(playerEntity);
@@ -88,7 +88,7 @@ void _create_player(entt::registry& registry,
 
 auto parse_tiled_json_map(const std::filesystem::path& path,
                           graphics_ctx& graphics,
-                          const game_cfg& cfg) -> entt::registry
+                          const GameConfig& cfg) -> entt::registry
 {
   WANDERER_PROFILE_START
 
@@ -134,7 +134,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
 
   for (auto&& [entity, object, spawn] :
        registry.view<comp::GameObject, comp::SpawnPoint>().each()) {
-    if (spawn.mob == mob_type::player) {
+    if (spawn.mob == MobType::player) {
       _create_player(registry, graphics, object.position, cfg);
     }
   }

@@ -7,7 +7,7 @@ namespace wanderer {
 
 struct action_event final
 {
-  action_id action{action_id::noop};
+  Action action{Action::noop};
 };
 
 }  // namespace wanderer

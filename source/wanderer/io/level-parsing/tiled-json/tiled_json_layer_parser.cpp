@@ -19,7 +19,7 @@ void _parse_tile_objects(const nlohmann::json& json,
                          const int32 z)
 {
   const auto& map = registry.ctx<comp::Tilemap>();
-  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& cfg = registry.ctx<GameConfig>();
 
   auto& tileset = registry.ctx<comp::Tileset>();
 
@@ -137,7 +137,7 @@ void _parse_object_layer(const nlohmann::json& json,
     }
     else if (tag == "Spawnpoint") {
       auto& spawn = registry.emplace<comp::SpawnPoint>(entity);
-      spawn.mob = mob_type::player;  // TODO parse mob type
+      spawn.mob = MobType::player;  // TODO parse mob type
     }
 
     // TODO

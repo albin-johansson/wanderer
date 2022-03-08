@@ -15,7 +15,7 @@ constexpr float32 _camera_speed = 10;
 
 void update_render_bounds(entt::registry& registry)
 {
-  const auto& cfg = registry.ctx<game_cfg>();
+  const auto& cfg = registry.ctx<GameConfig>();
   const auto& map = registry.ctx<comp::Tilemap>();
   const auto& viewport = registry.ctx<comp::Viewport>();
 

@@ -45,7 +45,7 @@ struct UiBind final
   /**
    * \brief The action emitted when the key bind is triggered.
    */
-  action_id action{action_id::noop};
+  Action action{Action::noop};
 };
 
 /**
@@ -117,7 +117,7 @@ struct UiButton final
    *
    * \details An `action_event` with this action is emitted when the button is activated.
    */
-  action_id action{};
+  Action action{};
 
   /**
    * \brief Lazily initialized position, based on label attributes.
@@ -184,7 +184,7 @@ struct UiMenus final
   /**
    * \brief Maps menu identifiers to menu entities.
    */
-  hash_map<menu_id, entt::entity> menus;
+  hash_map<MenuId, entt::entity> menus;
 };
 
 /// \} End of group components

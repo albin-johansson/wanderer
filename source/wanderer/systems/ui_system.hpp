@@ -38,7 +38,7 @@ void load_menus(entt::registry& registry);
  */
 void update_menus(entt::registry& registry,
                   entt::dispatcher& dispatcher,
-                  const input_state& input);
+                  const InputState& input);
 
 /**
  * \brief Changes the active menu.
@@ -46,7 +46,7 @@ void update_menus(entt::registry& registry,
  * \param registry the menu registry.
  * \param menu the identifier associated with the menu to enable.
  */
-void switch_menu(entt::registry& registry, menu_id menu);
+void switch_menu(entt::registry& registry, MenuId menu);
 
 /**
  * \brief Indicates whether the currently active menu is blocking.

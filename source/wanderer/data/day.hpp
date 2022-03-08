@@ -10,7 +10,7 @@ namespace wanderer {
 /**
  * \brief Represents the days of the week.
  */
-enum class day_of_week
+enum class DayOfWeek
 {
   monday,
   tuesday,
@@ -28,7 +28,7 @@ enum class day_of_week
  *
  * \return the full day name.
  */
-[[nodiscard]] auto full_name(day_of_week day) -> std::string_view;
+[[nodiscard]] auto full_name(DayOfWeek day) -> std::string_view;
 
 /**
  * \brief Returns the abbreviated name of a day enumerator, e.g. "MON".
@@ -37,7 +37,7 @@ enum class day_of_week
  *
  * \return the abbreviated day name.
  */
-[[nodiscard]] auto short_name(day_of_week day) -> std::string_view;
+[[nodiscard]] auto short_name(DayOfWeek day) -> std::string_view;
 
 /// \} End of group core
 
