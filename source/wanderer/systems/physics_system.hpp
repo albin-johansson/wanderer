@@ -12,7 +12,7 @@ namespace wanderer::sys {
  * \ingroup systems
  * \defgroup physics-system Physics system
  *
- * \brief Manages physics related aspects of the game.
+ * \brief Manages physics-related aspects of the game.
  */
 
 /// \addtogroup physics-system
