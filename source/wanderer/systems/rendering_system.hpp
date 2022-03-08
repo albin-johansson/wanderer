@@ -22,7 +22,7 @@ namespace wanderer::sys {
 /**
  * \brief Represents different approaches to sorting.
  */
-enum class sort_strategy
+enum class SortStrategy
 {
   std,       ///< Use std::sort, which works well with large sets of unsorted data.
   insertion  ///< Use insertion sort, works well when the data is almost sorted.
@@ -34,7 +34,7 @@ enum class sort_strategy
  * \param registry the level registry.
  * \param strategy the strategy used for sorting.
  */
-void sort_drawables(entt::registry& registry, sort_strategy strategy);
+void sort_drawables(entt::registry& registry, SortStrategy strategy);
 
 /**
  * \brief Updates the state of all lights.

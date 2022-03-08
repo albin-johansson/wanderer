@@ -139,7 +139,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
     }
   }
 
-  sys::sort_drawables(registry, sys::sort_strategy::std);
+  sys::sort_drawables(registry, sys::SortStrategy::std);
 
   WANDERER_PROFILE_END("Parsed Tiled JSON map")
   return registry;

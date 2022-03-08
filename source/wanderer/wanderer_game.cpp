@@ -100,7 +100,7 @@ void WandererGame::update(const float32 dt)
        sorting every tick versus every fourth tick is not really noticeable by the player.
        Example: 60Hz -> 0.0167s per tick -> 4 ticks/sort -> 0.067s in between sorts */
     if (static uint64 ticker = 0; ticker % 4 == 0) {
-      sys::sort_drawables(registry, sys::sort_strategy::insertion);
+      sys::sort_drawables(registry, sys::SortStrategy::insertion);
       ++ticker;
     }
 

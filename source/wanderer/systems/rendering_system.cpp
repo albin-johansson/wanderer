@@ -12,7 +12,7 @@
 
 namespace wanderer::sys {
 
-void sort_drawables(entt::registry& registry, const sort_strategy strategy)
+void sort_drawables(entt::registry& registry, const SortStrategy strategy)
 {
   auto sorter = [&](const entt::entity a, const entt::entity b) {
     const auto& lhsDrawable = registry.get<comp::Drawable>(a);
@@ -29,11 +29,11 @@ void sort_drawables(entt::registry& registry, const sort_strategy strategy)
   };
 
   switch (strategy) {
-    case sort_strategy::std:
+    case SortStrategy::std:
       registry.sort<comp::Drawable>(sorter, entt::std_sort{});
       break;
 
-    case sort_strategy::insertion:
+    case SortStrategy::insertion:
       registry.sort<comp::Drawable>(sorter, entt::insertion_sort{});
       break;
 
