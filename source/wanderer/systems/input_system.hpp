@@ -26,9 +26,9 @@ namespace wanderer::sys {
  */
 void update_input(entt::dispatcher& dispatcher, const InputState& input);
 
-void on_move_player(entt::registry& registry, const move_player_event& event);
+void on_move_player(entt::registry& registry, const MovePlayerEvent& event);
 
-void on_stop_player(entt::registry& registry, const stop_player_event& event);
+void on_stop_player(entt::registry& registry, const StopPlayerEvent& event);
 
 /// \} End of group input-system
 

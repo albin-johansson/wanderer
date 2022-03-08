@@ -31,7 +31,7 @@ class WandererGame final : GameLoop
 
  private:
   GameConfig mCfg;
-  settings mSettings;
+  Settings mSettings;
 
   graphics_ctx mGraphics;
   InputState mInput;
@@ -39,11 +39,11 @@ class WandererGame final : GameLoop
   entt::dispatcher mDispatcher;
   entt::registry mMainRegistry;
 
-  void on_action(const action_event& event);
+  void on_action(const ActionEvent& event);
 
-  void on_move_player(const move_player_event& event);
+  void on_move_player(const MovePlayerEvent& event);
 
-  void on_stop_player(const stop_player_event& event);
+  void on_stop_player(const StopPlayerEvent& event);
 
   [[nodiscard]] auto current_registry() -> entt::registry&;
 };

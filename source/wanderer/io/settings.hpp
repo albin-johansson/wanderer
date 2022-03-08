@@ -7,7 +7,7 @@ namespace wanderer {
 /**
  * \brief Represents persistent game settings.
  */
-struct settings final
+struct Settings final
 {
   inline static constexpr uint64 fullscreen_bit = 1u << 0u;
   inline static constexpr uint64 vsync_bit = 1u << 1u;
@@ -43,13 +43,13 @@ struct settings final
  *
  * \return the loaded settings.
  */
-[[nodiscard]] auto load_settings() -> settings;
+[[nodiscard]] auto load_settings() -> Settings;
 
 /**
  * \brief Saves settings to the persistent file directory.
  *
  * \param s the settings that will be saved.
  */
-void save_settings(const settings& s);
+void save_settings(const Settings& s);
 
 }  // namespace wanderer

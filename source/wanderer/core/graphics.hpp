@@ -27,7 +27,7 @@ enum class font_size
 class graphics_ctx final
 {
  public:
-  graphics_ctx(const GameConfig& cfg, const settings& s);
+  graphics_ctx(const GameConfig& cfg, const Settings& s);
 
   /**
    * \brief Toggles the fullscreen mode of the window.

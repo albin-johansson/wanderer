@@ -5,12 +5,12 @@
 
 namespace wanderer {
 
-struct move_player_event final
+struct MovePlayerEvent final
 {
   uint32 direction_mask{};
 };
 
-struct stop_player_event final
+struct StopPlayerEvent final
 {
   uint32 direction_mask{};
 };

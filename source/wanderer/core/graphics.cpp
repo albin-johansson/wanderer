@@ -32,7 +32,7 @@ constexpr int _handwriting_size_h = 32;
 
 }  // namespace
 
-graphics_ctx::graphics_ctx(const GameConfig& cfg, const settings& s)
+graphics_ctx::graphics_ctx(const GameConfig& cfg, const Settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
     , mLightCanvas{mRenderer.create_texture(as_area(cfg.logical_size),
@@ -44,7 +44,7 @@ graphics_ctx::graphics_ctx(const GameConfig& cfg, const settings& s)
   win32::use_immersive_dark_mode(mWindow);
 
   mRenderer.set_logical_size(as_area(cfg.logical_size));
-  mRenderer.set_logical_integer_scaling(s.test_flag(settings::integer_scaling_bit));
+  mRenderer.set_logical_integer_scaling(s.test_flag(Settings::integer_scaling_bit));
   mRenderer.set_blend_mode(cen::blend_mode::blend);
   mLightCanvas.set_blend_mode(cen::blend_mode::mul);
 
@@ -60,9 +60,9 @@ graphics_ctx::graphics_ctx(const GameConfig& cfg, const settings& s)
   mFontBundle.load_font(handwritingPath, _handwriting_size_l);
   mFontBundle.load_font(handwritingPath, _handwriting_size_h);
 
-  mWindow.set_fullscreen_desktop(s.test_flag(settings::fullscreen_bit));
+  mWindow.set_fullscreen_desktop(s.test_flag(Settings::fullscreen_bit));
 
-  mVsync = s.test_flag(settings::vsync_bit);
+  mVsync = s.test_flag(Settings::vsync_bit);
   mRenderer.set_vsync(mVsync);
 
   mLightTextureId = load_texture("resources/images/ardentryst/glow.png");

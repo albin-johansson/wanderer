@@ -106,19 +106,19 @@ namespace {
       .button("Return", Action::goto_main_menu, {0, 0.25f})
       .toggle("Fullscreen",
               Action::toggle_fullscreen,
-              settings::fullscreen_bit,
+              Settings::fullscreen_bit,
               {0.45f, 0.40f},
               HAnchor::right,
               VAnchor::top)
       .toggle("VSync",
               Action::toggle_vsync,
-              settings::vsync_bit,
+              Settings::vsync_bit,
               {0.45f, 0.50f},
               HAnchor::right,
               VAnchor::top)
       .toggle("Integer Scaling",
               Action::toggle_integer_scaling,
-              settings::integer_scaling_bit,
+              Settings::integer_scaling_bit,
               {0.45f, 0.60f},
               HAnchor::right,
               VAnchor::top)
@@ -186,7 +186,7 @@ void update_menus(entt::registry& registry,
         button.state |= comp::UiButton::hover_bit;
 
         if (input.was_lmb_released()) {
-          dispatcher.enqueue<action_event>(button.action);
+          dispatcher.enqueue<ActionEvent>(button.action);
         }
       }
     }
@@ -195,7 +195,7 @@ void update_menus(entt::registry& registry,
   for (const auto bindEntity : menu.binds) {
     const auto& bind = registry.get<comp::UiBind>(bindEntity);
     if (input.was_released(bind.key)) {
-      dispatcher.enqueue<action_event>(bind.action);
+      dispatcher.enqueue<ActionEvent>(bind.action);
     }
   }
 }
@@ -229,7 +229,7 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
 
 void render_active_menu(const entt::registry& registry,
                         graphics_ctx& graphics,
-                        const settings& settings)
+                        const Settings& settings)
 {
   const auto& menus = registry.ctx<comp::UiMenus>();
   const auto menuEntity = menus.active_menu;
@@ -258,7 +258,7 @@ void render_active_menu(const entt::registry& registry,
 void render_button(const entt::registry& registry,
                    const entt::entity buttonEntity,
                    graphics_ctx& graphics,
-                   const settings& settings)
+                   const Settings& settings)
 {
   constexpr cen::color button_bg{0x33, 0x33, 0x33};
 

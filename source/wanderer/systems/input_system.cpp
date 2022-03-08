@@ -29,7 +29,7 @@ void update_input(entt::dispatcher& dispatcher, const InputState& input)
   uint32 mask = 0;
 
   if (moveUp && moveDown) {
-    dispatcher.enqueue<stop_player_event>(direction_up_and_down);
+    dispatcher.enqueue<StopPlayerEvent>(direction_up_and_down);
   }
   else if (moveUp) {
     mask |= direction_up_bit;
@@ -39,7 +39,7 @@ void update_input(entt::dispatcher& dispatcher, const InputState& input)
   }
 
   if (moveLeft && moveRight) {
-    dispatcher.enqueue<stop_player_event>(direction_left_and_right);
+    dispatcher.enqueue<StopPlayerEvent>(direction_left_and_right);
   }
   else if (moveLeft) {
     mask |= direction_left_bit;
@@ -49,27 +49,27 @@ void update_input(entt::dispatcher& dispatcher, const InputState& input)
   }
 
   if (mask != 0) {
-    dispatcher.enqueue<move_player_event>(mask);
+    dispatcher.enqueue<MovePlayerEvent>(mask);
   }
 
   if (input.was_released(move_up_key)) {
-    dispatcher.enqueue<stop_player_event>(direction_up_bit);
+    dispatcher.enqueue<StopPlayerEvent>(direction_up_bit);
   }
 
   if (input.was_released(move_down_key)) {
-    dispatcher.enqueue<stop_player_event>(direction_down_bit);
+    dispatcher.enqueue<StopPlayerEvent>(direction_down_bit);
   }
 
   if (input.was_released(move_left_key)) {
-    dispatcher.enqueue<stop_player_event>(direction_left_bit);
+    dispatcher.enqueue<StopPlayerEvent>(direction_left_bit);
   }
 
   if (input.was_released(move_right_key)) {
-    dispatcher.enqueue<stop_player_event>(direction_right_bit);
+    dispatcher.enqueue<StopPlayerEvent>(direction_right_bit);
   }
 }
 
-void on_move_player(entt::registry& registry, const move_player_event& event)
+void on_move_player(entt::registry& registry, const MovePlayerEvent& event)
 {
   const auto entity = registry.view<comp::Player>().front();
   auto& body = registry.get<comp::PhysicsBody>(entity);
@@ -118,7 +118,7 @@ void on_move_player(entt::registry& registry, const move_player_event& event)
   body.data->SetLinearVelocity(glmx::as_b2(limited));
 }
 
-void on_stop_player(entt::registry& registry, const stop_player_event& event)
+void on_stop_player(entt::registry& registry, const StopPlayerEvent& event)
 {
   const auto entity = registry.view<comp::Player>().front();
   auto& body = registry.get<comp::PhysicsBody>(entity);

@@ -3,11 +3,11 @@
 namespace wanderer {
 
 struct GameConfig;
-struct settings;
+struct Settings;
 
-struct action_event;
-struct move_player_event;
-struct stop_player_event;
+struct ActionEvent;
+struct MovePlayerEvent;
+struct StopPlayerEvent;
 
 class graphics_ctx;
 class InputState;

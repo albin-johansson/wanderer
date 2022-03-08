@@ -5,7 +5,7 @@
 
 namespace wanderer {
 
-struct action_event final
+struct ActionEvent final
 {
   Action action{Action::noop};
 };

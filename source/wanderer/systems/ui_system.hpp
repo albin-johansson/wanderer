@@ -83,12 +83,12 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics);
  */
 void render_active_menu(const entt::registry& registry,
                         graphics_ctx& graphics,
-                        const settings& settings);
+                        const Settings& settings);
 
 void render_button(const entt::registry& registry,
                    entt::entity buttonEntity,
                    graphics_ctx& graphics,
-                   const settings& settings);
+                   const Settings& settings);
 
 void render_label(const entt::registry& registry,
                   entt::entity labelEntity,

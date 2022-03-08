@@ -11,11 +11,11 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto _default_settings() -> settings
+[[nodiscard]] auto _default_settings() -> Settings
 {
-  settings s;
+  Settings s;
 
-  s.flags = settings::fullscreen_bit | settings::vsync_bit;
+  s.flags = Settings::fullscreen_bit | Settings::vsync_bit;
 
   return s;
 }
@@ -28,7 +28,7 @@ namespace {
 
 }  // namespace
 
-void settings::set_flag(const uint64 flag, const bool value) noexcept
+void Settings::set_flag(const uint64 flag, const bool value) noexcept
 {
   if (value) {
     flags |= flag;
@@ -38,12 +38,12 @@ void settings::set_flag(const uint64 flag, const bool value) noexcept
   }
 }
 
-auto settings::test_flag(const uint64 flag) const noexcept -> bool
+auto Settings::test_flag(const uint64 flag) const noexcept -> bool
 {
   return flags & flag;
 }
 
-auto load_settings() -> settings
+auto load_settings() -> Settings
 {
   const auto& path = _settings_file_path();
   debug("Loading settings from {}", path);
@@ -53,24 +53,24 @@ auto load_settings() -> settings
 
     proto::settings in;
     if (in.ParseFromIstream(&stream)) {
-      settings result = _default_settings();
+      Settings result = _default_settings();
 
       if (in.has_fullscreen()) {
-        result.set_flag(settings::fullscreen_bit, in.fullscreen());
+        result.set_flag(Settings::fullscreen_bit, in.fullscreen());
       }
 
       if (in.has_vsync()) {
-        result.set_flag(settings::vsync_bit, in.vsync());
+        result.set_flag(Settings::vsync_bit, in.vsync());
       }
 
       if (in.has_integer_scaling()) {
-        result.set_flag(settings::integer_scaling_bit, in.integer_scaling());
+        result.set_flag(Settings::integer_scaling_bit, in.integer_scaling());
       }
 
-      info("[OPTION] fullscreen = '{}'", result.test_flag(settings::fullscreen_bit));
-      info("[OPTION] vsync = '{}'", result.test_flag(settings::vsync_bit));
+      info("[OPTION] fullscreen = '{}'", result.test_flag(Settings::fullscreen_bit));
+      info("[OPTION] vsync = '{}'", result.test_flag(Settings::vsync_bit));
       info("[OPTION] integer scaling = '{}'",
-           result.test_flag(settings::integer_scaling_bit));
+           result.test_flag(Settings::integer_scaling_bit));
 
       return result;
     }
@@ -85,12 +85,12 @@ auto load_settings() -> settings
   }
 }
 
-void save_settings(const settings& s)
+void save_settings(const Settings& s)
 {
   proto::settings out;
-  out.set_fullscreen(s.test_flag(settings::fullscreen_bit));
-  out.set_vsync(s.test_flag(settings::vsync_bit));
-  out.set_integer_scaling(s.test_flag(settings::integer_scaling_bit));
+  out.set_fullscreen(s.test_flag(Settings::fullscreen_bit));
+  out.set_vsync(s.test_flag(Settings::vsync_bit));
+  out.set_integer_scaling(s.test_flag(Settings::integer_scaling_bit));
 
   const auto& path = _settings_file_path();
   debug("Saving settings to {}", path);

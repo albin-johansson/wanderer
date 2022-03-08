@@ -32,9 +32,9 @@ WandererGame::WandererGame(const GameConfig& cfg)
   debug("Logical size is {}", cfg.logical_size_f);
 
   using self = WandererGame;
-  mDispatcher.sink<action_event>().connect<&self::on_action>(this);
-  mDispatcher.sink<move_player_event>().connect<&self::on_move_player>(this);
-  mDispatcher.sink<stop_player_event>().connect<&self::on_stop_player>(this);
+  mDispatcher.sink<ActionEvent>().connect<&self::on_action>(this);
+  mDispatcher.sink<MovePlayerEvent>().connect<&self::on_move_player>(this);
+  mDispatcher.sink<StopPlayerEvent>().connect<&self::on_stop_player>(this);
 
   parse_levels(mMainRegistry, mGraphics);
 
@@ -133,7 +133,7 @@ void WandererGame::render()
   renderer.present();
 }
 
-void WandererGame::on_action(const action_event& event)
+void WandererGame::on_action(const ActionEvent& event)
 {
   switch (event.action) {
     case Action::noop:
@@ -176,17 +176,17 @@ void WandererGame::on_action(const action_event& event)
         }
       }
 
-      mSettings.set_flag(settings::fullscreen_bit, enabled);
+      mSettings.set_flag(Settings::fullscreen_bit, enabled);
       break;
     }
     case Action::toggle_vsync: {
       const bool enabled = mGraphics.toggle_vsync();
-      mSettings.set_flag(settings::vsync_bit, enabled);
+      mSettings.set_flag(Settings::vsync_bit, enabled);
       break;
     }
     case Action::toggle_integer_scaling: {
       const bool enabled = mGraphics.toggle_integer_scaling();
-      mSettings.set_flag(settings::integer_scaling_bit, enabled);
+      mSettings.set_flag(Settings::integer_scaling_bit, enabled);
       break;
     }
     default:
@@ -194,13 +194,13 @@ void WandererGame::on_action(const action_event& event)
   }
 }
 
-void WandererGame::on_move_player(const move_player_event& event)
+void WandererGame::on_move_player(const MovePlayerEvent& event)
 {
   auto& registry = current_registry();
   sys::on_move_player(registry, event);
 }
 
-void WandererGame::on_stop_player(const stop_player_event& event)
+void WandererGame::on_stop_player(const StopPlayerEvent& event)
 {
   auto& registry = current_registry();
   sys::on_stop_player(registry, event);
