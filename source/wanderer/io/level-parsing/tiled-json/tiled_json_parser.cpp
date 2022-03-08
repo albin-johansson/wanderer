@@ -11,10 +11,12 @@
 #include "wanderer/data/components/tags.hpp"
 #include "wanderer/data/components/tiles.hpp"
 #include "wanderer/data/components/world.hpp"
+#include "wanderer/data/direction.hpp"
 #include "wanderer/io/json.hpp"
 #include "wanderer/meta/profile.hpp"
 #include "wanderer/misc/exception.hpp"
 #include "wanderer/misc/logging.hpp"
+#include "wanderer/systems/animation_system.hpp"
 #include "wanderer/systems/physics_system.hpp"
 #include "wanderer/systems/registry_system.hpp"
 #include "wanderer/systems/rendering_system.hpp"
@@ -37,11 +39,13 @@ void _verify_features(const nlohmann::json& json)
 }
 
 void _create_player(entt::registry& registry,
+                    graphics_ctx& graphics,
                     const glm::vec2& position,
                     const game_cfg& cfg)
 {
   const auto playerEntity = registry.create();
   registry.emplace<comp::player>(playerEntity);
+  registry.emplace<comp::humanoid>(playerEntity);
 
   auto& object = registry.emplace<comp::game_object>(playerEntity);
   object.position = position;
@@ -60,8 +64,24 @@ void _create_player(entt::registry& registry,
                         playerEntity,
                         b2_dynamicBody,
                         object.position,
-                        object.size,
-                        5);
+                        object.size / 2.0f,
+                        5,
+                        {object.size.x / 4.0f, object.size.y / 4.0f});
+
+  const auto& map = registry.ctx<comp::tilemap>();
+
+  auto& drawable = registry.emplace<comp::drawable>(playerEntity);
+  drawable.texture = graphics.load_texture("resources/images/player.png");
+  drawable.layer_index = map.humanoid_layer_index;
+  drawable.depth_index = 4;  // TODO
+  drawable.src.set_size(64, 64);
+
+  registry.emplace<comp::animation>(playerEntity);
+
+  auto& seq = registry.emplace<comp::seq_animation>(playerEntity);
+  seq.frame_size = {64, 64};
+
+  sys::enter_humanoid_idle_animation(registry, playerEntity, direction_down_bit);
 }
 
 }  // namespace
@@ -115,7 +135,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
   for (auto&& [entity, object, spawn] :
        registry.view<comp::game_object, comp::spawn_point>().each()) {
     if (spawn.mob == mob_type::player) {
-      _create_player(registry, object.position, cfg);
+      _create_player(registry, graphics, object.position, cfg);
     }
   }
 
