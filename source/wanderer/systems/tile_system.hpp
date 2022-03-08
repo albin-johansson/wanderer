@@ -39,7 +39,7 @@ void update_tile_objects(entt::registry& registry);
  * \param registry the current level registry.
  * \param graphics the graphics context that will be used.
  */
-void render_tiles(const entt::registry& registry, graphics_ctx& graphics);
+void render_tiles(const entt::registry& registry, Graphics& graphics);
 
 /// \} End of group tile-system
 

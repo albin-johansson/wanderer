@@ -11,7 +11,7 @@ void _add_label(entt::registry& registry,
                 const entt::entity entity,
                 std::string text,
                 const glm::vec2& offset,
-                const font_size size,
+                const FontSize size,
                 const HAnchor ha,
                 const VAnchor va)
 {
@@ -41,7 +41,7 @@ auto _add_button(entt::registry& registry,
   auto& button = registry.emplace<comp::UiButton>(entity);
   button.action = action;
 
-  _add_label(registry, entity, std::move(text), offset, font_size::medium, ha, va);
+  _add_label(registry, entity, std::move(text), offset, FontSize::medium, ha, va);
 
   return entity;
 }
@@ -107,7 +107,7 @@ auto menu_builder::s_label(std::string text,
                            const HAnchor ha,
                            const VAnchor va) -> menu_builder&
 {
-  add_label(std::move(text), font_size::small, offset, ha, va);
+  add_label(std::move(text), FontSize::small, offset, ha, va);
   return *this;
 }
 
@@ -116,7 +116,7 @@ auto menu_builder::m_label(std::string text,
                            const HAnchor ha,
                            const VAnchor va) -> menu_builder&
 {
-  add_label(std::move(text), font_size::medium, offset, ha, va);
+  add_label(std::move(text), FontSize::medium, offset, ha, va);
   return *this;
 }
 
@@ -125,7 +125,7 @@ auto menu_builder::l_label(std::string text,
                            const HAnchor ha,
                            const VAnchor va) -> menu_builder&
 {
-  add_label(std::move(text), font_size::large, offset, ha, va);
+  add_label(std::move(text), FontSize::large, offset, ha, va);
   return *this;
 }
 
@@ -134,7 +134,7 @@ auto menu_builder::h_label(std::string text,
                            const HAnchor ha,
                            const VAnchor va) -> menu_builder&
 {
-  add_label(std::move(text), font_size::huge, offset, ha, va);
+  add_label(std::move(text), FontSize::huge, offset, ha, va);
   return *this;
 }
 
@@ -193,7 +193,7 @@ auto menu_builder::get_menu() -> comp::UiMenu&
 
 void menu_builder::add_label(entt::entity entity,
                              std::string text,
-                             const font_size size,
+                             const FontSize size,
                              const glm::vec2& offset,
                              const HAnchor ha,
                              const VAnchor va)
@@ -212,7 +212,7 @@ void menu_builder::add_label(entt::entity entity,
 }
 
 void menu_builder::add_label(std::string text,
-                             const font_size size,
+                             const FontSize size,
                              const glm::vec2& offset,
                              const HAnchor ha,
                              const VAnchor va)

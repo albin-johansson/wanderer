@@ -9,7 +9,7 @@ struct ActionEvent;
 struct MovePlayerEvent;
 struct StopPlayerEvent;
 
-class graphics_ctx;
+class Graphics;
 class InputState;
 
 }  // namespace wanderer

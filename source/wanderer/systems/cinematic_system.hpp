@@ -39,7 +39,7 @@ void update_cinematic_fade(entt::registry& registry);
  * \param registry the source registry.
  * \param graphics the current graphics context.
  */
-void render_cinematic_fade(const entt::registry& registry, graphics_ctx& graphics);
+void render_cinematic_fade(const entt::registry& registry, Graphics& graphics);
 
 /**
  * \brief Indicates whether there is an active cinematic transition.

@@ -78,7 +78,7 @@ void update_physics(entt::registry& registry, const float32 dt)
   }
 }
 
-void debug_physics(const entt::registry& registry, graphics_ctx& graphics)
+void debug_physics(const entt::registry& registry, Graphics& graphics)
 {
   const auto& viewport = registry.ctx<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);

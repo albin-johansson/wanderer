@@ -213,7 +213,7 @@ auto is_current_menu_blocking(const entt::registry& registry) -> bool
   return menu.blocking;
 }
 
-void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
+void init_text_labels(const entt::registry& registry, Graphics& graphics)
 {
   const auto& renderer = graphics.renderer();
   for (auto&& [entity, label] : registry.view<comp::UiLabel>().each()) {
@@ -228,7 +228,7 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics)
 }
 
 void render_active_menu(const entt::registry& registry,
-                        graphics_ctx& graphics,
+                        Graphics& graphics,
                         const Settings& settings)
 {
   const auto& menus = registry.ctx<comp::UiMenus>();
@@ -257,7 +257,7 @@ void render_active_menu(const entt::registry& registry,
 
 void render_button(const entt::registry& registry,
                    const entt::entity buttonEntity,
-                   graphics_ctx& graphics,
+                   Graphics& graphics,
                    const Settings& settings)
 {
   constexpr cen::color button_bg{0x33, 0x33, 0x33};
@@ -312,7 +312,7 @@ void render_button(const entt::registry& registry,
 
 void render_label(const entt::registry& registry,
                   const entt::entity labelEntity,
-                  graphics_ctx& graphics)
+                  Graphics& graphics)
 {
   const auto& cfg = registry.ctx<GameConfig>();
   const auto& label = registry.get<comp::UiLabel>(labelEntity);
@@ -333,7 +333,7 @@ void render_label(const entt::registry& registry,
 
 void render_line(const entt::registry& registry,
                  entt::entity lineEntity,
-                 graphics_ctx& graphics)
+                 Graphics& graphics)
 {
   const auto& cfg = registry.ctx<GameConfig>();
   const auto& line = registry.get<comp::UiLine>(lineEntity);

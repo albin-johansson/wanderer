@@ -59,7 +59,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
     title.offset = {0, -0.1f};
     title.text = "Wanderer";
     title.color = cen::colors::white;
-    title.size = font_size::huge;
+    title.size = FontSize::huge;
 
     auto& anchor = registry.emplace<comp::UiAnchor>(titleEntity);
     anchor.horizontal = HAnchor::center;
@@ -72,7 +72,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
     text.offset = {0, 0};
     text.text = "A game by Albin Johansson";
     text.color = cen::colors::white;
-    text.size = font_size::medium;
+    text.size = FontSize::medium;
 
     auto& anchor = registry.emplace<comp::UiAnchor>(labelEntity);
     anchor.horizontal = HAnchor::center;
@@ -85,7 +85,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
     text.offset = {0.01f, 0.01f};
     text.text = wanderer_version;
     text.color = cen::color{0x50, 0x50, 0x50};
-    text.size = font_size::medium;
+    text.size = FontSize::medium;
 
     auto& anchor = registry.emplace<comp::UiAnchor>(labelEntity);
     anchor.horizontal = HAnchor::left;
@@ -108,7 +108,7 @@ void update_cinematic_fade(entt::registry& registry)
   }
 }
 
-void render_cinematic_fade(const entt::registry& registry, graphics_ctx& graphics)
+void render_cinematic_fade(const entt::registry& registry, Graphics& graphics)
 {
   if (const auto* cinematic = registry.try_ctx<comp::CinematicFade>()) {
     graphics.renderer().fill_with(cinematic->bg);

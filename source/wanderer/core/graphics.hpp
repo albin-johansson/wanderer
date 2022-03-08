@@ -13,7 +13,7 @@ namespace wanderer {
 /**
  * \brief Represents the different supported font sizes.
  */
-enum class font_size
+enum class FontSize
 {
   small,
   medium,
@@ -24,10 +24,10 @@ enum class font_size
 /**
  * \brief Manages the game window and renderer, along with fonts and textures.
  */
-class graphics_ctx final
+class Graphics final
 {
  public:
-  graphics_ctx(const GameConfig& cfg, const Settings& s);
+  Graphics(const GameConfig& cfg, const Settings& s);
 
   /**
    * \brief Toggles the fullscreen mode of the window.
@@ -82,9 +82,9 @@ class graphics_ctx final
 
   [[nodiscard]] auto get_light_canvas() -> cen::texture&;
 
-  [[nodiscard]] auto get_pixelated_font(font_size size) -> cen::font&;
+  [[nodiscard]] auto get_pixelated_font(FontSize size) -> cen::font&;
 
-  [[nodiscard]] auto get_handwriting_font(font_size size) -> cen::font&;
+  [[nodiscard]] auto get_handwriting_font(FontSize size) -> cen::font&;
 
   [[nodiscard]] auto window() -> cen::window&;
 

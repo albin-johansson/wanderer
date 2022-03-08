@@ -13,6 +13,6 @@ namespace wanderer::io::tiled {
 void parse_tileset(const nlohmann::json& json,
                    const std::filesystem::path& dir,
                    entt::registry& registry,
-                   graphics_ctx& graphics);
+                   Graphics& graphics);
 
 }  // namespace wanderer::io::tiled

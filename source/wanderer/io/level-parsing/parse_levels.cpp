@@ -53,7 +53,7 @@ struct level_info final
 
 }  // namespace
 
-void parse_levels(entt::registry& shared, graphics_ctx& graphics)
+void parse_levels(entt::registry& shared, Graphics& graphics)
 {
   const auto& cfg = shared.ctx<GameConfig>();
   auto& levels = shared.ctx<comp::Levels>();

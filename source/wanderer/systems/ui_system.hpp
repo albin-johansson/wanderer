@@ -72,7 +72,7 @@ void switch_menu(entt::registry& registry, MenuId menu);
  *
  * \see `comp::ui_label`
  */
-void init_text_labels(const entt::registry& registry, graphics_ctx& graphics);
+void init_text_labels(const entt::registry& registry, Graphics& graphics);
 
 /**
  * \brief Render the currently active menu.
@@ -82,21 +82,21 @@ void init_text_labels(const entt::registry& registry, graphics_ctx& graphics);
  * \param settings the current settings.
  */
 void render_active_menu(const entt::registry& registry,
-                        graphics_ctx& graphics,
+                        Graphics& graphics,
                         const Settings& settings);
 
 void render_button(const entt::registry& registry,
                    entt::entity buttonEntity,
-                   graphics_ctx& graphics,
+                   Graphics& graphics,
                    const Settings& settings);
 
 void render_label(const entt::registry& registry,
                   entt::entity labelEntity,
-                  graphics_ctx& graphics);
+                  Graphics& graphics);
 
 void render_line(const entt::registry& registry,
                  entt::entity lineEntity,
-                 graphics_ctx& graphics);
+                 Graphics& graphics);
 
 /// \} End of UI rendering
 

@@ -67,7 +67,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       const std::filesystem::path& dir,
                                       const tile_id firstId,
                                       entt::registry& registry,
-                                      graphics_ctx& graphics)
+                                      Graphics& graphics)
 {
   auto& tileset = registry.ctx<comp::Tileset>();
 
@@ -116,7 +116,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
 void parse_tileset(const nlohmann::json& json,
                    const std::filesystem::path& dir,
                    entt::registry& registry,
-                   graphics_ctx& graphics)
+                   Graphics& graphics)
 {
   const auto firstTileId = json.at("firstgid");
   if (json.contains("source")) {

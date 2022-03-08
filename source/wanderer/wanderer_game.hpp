@@ -33,7 +33,7 @@ class WandererGame final : GameLoop
   GameConfig mCfg;
   Settings mSettings;
 
-  graphics_ctx mGraphics;
+  Graphics mGraphics;
   InputState mInput;
 
   entt::dispatcher mDispatcher;

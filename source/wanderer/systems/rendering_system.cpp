@@ -54,7 +54,7 @@ void update_lights(entt::registry& registry)
   }
 }
 
-void render_drawables(const entt::registry& registry, graphics_ctx& graphics)
+void render_drawables(const entt::registry& registry, Graphics& graphics)
 {
   const auto& viewport = registry.ctx<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);
@@ -71,7 +71,7 @@ void render_drawables(const entt::registry& registry, graphics_ctx& graphics)
   }
 }
 
-void render_lights(const entt::registry& registry, graphics_ctx& graphics)
+void render_lights(const entt::registry& registry, Graphics& graphics)
 {
   const auto& viewport = registry.ctx<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);

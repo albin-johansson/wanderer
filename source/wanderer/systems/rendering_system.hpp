@@ -51,7 +51,7 @@ void update_lights(entt::registry& registry);
  * \param registry the level registry.
  * \param graphics the current graphics context.
  */
-void render_drawables(const entt::registry& registry, graphics_ctx& graphics);
+void render_drawables(const entt::registry& registry, Graphics& graphics);
 
 /**
  * \brief Renders all point lights.
@@ -62,7 +62,7 @@ void render_drawables(const entt::registry& registry, graphics_ctx& graphics);
  * \todo Consider excluding drawable entities here, and drawing lights on drawables in the
  * correct order in render_drawables.
  */
-void render_lights(const entt::registry& registry, graphics_ctx& graphics);
+void render_lights(const entt::registry& registry, Graphics& graphics);
 
 /// \} End of group rendering-system
 

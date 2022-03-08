@@ -68,7 +68,7 @@ void update_physics(entt::registry& registry, float32 dt);
  * \param registry the level registry.
  * \param graphics the current graphics context.
  */
-void debug_physics(const entt::registry& registry, graphics_ctx& graphics);
+void debug_physics(const entt::registry& registry, Graphics& graphics);
 
 /**
  * \brief Converts a vector in logical coordinates to simulation coordinates.

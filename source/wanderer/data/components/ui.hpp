@@ -90,7 +90,7 @@ struct UiLabel final
   /**
    * \brief Size of the font used.
    */
-  font_size size{};
+  FontSize size{};
 
   /**
    * \brief The lazily initialized label screen position (computed frame-by-frame).

@@ -13,6 +13,6 @@ namespace wanderer {
  * \param shared the shared main registry.
  * \param graphics the current graphics context.
  */
-void parse_levels(entt::registry& shared, graphics_ctx& graphics);
+void parse_levels(entt::registry& shared, Graphics& graphics);
 
 }  // namespace wanderer

@@ -39,7 +39,7 @@ void _render_tile(const entt::registry& registry,
                   const comp::Tileset& tileset,
                   const entt::entity tileEntity,
                   const glm::vec4& dest,
-                  graphics_ctx& graphics)
+                  Graphics& graphics)
 {
   const auto tileToRenderEntity = _tile_to_render(registry, tileset, tileEntity);
   const auto tileToRender = registry.get<comp::TileInfo>(tileToRenderEntity);
@@ -82,7 +82,7 @@ void update_tile_objects(entt::registry& registry)
   }
 }
 
-void render_tiles(const entt::registry& registry, graphics_ctx& graphics)
+void render_tiles(const entt::registry& registry, Graphics& graphics)
 {
   const auto& cfg = registry.ctx<GameConfig>();
   const auto& bounds = registry.ctx<comp::RenderBounds>();

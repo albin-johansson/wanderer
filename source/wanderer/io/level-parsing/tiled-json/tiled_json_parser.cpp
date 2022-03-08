@@ -39,7 +39,7 @@ void _verify_features(const nlohmann::json& json)
 }
 
 void _create_player(entt::registry& registry,
-                    graphics_ctx& graphics,
+                    Graphics& graphics,
                     const glm::vec2& position,
                     const GameConfig& cfg)
 {
@@ -87,7 +87,7 @@ void _create_player(entt::registry& registry,
 }  // namespace
 
 auto parse_tiled_json_map(const std::filesystem::path& path,
-                          graphics_ctx& graphics,
+                          Graphics& graphics,
                           const GameConfig& cfg) -> entt::registry
 {
   WANDERER_PROFILE_START

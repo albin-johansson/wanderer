@@ -18,7 +18,7 @@ namespace wanderer::io {
  * \return a level registry.
  */
 [[nodiscard]] auto parse_tiled_json_map(const std::filesystem::path& path,
-                                        graphics_ctx& graphics,
+                                        Graphics& graphics,
                                         const GameConfig& cfg) -> entt::registry;
 
 }  // namespace wanderer::io

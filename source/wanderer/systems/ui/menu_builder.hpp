@@ -175,13 +175,13 @@ class menu_builder final
 
   void add_label(entt::entity entity,
                  std::string text,
-                 font_size size,
+                 FontSize size,
                  const glm::vec2& offset,
                  HAnchor ha,
                  VAnchor va);
 
   void add_label(std::string text,
-                 font_size size,
+                 FontSize size,
                  const glm::vec2& offset,
                  HAnchor ha,
                  VAnchor va);

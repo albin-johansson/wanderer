@@ -32,7 +32,7 @@ constexpr int _handwriting_size_h = 32;
 
 }  // namespace
 
-graphics_ctx::graphics_ctx(const GameConfig& cfg, const Settings& s)
+Graphics::Graphics(const GameConfig& cfg, const Settings& s)
     : mWindow{"Wanderer", cen::window::default_size(), _window_flags}
     , mRenderer{mWindow.create_renderer(_renderer_flags)}
     , mLightCanvas{mRenderer.create_texture(as_area(cfg.logical_size),
@@ -68,7 +68,7 @@ graphics_ctx::graphics_ctx(const GameConfig& cfg, const Settings& s)
   mLightTextureId = load_texture("resources/images/ardentryst/glow.png");
 }
 
-auto graphics_ctx::toggle_fullscreen() -> bool
+auto Graphics::toggle_fullscreen() -> bool
 {
   const auto enabled = !mWindow.is_fullscreen_desktop();
   debug("Fullscreen mode is now {}", enabled ? "enabled" : "disabled");
@@ -77,7 +77,7 @@ auto graphics_ctx::toggle_fullscreen() -> bool
   return mWindow.is_fullscreen_desktop();
 }
 
-auto graphics_ctx::toggle_vsync() -> bool
+auto Graphics::toggle_vsync() -> bool
 {
   mVsync = !mVsync;
   debug("VSync is now {}", mVsync ? "enabled" : "disabled");
@@ -86,7 +86,7 @@ auto graphics_ctx::toggle_vsync() -> bool
   return mVsync;
 }
 
-auto graphics_ctx::toggle_integer_scaling() -> bool
+auto Graphics::toggle_integer_scaling() -> bool
 {
   const auto enabled = !mRenderer.using_integer_logical_scaling();
   debug("Integer scaling is now {}", enabled ? "enabled" : "disabled");
@@ -95,7 +95,7 @@ auto graphics_ctx::toggle_integer_scaling() -> bool
   return mRenderer.using_integer_logical_scaling();
 }
 
-auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
+auto Graphics::load_texture(const std::filesystem::path& path) -> texture_id
 {
   /* This approach requires that textures are never removed, which is fine  */
   const auto id = mTextures.size();
@@ -110,14 +110,14 @@ auto graphics_ctx::load_texture(const std::filesystem::path& path) -> texture_id
   return id;
 }
 
-void graphics_ctx::render_texture(const texture_id id,
+void Graphics::render_texture(const texture_id id,
                                   const glm::ivec4& source,
                                   const glm::vec4& dest)
 {
   render_texture(id, as_rect(source), as_rect(dest));
 }
 
-void graphics_ctx::render_texture(const texture_id id,
+void Graphics::render_texture(const texture_id id,
                                   const cen::irect& source,
                                   const cen::frect& dest)
 {
@@ -126,30 +126,30 @@ void graphics_ctx::render_texture(const texture_id id,
   mRenderer.render(texture, source, dest);
 }
 
-void graphics_ctx::render_light(const cen::frect& dest)
+void Graphics::render_light(const cen::frect& dest)
 {
   constexpr cen::irect source{0, 0, 80, 80};
   render_texture(mLightTextureId, source, dest);
 }
 
-auto graphics_ctx::get_light_canvas() -> cen::texture&
+auto Graphics::get_light_canvas() -> cen::texture&
 {
   return mLightCanvas;
 }
 
-auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&
+auto Graphics::get_pixelated_font(const FontSize size) -> cen::font&
 {
   switch (size) {
-    case font_size::small:
+    case FontSize::small:
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_s).get_font();
 
-    case font_size::medium:
+    case FontSize::medium:
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_m).get_font();
 
-    case font_size::large:
+    case FontSize::large:
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_l).get_font();
 
-    case font_size::huge:
+    case FontSize::huge:
       return mFontBundle.at(mPixelatedFontId, _pixelated_size_h).get_font();
 
     default:
@@ -157,19 +157,19 @@ auto graphics_ctx::get_pixelated_font(const font_size size) -> cen::font&
   }
 }
 
-auto graphics_ctx::get_handwriting_font(const font_size size) -> cen::font&
+auto Graphics::get_handwriting_font(const FontSize size) -> cen::font&
 {
   switch (size) {
-    case font_size::small:
+    case FontSize::small:
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_s).get_font();
 
-    case font_size::medium:
+    case FontSize::medium:
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_m).get_font();
 
-    case font_size::large:
+    case FontSize::large:
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_l).get_font();
 
-    case font_size::huge:
+    case FontSize::huge:
       return mFontBundle.at(mHandwritingFontId, _handwriting_size_h).get_font();
 
     default:
@@ -177,12 +177,12 @@ auto graphics_ctx::get_handwriting_font(const font_size size) -> cen::font&
   }
 }
 
-auto graphics_ctx::window() -> cen::window&
+auto Graphics::window() -> cen::window&
 {
   return mWindow;
 }
 
-auto graphics_ctx::renderer() -> cen::renderer&
+auto Graphics::renderer() -> cen::renderer&
 {
   return mRenderer;
 }
