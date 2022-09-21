@@ -1,4 +1,0 @@
-# This file specifies the maps that will be loaded
-levels:
-  - id: 1
-    source: old/main.json

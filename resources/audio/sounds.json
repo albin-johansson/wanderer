@@ -1,9 +1,0 @@
-{
-  "sounds": [
-    {
-      "id": "SwordSwing",
-      "file": "resources/audio/swing.wav",
-      "volume": 40
-    }
-  ]
-}
