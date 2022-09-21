@@ -5,9 +5,7 @@ project(wanderer-source CXX)
 file(GLOB_RECURSE SOURCE_FILES
      CONFIGURE_DEPENDS
      **/*.cpp
-     **/*.hpp
-     *.cpp
-     *.hpp)
+     **/*.hpp)
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
 
@@ -31,6 +29,7 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       EnTT::EnTT
                       glm::glm
                       fmt::fmt
+                      spdlog::spdlog
                       magic_enum::magic_enum
                       yaml-cpp
                       nlohmann_json::nlohmann_json
@@ -43,6 +42,8 @@ target_compile_definitions(${TARGET_WANDERER_LIB}
                            PUBLIC
                            BOOST_ENABLE_ASSERT_DEBUG_HANDLER
                            BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
+                           BOOST_NO_CXX98_FUNCTION_BASE
+                           SPDLOG_FMT_EXTERNAL
                            )
 
 wanderer_add_compiler_options(${TARGET_WANDERER_LIB})
