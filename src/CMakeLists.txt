@@ -49,18 +49,41 @@ target_compile_definitions(${TARGET_WANDERER_LIB}
 wanderer_add_compiler_options(${TARGET_WANDERER_LIB})
 
 target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
-                          <centurion.hpp>
-                          <entt/entt.hpp>
-                          <glm/glm.hpp>
-
+                          <algorithm>
+                          <array>
+                          <charconv>
+                          <chrono>
+                          <concepts>
+                          <cstddef>
+                          <cstdint>
+                          <cstring>
+                          <cstdlib>
+                          <ctime>
+                          <cmath>
+                          <deque>
+                          <exception>
+                          <filesystem>
+                          <fstream>
+                          <functional>
+                          <iterator>
+                          <limits>
+                          <locale>
+                          <map>
                           <memory>
-                          <utility>
-                          <vector>
+                          <optional>
+                          <ostream>
+                          <queue>
+                          <random>
+                          <span>
+                          <sstream>
                           <string>
                           <string_view>
-                          <map>
+                          <system_error>
+                          <type_traits>
                           <unordered_map>
-                          <functional>
+                          <utility>
+                          <variant>
+                          <vector>
                           )
 
 if (CMAKE_BUILD_TYPE STREQUAL RELEASE)
@@ -80,5 +103,3 @@ target_link_libraries(${TARGET_WANDERER_EXE}
                       )
 
 target_precompile_headers(${TARGET_WANDERER_EXE} REUSE_FROM ${TARGET_WANDERER_LIB})
-
-copy_directory_post_build(${TARGET_WANDERER_EXE} ${WANDERER_RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resources")
