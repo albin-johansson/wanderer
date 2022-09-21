@@ -17,6 +17,6 @@
     "nlohmann-json",
     "argparse",
     "box2d",
-    "doctest"
+    "gtest"
   ]
 }

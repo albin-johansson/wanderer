@@ -37,7 +37,7 @@ find_package(yaml-cpp CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(argparse CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
-find_package(doctest CONFIG REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
 find_package(Boost REQUIRED)
 

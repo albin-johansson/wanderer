@@ -21,7 +21,7 @@ target_link_libraries(${TARGET_WANDERER_TEST}
                       PRIVATE
                       ${TARGET_WANDERER_LIB}
                       SDL2::SDL2main
-                      doctest::doctest
+                      GTest::gtest
                       )
 
 target_precompile_headers(${TARGET_WANDERER_TEST} REUSE_FROM ${TARGET_WANDERER_LIB})
