@@ -11,6 +11,7 @@
     "entt",
     "glm",
     "fmt",
+    "spdlog",
     "magic-enum",
     "yaml-cpp",
     "nlohmann-json",
