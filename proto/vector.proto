@@ -2,33 +2,33 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message fvec2
+message Vec2
 {
   optional float x = 1;
   optional float y = 2;
 }
 
-message ivec2
+message Vec2i
 {
   optional int32 x = 1;
   optional int32 y = 2;
 }
 
-message fvec3
+message Vec3
 {
   optional float x = 1;
   optional float y = 2;
   optional float z = 3;
 }
 
-message ivec3
+message Vec3i
 {
   optional int32 x = 1;
   optional int32 y = 2;
   optional int32 z = 3;
 }
 
-message fvec4
+message Vec4
 {
   optional float x = 1;
   optional float y = 2;
@@ -36,7 +36,7 @@ message fvec4
   optional float w = 4;
 }
 
-message ivec4
+message Vec4i
 {
   optional int32 x = 1;
   optional int32 y = 2;
