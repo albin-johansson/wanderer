@@ -208,7 +208,7 @@ void WandererGame::on_stop_player(const StopPlayerEvent& event)
 
 auto WandererGame::current_registry() -> entt::registry&
 {
-  auto& levels = mMainRegistry.ctx<comp::Levels>();
+  auto& levels = mMainRegistry.ctx().at<comp::Levels>();
   return levels.levels.at(levels.current);
 }
 

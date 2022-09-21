@@ -68,7 +68,7 @@ void _create_player(entt::registry& registry,
                         5,
                         {object.size.x / 4.0f, object.size.y / 4.0f});
 
-  const auto& map = registry.ctx<comp::Tilemap>();
+  const auto& map = registry.ctx().at<comp::Tilemap>();
 
   auto& drawable = registry.emplace<comp::Drawable>(playerEntity);
   drawable.texture = graphics.load_texture("resources/images/player.png");
@@ -97,7 +97,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
 
   auto registry = sys::make_level_registry(cfg);
 
-  auto& map = registry.ctx<comp::Tilemap>();
+  auto& map = registry.ctx().at<comp::Tilemap>();
   json.at("height").get_to(map.row_count);
   json.at("width").get_to(map.col_count);
 
@@ -106,7 +106,7 @@ auto parse_tiled_json_map(const std::filesystem::path& path,
 
   map.humanoid_layer_index = tiled::get_property<int32>(json, "humanoid-layer");
 
-  auto& viewport = registry.ctx<comp::Viewport>();
+  auto& viewport = registry.ctx().at<comp::Viewport>();
   viewport.keep_in_bounds = tiled::get_property<bool>(json, "is-outside");
 
   const auto dir = path.parent_path();

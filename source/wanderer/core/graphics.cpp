@@ -99,7 +99,7 @@ auto Graphics::load_texture(const std::filesystem::path& path) -> texture_id
 {
   /* This approach requires that textures are never removed, which is fine  */
   const auto id = mTextures.size();
-  debug("Loading texture '{}' from {}", id, path);
+  debug("Loading texture '{}' from {}", id, path.string());
 
 #if WANDERER_COMPILER_MSVC
   mTextures.push_back(mRenderer.create_texture(path.string()));

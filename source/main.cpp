@@ -1,5 +1,6 @@
 #include <cstdlib>    // abort
 #include <exception>  // set_terminate
+#include <sstream>    // stringstream
 #include <vector>     // vector
 
 #include <argparse/argparse.hpp>
@@ -61,7 +62,7 @@ int main(int argc, char** argv)
     const cen::ttf ttf;
 
     wanderer::debug("Persistent file directory is {}",
-                    wanderer::get_persistent_file_dir());
+                    wanderer::get_persistent_file_dir().string());
 
     auto cfg = wanderer::make_game_cfg();
 
@@ -87,7 +88,9 @@ int main(int argc, char** argv)
                     e.what());
 
     if (const auto* stacktrace = boost::get_error_info<wanderer::TraceInfo>(e)) {
-      wanderer::print(fmt::color::hot_pink, "{}\n", *stacktrace);
+      std::stringstream stream;
+      stream << *stacktrace;
+      wanderer::print(fmt::color::hot_pink, "{}\n", stream.str());
     }
 
     std::abort();

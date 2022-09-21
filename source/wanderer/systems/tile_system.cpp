@@ -64,13 +64,13 @@ void _render_tile(const entt::registry& registry,
 
 void clear_effective_appearance_tile_cache(entt::registry& registry)
 {
-  auto& tileset = registry.ctx<comp::Tileset>();
+  auto& tileset = registry.ctx().at<comp::Tileset>();
   tileset.effective_appearance.clear();
 }
 
 void update_tile_objects(entt::registry& registry)
 {
-  const auto& tileset = registry.ctx<comp::Tileset>();
+  const auto& tileset = registry.ctx().at<comp::Tileset>();
   for (auto&& [entity, object] : registry.view<comp::TileObject>().each()) {
     const auto renderedTileEntity =
         _tile_to_render(registry, tileset, object.tile_entity);
@@ -84,10 +84,10 @@ void update_tile_objects(entt::registry& registry)
 
 void render_tiles(const entt::registry& registry, Graphics& graphics)
 {
-  const auto& cfg = registry.ctx<GameConfig>();
-  const auto& bounds = registry.ctx<comp::RenderBounds>();
-  const auto& viewport = registry.ctx<comp::Viewport>();
-  const auto& tileset = registry.ctx<comp::Tileset>();
+  const auto& cfg = registry.ctx().at<GameConfig>();
+  const auto& bounds = registry.ctx().at<comp::RenderBounds>();
+  const auto& viewport = registry.ctx().at<comp::Viewport>();
+  const auto& tileset = registry.ctx().at<comp::Tileset>();
 
   for (auto&& [entity, layer] : registry.view<comp::TileLayer>().each()) {
     for (usize row = bounds.begin_row; row < bounds.end_row; ++row) {

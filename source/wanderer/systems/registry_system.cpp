@@ -14,8 +14,8 @@ auto make_main_registry(const GameConfig& cfg) -> entt::registry
 {
   entt::registry registry;
 
-  registry.set<GameConfig>(cfg);
-  registry.set<comp::Levels>();
+  registry.ctx().emplace<GameConfig>(cfg);
+  registry.ctx().emplace<comp::Levels>();
 
   load_menus(registry);
 
@@ -26,25 +26,25 @@ auto make_level_registry(const GameConfig& cfg) -> entt::registry
 {
   entt::registry registry;
 
-  registry.set<GameConfig>(cfg);
-  registry.set<comp::Tilemap>();
-  registry.set<comp::Tileset>();
-  registry.set<comp::RenderBounds>();
+  registry.ctx().emplace<GameConfig>(cfg);
+  registry.ctx().emplace<comp::Tilemap>();
+  registry.ctx().emplace<comp::Tileset>();
+  registry.ctx().emplace<comp::RenderBounds>();
 
   // TODO remember to sync this when switching active levels
-  auto& date = registry.set<comp::DateAndTime>();
+  auto& date = registry.ctx().emplace<comp::DateAndTime>();
   date.day = DayOfWeek::monday;
   date.hour = 0;
   date.minute = 0;
   date.seconds = 14.0f * 3'600.0f;
   date.tint = cen::colors::transparent;
 
-  auto& viewport = registry.set<comp::Viewport>();
+  auto& viewport = registry.ctx().emplace<comp::Viewport>();
   viewport.size = cfg.logical_size_f;
 
   registry.on_destroy<comp::PhysicsBody>().connect<&sys::on_destroy_physics_object>();
 
-  auto& world = registry.set<comp::PhysicsWorld>();
+  auto& world = registry.ctx().emplace<comp::PhysicsWorld>();
 
   /* Assume that a tile is 1x1 meters */
   world.scale.x = 1.0f / cfg.tile_size.x;

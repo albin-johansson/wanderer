@@ -15,14 +15,14 @@ constexpr float32 _camera_speed = 10;
 
 void update_render_bounds(entt::registry& registry)
 {
-  const auto& cfg = registry.ctx<GameConfig>();
-  const auto& map = registry.ctx<comp::Tilemap>();
-  const auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& cfg = registry.ctx().at<GameConfig>();
+  const auto& map = registry.ctx().at<comp::Tilemap>();
+  const auto& viewport = registry.ctx().at<comp::Viewport>();
 
   const auto viewportMax = viewport.offset + viewport.size;
 
   /* Overwrite previous render bounds context */
-  auto& bounds = registry.set<comp::RenderBounds>();
+  auto& bounds = registry.ctx().emplace<comp::RenderBounds>();
 
   const auto min = viewport.offset / cfg.tile_size;
   bounds.begin_row = (min.y > 0) ? static_cast<usize>(min.y) : 0u;
@@ -36,8 +36,8 @@ void update_render_bounds(entt::registry& registry)
 
 void update_viewport(entt::registry& registry, const float32 dt)
 {
-  const auto& map = registry.ctx<const comp::Tilemap>();
-  auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& map = registry.ctx().at<const comp::Tilemap>();
+  auto& viewport = registry.ctx().at<comp::Viewport>();
 
   /* Don't move the viewport if there is no viewport target */
   const auto view = registry.view<comp::ViewportTarget>();

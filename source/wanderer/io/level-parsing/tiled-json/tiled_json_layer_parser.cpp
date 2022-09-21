@@ -18,10 +18,10 @@ void _parse_tile_objects(const nlohmann::json& json,
                          entt::registry& registry,
                          const int32 z)
 {
-  const auto& map = registry.ctx<comp::Tilemap>();
-  const auto& cfg = registry.ctx<GameConfig>();
+  const auto& map = registry.ctx().at<comp::Tilemap>();
+  const auto& cfg = registry.ctx().at<GameConfig>();
 
-  auto& tileset = registry.ctx<comp::Tileset>();
+  auto& tileset = registry.ctx().at<comp::Tileset>();
 
   usize index = 0;
   for (const auto& [_, value] : json.at("data").items()) {
@@ -71,7 +71,7 @@ void _parse_tile_layer(const nlohmann::json& json,
                        entt::registry& registry,
                        const int32 z)
 {
-  const auto& map = registry.ctx<comp::Tilemap>();
+  const auto& map = registry.ctx().at<comp::Tilemap>();
 
   if (tiled::get_property<bool>(json, "is-ground")) {
     using tile_matrix = comp::TileLayer::tile_matrix;

@@ -98,7 +98,7 @@ const day_phase _night_phase{_night_hour, _sunrise_hour, {_night_color}};
 
 void update_time(entt::registry& registry, entt::dispatcher& dispatcher, const float32 dt)
 {
-  auto& date = registry.ctx<comp::DateAndTime>();
+  auto& date = registry.ctx().at<comp::DateAndTime>();
 
   date.seconds += _time_rate * dt;
   date.minute = date.seconds / 60.0f;

@@ -46,7 +46,7 @@ auto Settings::test_flag(const uint64 flag) const noexcept -> bool
 auto load_settings() -> Settings
 {
   const auto& path = _settings_file_path();
-  debug("Loading settings from {}", path);
+  debug("Loading settings from {}", path.string());
 
   if (std::filesystem::exists(path)) {
     std::ifstream stream{path, std::ios::binary | std::ios::in};
@@ -93,7 +93,7 @@ void save_settings(const Settings& s)
   out.set_integer_scaling(s.test_flag(Settings::integer_scaling_bit));
 
   const auto& path = _settings_file_path();
-  debug("Saving settings to {}", path);
+  debug("Saving settings to {}", path.string());
 
   std::ofstream stream{path, std::ios::binary | std::ios::out | std::ios::trunc};
 

@@ -155,7 +155,7 @@ namespace {
 
 void load_menus(entt::registry& registry)
 {
-  auto& ctx = registry.set<comp::UiMenus>();
+  auto& ctx = registry.ctx().emplace<comp::UiMenus>();
 
   ctx.menus[MenuId::game] = _load_game_menu(registry);
   ctx.menus[MenuId::home] = _load_main_menu(registry);
@@ -170,7 +170,7 @@ void update_menus(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const InputState& input)
 {
-  const auto& ctx = registry.ctx<comp::UiMenus>();
+  const auto& ctx = registry.ctx().at<comp::UiMenus>();
   const auto menuEntity = ctx.active_menu;
   WANDERER_ASSERT(menuEntity != entt::null);
 
@@ -202,13 +202,13 @@ void update_menus(entt::registry& registry,
 
 void switch_menu(entt::registry& registry, const MenuId menu)
 {
-  auto& ctx = registry.ctx<comp::UiMenus>();
+  auto& ctx = registry.ctx().at<comp::UiMenus>();
   ctx.active_menu = ctx.menus.at(menu);
 }
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto& ctx = registry.ctx<comp::UiMenus>();
+  const auto& ctx = registry.ctx().at<comp::UiMenus>();
   const auto& menu = registry.get<comp::UiMenu>(ctx.active_menu);
   return menu.blocking;
 }
@@ -231,7 +231,7 @@ void render_active_menu(const entt::registry& registry,
                         Graphics& graphics,
                         const Settings& settings)
 {
-  const auto& menus = registry.ctx<comp::UiMenus>();
+  const auto& menus = registry.ctx().at<comp::UiMenus>();
   const auto menuEntity = menus.active_menu;
   WANDERER_ASSERT(menuEntity != entt::null);
 
@@ -314,7 +314,7 @@ void render_label(const entt::registry& registry,
                   const entt::entity labelEntity,
                   Graphics& graphics)
 {
-  const auto& cfg = registry.ctx<GameConfig>();
+  const auto& cfg = registry.ctx().at<GameConfig>();
   const auto& label = registry.get<comp::UiLabel>(labelEntity);
   const auto& anchor = registry.get<comp::UiAnchor>(labelEntity);
 
@@ -335,7 +335,7 @@ void render_line(const entt::registry& registry,
                  entt::entity lineEntity,
                  Graphics& graphics)
 {
-  const auto& cfg = registry.ctx<GameConfig>();
+  const auto& cfg = registry.ctx().at<GameConfig>();
   const auto& line = registry.get<comp::UiLine>(lineEntity);
   const auto& anchor = registry.get<comp::UiAnchor>(lineEntity);
 

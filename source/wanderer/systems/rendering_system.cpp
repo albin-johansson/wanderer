@@ -56,7 +56,7 @@ void update_lights(entt::registry& registry)
 
 void render_drawables(const entt::registry& registry, Graphics& graphics)
 {
-  const auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& viewport = registry.ctx().at<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);
 
   for (auto&& [entity, drawable] : registry.view<comp::Drawable>().each()) {
@@ -73,13 +73,13 @@ void render_drawables(const entt::registry& registry, Graphics& graphics)
 
 void render_lights(const entt::registry& registry, Graphics& graphics)
 {
-  const auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& viewport = registry.ctx().at<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);
 
   auto& renderer = graphics.renderer();
   auto& canvas = graphics.get_light_canvas();
 
-  const auto& date = registry.ctx<comp::DateAndTime>();
+  const auto& date = registry.ctx().at<comp::DateAndTime>();
   renderer.set_target(canvas);
   renderer.clear_with(date.tint);
 

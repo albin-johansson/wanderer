@@ -55,12 +55,12 @@ struct level_info final
 
 void parse_levels(entt::registry& shared, Graphics& graphics)
 {
-  const auto& cfg = shared.ctx<GameConfig>();
-  auto& levels = shared.ctx<comp::Levels>();
+  const auto& cfg = shared.ctx().at<GameConfig>();
+  auto& levels = shared.ctx().at<comp::Levels>();
   maybe<level_id> first;
 
   for (const auto& info : parse_level_paths()) {
-    debug("Loading level '{}' from {}", info.id, info.source);
+    debug("Loading level '{}' from {}", info.id, info.source.string());
 
     if (levels.levels.contains(info.id)) {
       throw_traced(WandererError{"Detected duplicate level identifiers!"});

@@ -41,7 +41,7 @@ namespace {
 
 void schedule_startup_cinematic_fade(entt::registry& registry)
 {
-  auto& cinematic = registry.set<comp::CinematicFade>();
+  auto& cinematic = registry.ctx().emplace<comp::CinematicFade>();
   cinematic.start = cen::ticks64();
   if constexpr (is_release_build) {
     cinematic.transition = 750_ms;
@@ -95,7 +95,7 @@ void schedule_startup_cinematic_fade(entt::registry& registry)
 
 void update_cinematic_fade(entt::registry& registry)
 {
-  if (auto* cinematic = registry.try_ctx<comp::CinematicFade>()) {
+  if (auto* cinematic = registry.ctx().find<comp::CinematicFade>()) {
     const auto diff = cen::ticks64() - cinematic->start;
     const auto total = (cinematic->transition * 2u) + cinematic->pause;
     if (diff >= total) {
@@ -103,14 +103,14 @@ void update_cinematic_fade(entt::registry& registry)
         registry.destroy(labelEntity);
       }
 
-      registry.unset<comp::CinematicFade>();
+      registry.ctx().erase<comp::CinematicFade>();
     }
   }
 }
 
 void render_cinematic_fade(const entt::registry& registry, Graphics& graphics)
 {
-  if (const auto* cinematic = registry.try_ctx<comp::CinematicFade>()) {
+  if (const auto* cinematic = registry.ctx().find<comp::CinematicFade>()) {
     graphics.renderer().fill_with(cinematic->bg);
 
     const auto alpha = _determine_cinematic_text_alpha(*cinematic);
@@ -125,7 +125,7 @@ void render_cinematic_fade(const entt::registry& registry, Graphics& graphics)
 
 auto is_cinematic_fade_active(const entt::registry& registry) -> bool
 {
-  return registry.try_ctx<comp::CinematicFade>() != nullptr;
+  return registry.ctx().find<comp::CinematicFade>() != nullptr;
 }
 
 }  // namespace wanderer::sys

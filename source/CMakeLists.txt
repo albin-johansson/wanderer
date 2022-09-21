@@ -28,8 +28,8 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       ${TARGET_WANDERER_PROTO}
                       SDL2::SDL2
                       SDL2::SDL2_image
-                      SDL2::SDL2_mixer
-                      SDL2::SDL2_ttf
+                      $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
+                      $<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
                       EnTT::EnTT
                       glm::glm
                       fmt::fmt

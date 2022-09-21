@@ -28,7 +28,7 @@ void add_physics_body(entt::registry& registry,
   WANDERER_ASSERT(entity != entt::null);
   WANDERER_ASSERT(!registry.all_of<comp::PhysicsBody>(entity));
 
-  auto& world = registry.ctx<comp::PhysicsWorld>();
+  auto& world = registry.ctx().at<comp::PhysicsWorld>();
 
   b2BodyDef bodyDef;
   bodyDef.position = sys::to_physics_scale(registry, logicalPos + offset);
@@ -60,7 +60,7 @@ void on_destroy_physics_object(entt::registry& registry, const entt::entity enti
   WANDERER_ASSERT(entity != entt::null);
   WANDERER_ASSERT(registry.all_of<comp::PhysicsBody>(entity));
 
-  auto& world = registry.ctx<comp::PhysicsWorld>();
+  auto& world = registry.ctx().at<comp::PhysicsWorld>();
   auto& body = registry.get<comp::PhysicsBody>(entity);
 
   world.simulation.DestroyBody(body.data);
@@ -68,7 +68,7 @@ void on_destroy_physics_object(entt::registry& registry, const entt::entity enti
 
 void update_physics(entt::registry& registry, const float32 dt)
 {
-  auto& world = registry.ctx<comp::PhysicsWorld>();
+  auto& world = registry.ctx().at<comp::PhysicsWorld>();
   world.simulation.Step(dt, _n_velocity_iterations, _n_position_iterations);
 
   for (auto&& [entity, object, body] :
@@ -80,7 +80,7 @@ void update_physics(entt::registry& registry, const float32 dt)
 
 void debug_physics(const entt::registry& registry, Graphics& graphics)
 {
-  const auto& viewport = registry.ctx<comp::Viewport>();
+  const auto& viewport = registry.ctx().at<comp::Viewport>();
   const auto viewportRect = as_rect(viewport.offset, viewport.size);
 
   auto& renderer = graphics.renderer();
@@ -102,13 +102,13 @@ void debug_physics(const entt::registry& registry, Graphics& graphics)
 
 auto to_physics_scale(const entt::registry& registry, const glm::vec2& vec) -> b2Vec2
 {
-  const auto& physics = registry.ctx<comp::PhysicsWorld>();
+  const auto& physics = registry.ctx().at<comp::PhysicsWorld>();
   return {vec.x * physics.scale.x, vec.y * physics.scale.y};
 }
 
 auto to_logical_scale(const entt::registry& registry, const b2Vec2& vec) -> glm::vec2
 {
-  const auto& physics = registry.ctx<comp::PhysicsWorld>();
+  const auto& physics = registry.ctx().at<comp::PhysicsWorld>();
   return {vec.x / physics.scale.x, vec.y / physics.scale.y};
 }
 

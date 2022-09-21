@@ -15,7 +15,7 @@ void _parse_tileset_tiles_metadata(const nlohmann::json& tilesetJson,
                                    const tile_id first,
                                    const glm::vec2& tileSizeRatio)
 {
-  const auto& tileset = registry.ctx<comp::Tileset>();
+  const auto& tileset = registry.ctx().at<comp::Tileset>();
 
   for (const auto& [_, tileJson] : tilesetJson.at("tiles").items()) {
     const auto localId = tileJson.at("id").get<tile_id>();
@@ -69,7 +69,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
                                       entt::registry& registry,
                                       Graphics& graphics)
 {
-  auto& tileset = registry.ctx<comp::Tileset>();
+  auto& tileset = registry.ctx().at<comp::Tileset>();
 
   const auto tileWidth = json.at("tilewidth").get<int32>();
   const auto tileHeight = json.at("tileheight").get<int32>();
@@ -83,7 +83,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
 
   tileset.tiles.reserve(tileset.tiles.bucket_count() + count);
 
-  const auto humanoidLayerIndex = registry.ctx<comp::Tilemap>().humanoid_layer_index;
+  const auto humanoidLayerIndex = registry.ctx().at<comp::Tilemap>().humanoid_layer_index;
   int32 index = 0;
 
   for (tile_id id = firstId; id < end; ++id, ++index) {
@@ -104,7 +104,7 @@ void _parse_common_tileset_attributes(const nlohmann::json& json,
   }
 
   if (json.contains("tiles")) {
-    const auto& cfg = registry.ctx<GameConfig>();
+    const auto& cfg = registry.ctx().at<GameConfig>();
     const auto tileSizeRatio = cfg.tile_size / glm::vec2{tileWidth, tileHeight};
 
     _parse_tileset_tiles_metadata(json, registry, firstId, tileSizeRatio);
