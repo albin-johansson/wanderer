@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019-2022 Albin Johansson
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #ifndef CENTURION_OPENGL_HPP_
 #define CENTURION_OPENGL_HPP_
 
@@ -21,21 +45,6 @@
 
 namespace cen {
 
-/// \addtogroup video
-/// \{
-
-/**
- * \defgroup opengl OpenGL
- *
- * \brief Provides utilities related to OpenGL.
- */
-
-/// \addtogroup opengl
-/// \{
-
-/**
- * \brief Represents different OpenGL attributes.
- */
 enum class gl_attribute
 {
   red_size = SDL_GL_RED_SIZE,
@@ -61,6 +70,10 @@ enum class gl_attribute
   multisample_buffers = SDL_GL_MULTISAMPLEBUFFERS,
   multisample_samples = SDL_GL_MULTISAMPLESAMPLES,
 
+#if SDL_VERSION_ATLEAST(2, 24, 0)
+  float_buffers = SDL_GL_FLOATBUFFERS,
+#endif  // SDL_VERSION_ATLEAST(2, 24, 0)
+
   egl = SDL_GL_CONTEXT_EGL,
   context_flags = SDL_GL_CONTEXT_FLAGS,
   context_major_version = SDL_GL_CONTEXT_MAJOR_VERSION,
@@ -70,9 +83,6 @@ enum class gl_attribute
   context_reset_notification = SDL_GL_CONTEXT_RESET_NOTIFICATION,
   context_no_error = SDL_GL_CONTEXT_NO_ERROR
 };
-
-/// \name OpenGL attribute functions
-/// \{
 
 [[nodiscard]] constexpr auto to_string(const gl_attribute attr) -> std::string_view
 {
@@ -140,6 +150,13 @@ enum class gl_attribute
     case gl_attribute::multisample_samples:
       return "multisample_samples";
 
+#if SDL_VERSION_ATLEAST(2, 24, 0)
+
+    case gl_attribute::float_buffers:
+      return "float_buffers";
+
+#endif  // SDL_VERSION_ATLEAST(2, 24, 0)
+
     case gl_attribute::context_major_version:
       return "context_major_version";
 
@@ -168,20 +185,12 @@ inline auto operator<<(std::ostream& stream, const gl_attribute attr) -> std::os
   return stream << to_string(attr);
 }
 
-/// \} End of OpenGL attribute functions
-
-/**
- * \brief Represents different swap interval modes.
- */
 enum class gl_swap_interval
 {
   late_immediate = -1,
   immediate = 0,
   synchronized = 1,
 };
-
-/// \name OpenGL swap interval functions
-/// \{
 
 [[nodiscard]] constexpr auto to_string(const gl_swap_interval interval) -> std::string_view
 {
@@ -204,8 +213,6 @@ inline auto operator<<(std::ostream& stream, const gl_swap_interval interval) ->
 {
   return stream << to_string(interval);
 }
-
-/// \} End of OpenGL swap interva functions
 
 /**
  * \brief Manages the initialization and de-initialization of an OpenGL library.
@@ -236,16 +243,15 @@ class gl_library final
 template <typename T>
 class basic_gl_context;
 
-using gl_context = basic_gl_context<detail::owner_tag>;          ///< An owning context.
-using gl_context_handle = basic_gl_context<detail::handle_tag>;  ///< A non-owning context.
+using gl_context = basic_gl_context<detail::owner_tag>;
+using gl_context_handle = basic_gl_context<detail::handle_tag>;
 
 /**
- * \brief Represents an OpenGL context.
+ * Represents an OpenGL context.
  *
- * \ownerhandle `gl_context`/`gl_context_handle`
- *
- * \see `gl_context`
- * \see `gl_context_handle`
+ * \see cen::gl
+ * \see gl_context
+ * \see gl_context_handle
  */
 template <typename T>
 class basic_gl_context final
@@ -290,28 +296,8 @@ class basic_gl_context final
   std::unique_ptr<void, Deleter> mContext;
 };
 
-/// \} End of group opengl
-
-/// \} End of group video
-
-/// \ingroup opengl
 namespace gl {
 
-/// \addtogroup video
-/// \{
-
-/// \addtogroup opengl OpenGL
-/// \{
-
-/**
- * \brief Swaps the buffers for an OpenGL window.
- *
- * \pre The window must be usable within an OpenGL context.
- *
- * \note This requires that double-buffering is supported.
- *
- * \param window the OpenGL window to swap the buffers for.
- */
 template <typename T>
 void swap(basic_window<T>& window) noexcept
 {
@@ -319,15 +305,6 @@ void swap(basic_window<T>& window) noexcept
   SDL_GL_SwapWindow(window.get());
 }
 
-/**
- * \brief Returns the drawable size of an OpenGL window.
- *
- * \pre `window` must be an OpenGL window.
- *
- * \param window the OpenGL window that will be queried.
- *
- * \return the drawable size of the window.
- */
 template <typename T>
 [[nodiscard]] auto drawable_size(const basic_window<T>& window) noexcept -> iarea
 {
@@ -340,119 +317,57 @@ template <typename T>
   return {width, height};
 }
 
-/**
- * \brief Resets all OpenGL context attributes to their default values.
- */
-inline void reset_attributes() noexcept
-{
-  SDL_GL_ResetAttributes();
-}
+inline void reset_attributes() noexcept { SDL_GL_ResetAttributes(); }
 
-/**
- * \brief Sets the value of an OpenGL context attribute.
- *
- * \param attr the attribute that will be set.
- * \param value the new value of the attribute.
- *
- * \return `success` if the attribute was set; `failure` otherwise.
- */
 inline auto set(const gl_attribute attr, const int value) noexcept -> result
 {
   return SDL_GL_SetAttribute(static_cast<SDL_GLattr>(attr), value) == 0;
 }
 
-/**
- * \brief Returns the current value of an OpenGL context attribute.
- *
- * \param attr the attribute to query.
- *
- * \return the value of the specified attribute; an empty optional is returned if the value
- * could not be obtained.
- */
-inline auto get(const gl_attribute attr) noexcept -> std::optional<int>
+inline auto get(const gl_attribute attr) noexcept -> maybe<int>
 {
   int value{};
   if (SDL_GL_GetAttribute(static_cast<SDL_GLattr>(attr), &value) == 0) {
     return value;
   }
   else {
-    return std::nullopt;
+    return nothing;
   }
 }
 
-/**
- * \brief Sets the swap interval strategy that will be used.
- *
- * \param interval the swap interval that will be used.
- *
- * \return `success` if the swap interval set; `failure` if it isn't supported.
- */
 inline auto set_swap_interval(const gl_swap_interval interval) noexcept -> result
 {
   return SDL_GL_SetSwapInterval(to_underlying(interval)) == 0;
 }
 
-/**
- * \brief Returns the swap interval used by the current OpenGL context.
- *
- * \note `immediate` is returned if the swap interval cannot be determined.
- *
- * \return the current swap interval.
- */
 [[nodiscard]] inline auto swap_interval() noexcept -> gl_swap_interval
 {
   return gl_swap_interval{SDL_GL_GetSwapInterval()};
 }
 
-/**
- * \brief Returns a handle to the currently active OpenGL window.
- *
- * \return a potentially empty window handle.
- */
 [[nodiscard]] inline auto get_window() noexcept -> window_handle
 {
   return window_handle{SDL_GL_GetCurrentWindow()};
 }
 
-/**
- * \brief Returns a handle to the currently active OpenGL context.
- *
- * \return a potentially empty OpenGL context handle.
- */
 [[nodiscard]] inline auto get_context() noexcept -> gl_context_handle
 {
   return gl_context_handle{SDL_GL_GetCurrentContext()};
 }
 
-/**
- * \brief Indicates whether a specific extension is supported.
- *
- * \param extension the extension that will be checked.
- *
- * \return `true` if the extension is supported; `false` otherwise.
- */
 [[nodiscard]] inline auto is_extension_supported(const char* extension) noexcept -> bool
 {
   assert(extension);
   return SDL_GL_ExtensionSupported(extension) == SDL_TRUE;
 }
 
-/// \copydoc is_extension_supported()
 [[nodiscard]] inline auto is_extension_supported(const std::string& extension) noexcept -> bool
 {
   return is_extension_supported(extension.c_str());
 }
 
-/**
- * \brief Binds a texture to the current OpenGL context.
- *
- * \param texture the texture to bind.
- *
- * \return the size of the bound texture; an empty optional is returned if something goes
- * wrong.
- */
 template <typename T>
-auto bind(basic_texture<T>& texture) noexcept -> std::optional<farea>
+auto bind(basic_texture<T>& texture) noexcept -> maybe<farea>
 {
   float width{};
   float height{};
@@ -460,29 +375,17 @@ auto bind(basic_texture<T>& texture) noexcept -> std::optional<farea>
     return farea{width, height};
   }
   else {
-    return std::nullopt;
+    return nothing;
   }
 }
 
-/**
- * \brief Unbinds a texture from the OpenGL context.
- *
- * \param texture the texture to unbind.
- *
- * \return `success` if the texture was unbound; `failure` otherwise.
- */
 template <typename T>
 auto unbind(basic_texture<T>& texture) noexcept -> result
 {
   return SDL_GL_UnbindTexture(texture.get()) == 0;
 }
 
-/// \} End of group opengl
-
-/// \} End of group video
-
 }  // namespace gl
-
 }  // namespace cen
 
 #endif  // CENTURION_NO_OPENGL

@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019-2022 Albin Johansson
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #ifndef CENTURION_JOYSTICK_EVENTS_HPP_
 #define CENTURION_JOYSTICK_EVENTS_HPP_
 
@@ -9,11 +33,9 @@
 #include "common.hpp"
 #include "event_base.hpp"
 #include "input.hpp"
+#include "joystick.hpp"
 
 namespace cen {
-
-/// \addtogroup event
-/// \{
 
 enum class joy_hat_position : uint8
 {
@@ -27,9 +49,6 @@ enum class joy_hat_position : uint8
   right = SDL_HAT_RIGHT,
   right_down = SDL_HAT_RIGHTDOWN
 };
-
-/// \name Joystick hat position functions
-/// \{
 
 [[nodiscard]] constexpr auto to_string(const joy_hat_position position) -> std::string_view
 {
@@ -70,8 +89,6 @@ inline auto operator<<(std::ostream& stream, const joy_hat_position position) ->
 {
   return stream << to_string(position);
 }
-
-/// \} End of joystick hat position functions
 
 class joy_axis_event final : public event_base<SDL_JoyAxisEvent>
 {
@@ -224,7 +241,39 @@ inline auto as_sdl_event(const event_base<SDL_JoyHatEvent>& event) -> SDL_Event
   return e;
 }
 
-/// \} End of group event
+#if SDL_VERSION_ATLEAST(2, 24, 0)
+
+class joy_battery_event final : public event_base<SDL_JoyBatteryEvent>
+{
+ public:
+  joy_battery_event() : event_base{event_type::joy_battery_updated} {}
+
+  explicit joy_battery_event(const SDL_JoyBatteryEvent& event) noexcept : event_base{event} {}
+
+  void set_which(const SDL_JoystickID which) noexcept { mEvent.which = which; }
+
+  void set_power_level(joystick_power level) noexcept
+  {
+    mEvent.level = static_cast<SDL_JoystickPowerLevel>(level);
+  }
+
+  [[nodiscard]] auto which() const noexcept -> SDL_JoystickID { return mEvent.which; }
+
+  [[nodiscard]] auto power_level() const noexcept -> joystick_power
+  {
+    return static_cast<joystick_power>(mEvent.level);
+  }
+};
+
+template <>
+inline auto as_sdl_event(const event_base<SDL_JoyBatteryEvent>& event) -> SDL_Event
+{
+  SDL_Event e;
+  e.jbattery = event.get();
+  return e;
+}
+
+#endif  // SDL_VERSION_ATLEAST(2, 24, 0)
 
 }  // namespace cen
 
