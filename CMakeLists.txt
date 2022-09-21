@@ -23,8 +23,6 @@ set(TARGET_WANDERER_LIB WandererCore)
 set(TARGET_WANDERER_TEST WandererTests)
 set(TARGET_WANDERER_EXE Wanderer)
 
-include(Utilities)
-
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 find_package(SDL2_mixer CONFIG REQUIRED)
@@ -42,6 +40,22 @@ find_package(doctest CONFIG REQUIRED)
 
 find_package(Boost REQUIRED)
 
+function(copy_file_post_build [target [from [to]]])
+  add_custom_command(
+      TARGET ${ARGV0} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy
+      ${ARGV1}
+      ${ARGV2})
+endfunction()
+
+function(copy_directory_post_build [target [from [to]]])
+  add_custom_command(
+      TARGET ${ARGV0} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${ARGV1}
+      ${ARGV2})
+endfunction()
+
 function(wanderer_add_compiler_options target)
   if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(${target} PRIVATE
@@ -57,6 +71,7 @@ function(wanderer_add_compiler_options target)
                            -Wextra
                            -Wpedantic
                            -Wconversion
+                           -Wsign-conversion
                            )
   endif ()
 endfunction()

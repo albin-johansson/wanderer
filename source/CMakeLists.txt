@@ -4,11 +4,10 @@ project(wanderer-source CXX)
 
 file(GLOB_RECURSE SOURCE_FILES
      CONFIGURE_DEPENDS
-     wanderer/**/*.cpp
-     wanderer/**/*.hpp
-     wanderer/*.cpp
-     wanderer/*.hpp
-     )
+     **/*.cpp
+     **/*.hpp
+     *.cpp
+     *.hpp)
 
 add_library(${TARGET_WANDERER_LIB} ${SOURCE_FILES})
 
@@ -20,8 +19,7 @@ target_include_directories(${TARGET_WANDERER_LIB}
 
                            SYSTEM PUBLIC
                            ${WANDERER_LIBRARY_DIR}/centurion
-                           ${Boost_INCLUDE_DIRS}
-                           )
+                           ${Boost_INCLUDE_DIRS})
 
 target_link_libraries(${TARGET_WANDERER_LIB}
                       PUBLIC
