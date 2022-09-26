@@ -17,6 +17,7 @@
     "nlohmann-json",
     "argparse",
     "box2d",
+    "eastl",
     "gtest"
   ]
 }

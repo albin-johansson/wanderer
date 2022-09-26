@@ -35,6 +35,7 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       nlohmann_json::nlohmann_json
                       argparse::argparse
                       box2d::box2d
+                      EASTL
                       ${Boost_LIBRARIES}
                       )
 
