@@ -1,7 +1,6 @@
 #include "game_loop.hpp"
 
-#include <algorithm>  // min
-
+#include <EASTL/algorithm.h>
 #include <centurion/system.hpp>
 #include <centurion/video.hpp>
 #include <spdlog/spdlog.h>
@@ -12,7 +11,7 @@ GameLoop::GameLoop()
 {
   const auto refresh_rate = cen::display_mode::desktop().refresh_rate().value();
 
-  mState.rate = static_cast<float64>(std::min(120, refresh_rate));
+  mState.rate = static_cast<float64>(eastl::min(120, refresh_rate));
   mState.fixed_dt = 1.0 / mState.rate;
 
   mState.frequency = static_cast<float64>(cen::frequency());
@@ -52,7 +51,7 @@ void GameLoop::start()
         break;
       }
 
-      const auto dt = std::min(frame_time, mState.fixed_dt);
+      const auto dt = eastl::min(frame_time, mState.fixed_dt);
       update(static_cast<float32>(dt));
 
       frame_time -= dt;
