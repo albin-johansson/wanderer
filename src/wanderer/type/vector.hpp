@@ -2,11 +2,11 @@
 
 #include <EASTL/vector.h>
 
-#include "wanderer/container/eastl_new.hpp"
+#include "wanderer/type/eastl_new.hpp"
 
 namespace wanderer {
 
 template <typename T>
-using Vec = eastl::vector<T>;
+using Vector = eastl::vector<T>;
 
 }  // namespace wanderer

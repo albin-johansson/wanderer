@@ -2,8 +2,10 @@
 
 #include <cstddef>  // size_t
 #include <cstdint>  // int{}_t, uint{}_t
-#include <memory>   // unique_ptr, shared_ptr, weak_ptr
 
+#include <EASTL/shared_ptr.h>
+#include <EASTL/unique_ptr.h>
+#include <EASTL/weak_ptr.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -34,13 +36,13 @@ using Vec2i = glm::vec<2, int32>;
 using Vec3i = glm::vec<3, int32>;
 using Vec4i = glm::vec<4, int32>;
 
-template <typename T>
-using Unique = std::unique_ptr<T>;
+template <typename T, typename Deleter = eastl::default_delete<T>>
+using Unique = eastl::unique_ptr<T, Deleter>;
 
 template <typename T>
-using Shared = std::shared_ptr<T>;
+using Shared = eastl::shared_ptr<T>;
 
 template <typename T>
-using Weak = std::weak_ptr<T>;
+using Weak = eastl::weak_ptr<T>;
 
 }  // namespace wanderer

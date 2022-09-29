@@ -2,7 +2,7 @@
 
 #include <EASTL/hash_map.h>
 
-#include "wanderer/container/eastl_new.hpp"
+#include "wanderer/type/eastl_new.hpp"
 
 namespace wanderer {
 
