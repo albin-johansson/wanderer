@@ -17,16 +17,18 @@ target_include_directories(${TARGET_WANDERER_LIB}
 
                            SYSTEM PUBLIC
                            ${WANDERER_LIBRARY_DIR}/centurion
-                           ${Boost_INCLUDE_DIRS})
+                           ${Boost_INCLUDE_DIRS}
+                           ${STB_INCLUDE_DIRS}
+                           )
 
-target_link_libraries(${TARGET_WANDERER_LIB}
-                      PUBLIC
+target_link_libraries(${TARGET_WANDERER_LIB} PUBLIC
                       ${TARGET_WANDERER_PROTO}
                       SDL2::SDL2
-                      SDL2::SDL2_image
                       $<IF:$<TARGET_EXISTS:SDL2_mixer::SDL2_mixer>,SDL2_mixer::SDL2_mixer,SDL2_mixer::SDL2_mixer-static>
                       $<IF:$<TARGET_EXISTS:SDL2_ttf::SDL2_ttf>,SDL2_ttf::SDL2_ttf,SDL2_ttf::SDL2_ttf-static>
                       EnTT::EnTT
+                      GLEW::GLEW
+                      OpenGL::GL
                       glm::glm
                       fmt::fmt
                       spdlog::spdlog
@@ -39,52 +41,40 @@ target_link_libraries(${TARGET_WANDERER_LIB}
                       ${Boost_LIBRARIES}
                       )
 
-target_compile_definitions(${TARGET_WANDERER_LIB}
-                           PUBLIC
+target_compile_definitions(${TARGET_WANDERER_LIB} PUBLIC
+                           CENTURION_NO_SDL_IMAGE
+                           GLEW_NO_GLU
                            BOOST_ENABLE_ASSERT_DEBUG_HANDLER
                            BOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED
                            BOOST_NO_CXX98_FUNCTION_BASE
                            SPDLOG_FMT_EXTERNAL
+                           SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG
                            )
 
 wanderer_add_compiler_options(${TARGET_WANDERER_LIB})
 
 target_precompile_headers(${TARGET_WANDERER_LIB} PRIVATE
-                          <algorithm>
-                          <array>
-                          <charconv>
-                          <chrono>
                           <concepts>
                           <cstddef>
                           <cstdint>
-                          <cstring>
-                          <cstdlib>
-                          <ctime>
-                          <cmath>
-                          <deque>
                           <exception>
                           <filesystem>
                           <fstream>
                           <functional>
-                          <iterator>
-                          <limits>
-                          <locale>
-                          <map>
+                          <istream>
                           <memory>
-                          <optional>
                           <ostream>
-                          <queue>
-                          <random>
-                          <span>
                           <sstream>
-                          <string>
-                          <string_view>
-                          <system_error>
-                          <type_traits>
-                          <unordered_map>
                           <utility>
-                          <variant>
-                          <vector>
+
+                          <EASTL/algorithm.h>
+                          <EASTL/hash_map.h>
+                          <EASTL/vector.h>
+                          <EASTL/optional.h>
+                          <EASTL/string.h>
+                          <EASTL/string_view.h>
+                          <EASTL/vector.h>
+                          <EASTL/vector_map.h>
                           )
 
 if (CMAKE_BUILD_TYPE STREQUAL RELEASE)
@@ -97,10 +87,17 @@ wanderer_add_compiler_options(${TARGET_WANDERER_EXE})
 
 add_dependencies(${TARGET_WANDERER_EXE} ${TARGET_WANDERER_LIB})
 
-target_link_libraries(${TARGET_WANDERER_EXE}
-                      PRIVATE
+target_link_libraries(${TARGET_WANDERER_EXE} PRIVATE
                       ${TARGET_WANDERER_LIB}
                       SDL2::SDL2main
                       )
 
 target_precompile_headers(${TARGET_WANDERER_EXE} REUSE_FROM ${TARGET_WANDERER_LIB})
+
+copy_directory_post_build(${TARGET_WANDERER_LIB}
+                          "${CMAKE_CURRENT_SOURCE_DIR}/../assets"
+                          "${CMAKE_CURRENT_BINARY_DIR}/assets")
+
+copy_directory_post_build(${TARGET_WANDERER_LIB}
+                          "${CMAKE_CURRENT_SOURCE_DIR}/../shaders"
+                          "${CMAKE_CURRENT_BINARY_DIR}/shaders")

@@ -23,12 +23,17 @@ set(TARGET_WANDERER_LIB WandererCore)
 set(TARGET_WANDERER_TEST WandererTests)
 set(TARGET_WANDERER_EXE Wanderer)
 
+find_package(OpenGL REQUIRED)
+find_package(Boost REQUIRED)
+
+find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
+
 find_package(SDL2 CONFIG REQUIRED)
-find_package(sdl2-image CONFIG REQUIRED)
 find_package(SDL2_mixer CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
@@ -39,8 +44,6 @@ find_package(argparse CONFIG REQUIRED)
 find_package(box2d CONFIG REQUIRED)
 find_package(EASTL CONFIG REQUIRED)
 find_package(GTest CONFIG REQUIRED)
-
-find_package(Boost REQUIRED)
 
 function(copy_file_post_build [target [from [to]]])
   add_custom_command(
